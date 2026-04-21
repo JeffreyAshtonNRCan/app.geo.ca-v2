@@ -72,23 +72,19 @@
    * @param keyword - The keyword to search for.
    */
   function applyKeywordSearch(keyword: string): void {
-    let query = new SvelteURLSearchParams(page.url.searchParams.toString());
-    if (keyword) {
-      query.set('search-terms', keyword);
-    } else {
-      query.delete('search-terms');
-    }
-    query.set('page-number', '0');
+  let query = new SvelteURLSearchParams(); 
 
-    let opts = {
-      replaceState: true,
-      keepfocus: true,
-    };
-    // We need to preserve the current localized search-results route.
-    // Using resolve('/?...') here sends the user to the site root instead of updating the current search page.
-    // eslint-disable-next-line svelte/no-navigation-without-resolve
-    goto(`${page.url.pathname}?${query.toString()}`, opts);
+  if (keyword) {
+    query.set('search-terms', keyword);
   }
+
+  query.set('page-number', '0');
+
+  goto(`${page.url.pathname}?${query.toString()}`, {
+    keepfocus: true,
+    invalidateAll: true 
+  });
+}
 </script>
 
 <FilterModal bind:active={modalActive} bind:numFilters bind:this={filterModal} />

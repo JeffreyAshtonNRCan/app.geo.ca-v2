@@ -5,8 +5,11 @@ import { DynamoDBClient, DescribeTableCommand } from "@aws-sdk/client-dynamodb";
 
 const GEOCORE_API_DOMAIN = "https://geocore.api.geo.ca";
 const SEMANTIC_SEARCH_URL = "https://search-recherche.geocore.api.geo.ca";
+const OVERVIEW_API_URL =
+  "https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/overview";
 const OIDC_CUSTOM_DOMAIN = process.env.OIDC_CUSTOM_DOMAIN;
 
+console.log("OVERVIEW_API_URL:", OVERVIEW_API_URL);
 /**
  * Gets the ARN of an existing DynamoDB table if it exists.
  *
@@ -77,6 +80,7 @@ export default {
         environment: {
           GEOCORE_API_DOMAIN,
           SEMANTIC_SEARCH_URL,
+          OVERVIEW_API_URL,
         },
       });
 

@@ -65,33 +65,60 @@ interface SemanticSearchParams {
 
 const SEMANTIC_SEARCH_URL = process.env.SEMANTIC_SEARCH_URL;
 const GEOCORE_API_DOMAIN = process.env.GEOCORE_API_DOMAIN;
+const OVERVIEW_API_URL = process.env.OVERVIEW_API_URL;
+
+console.log('overview_api_url=', OVERVIEW_API_URL);
 
 export const load: PageServerLoad = async ({ request, fetch, params, url, cookies }) => {
+  console.log("SERVER URL:", url.href);
+
   const searchMode = url.searchParams.get('searchMethod') === 'classic' ? 'classic' : 'semantic';
-  let response;
-  if (searchMode === 'classic') {
-    response = await generateUrl(
-      fetch,
-      url.searchParams,
-      params.lang,
-      cookies.get('id_token') || '',
-      request.headers.get('x-forwarded-for') || ''
-    );
-  } else {
-    response = await generateSemanticUrl(
-      fetch,
-      url.searchParams,
-      params.lang,
-      cookies.get('id_token') || '',
-      request.headers.get('x-forwarded-for') || ''
-    );
-  }
-  const analytics = await getAnalytics(fetch);
+
+  const q =
+    url.searchParams.get('q') ||
+    url.searchParams.get('search-terms') ||
+    url.searchParams.get('question') ||
+    '';
+
+  console.log('q=', q);
+
+  const keyword = url.searchParams.get('search-terms') || '';
+
+  // 🔥 1. START ALL REQUESTS IN PARALLEL (CRITICAL)
+  const overviewPromise = keyword
+    ? getOverview(fetch, keyword)
+    : null;
+
+  const responsePromise =
+    searchMode === 'classic'
+      ? generateUrl(
+          fetch,
+          url.searchParams,
+          params.lang,
+          cookies.get('id_token') || '',
+          request.headers.get('x-forwarded-for') || ''
+        )
+      : generateSemanticUrl(
+          fetch,
+          url.searchParams,
+          params.lang,
+          cookies.get('id_token') || '',
+          request.headers.get('x-forwarded-for') || ''
+        );
+
+  const analyticsPromise = getAnalytics(fetch);
+
+  // 🔥 2. WAIT FOR RESULTS ONLY WHEN NEEDED
+  const response = await responsePromise;
+  const analytics = await analyticsPromise;
+
   let parsedResponse: ParsedResponse = {};
   let userData: UserInfo = { Item: { uuid: '', favourites: [] } };
   let sanitizedResults: ReturnType<typeof sanitize> | ReturnType<typeof sanitizeSemantic> = [];
+
   try {
     parsedResponse = (await response.json()) as ParsedResponse;
+
     if (searchMode === 'classic') {
       sanitizedResults = sanitize(parsedResponse.Items ?? [], params.lang);
     } else {
@@ -118,18 +145,24 @@ export const load: PageServerLoad = async ({ request, fetch, params, url, cookie
   const canonicalUrl = `${url.origin}/${params.lang}/map-browser`;
   const alternateLang = params.lang === 'fr-ca' ? 'en-ca' : 'fr-ca';
   const alternateUrl = url.href.replace(params.lang, alternateLang);
+
   const metaDescription =
     params.lang === 'fr-ca'
-      ? 'Parcourez les enregistrements GeoCore et trouvez les jeux de données les plus pertinents selon vos termes de recherche et filtres sélectionnés.'
-      : 'Browse GeoCore records and find the most relevant datasets based on your search terms and selected filters.';
+      ? 'Parcourez les enregistrements GeoCore et trouvez les jeux de données les plus pertinents.'
+      : 'Browse GeoCore records and find the most relevant datasets.';
 
+  // 🔥 3. RETURN PROMISE (DO NOT AWAIT)
   return {
     lang: params.lang,
     results: sanitizedResults,
     userData: userData.Item,
     start: getMin(url.searchParams),
-    end: getMin(url.searchParams) + sanitizedResults?.length,
+    end: getMin(url.searchParams) + sanitizedResults.length,
     analytics: analytics,
+
+    // ✅ streamed
+    overviewData: overviewPromise,
+
     searchMode: searchMode,
     totalHits: totalHits,
     canonicalUrl: canonicalUrl,
@@ -242,6 +275,44 @@ async function getAnalytics(fetch: (url: string | URL, options?: RequestInit) =>
 }
 
 /**
+ * Fetches overview summary data from the Overview API based on the user's search query.
+ *
+ * @param fetch - The fetch function.
+ * @param searchParams - The URL search parameters.
+ * @returns The overview API response containing summary text and related records.
+ * @async
+ */
+async function getOverview(fetch, keyword: string) {
+  console.log("OVERVIEW START");
+  console.log("OVERVIEW keyword:", keyword);
+
+  try {
+    if (!keyword) {
+      console.log("No keyword, skipping overview fetch");
+      return undefined;
+    }
+
+    const url = `${process.env.OVERVIEW_API_URL}?question=${encodeURIComponent(keyword)}`;
+    console.log("fetching:", url);
+
+    const res = await fetch(url);
+    console.log("status:", res.status);
+
+    const text = await res.text();
+    const parsed = JSON.parse(text);
+
+    if (parsed.body) {
+      return JSON.parse(parsed.body);
+    }
+
+    return parsed;
+
+  } catch (e) {
+    console.error('Overview API error:', e);
+    return undefined;
+  }
+}
+/**
  * Maps URL search parameters to the format required by the GeoCore API.
  *
  * @param searchParams - The URL search parameters.
@@ -286,7 +357,9 @@ function mapSemanticSearchResults(searchParams: URLSearchParams, lang: string): 
   const east = searchParams.get('east') ?? 180;
   const south = searchParams.get('south') ?? -90;
   const bbox = searchParams.get('bbox') ? `${west},${south},${east},${north}` : '';
-  const searchTerms = searchParams.get('search-terms');
+  const searchTerms =
+    searchParams.get('q') ||
+    searchParams.get('search-terms');
   const mappedParams: SemanticSearchParams = {
     // Revisit which search method is better after user testing
     method: 'SemanticSearch', // 'HybridSearch',
