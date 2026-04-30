@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { page } from '$app/state';
+  import { page, navigating } from '$app/state';
   import ResultList from '$lib/components/search-results/result-list.svelte';
   import SearchBar from '$lib/components/search-results/search-bar.svelte';
   import OverviewSection from '$lib/components/search-results/overview-section.svelte';
 
+  /************* Translations ***************/
   const translations = page.data.t;
 
   const searchDatasets =
@@ -14,29 +15,7 @@
 
   let resultMessage = $derived(page.data.resultMessage);
 
-  let { overviewData } = $props(); // Promise
-
-  // 🔥 shared loading state
- let isSearching = $state(false);
-let lastUrl = $state('');
-
-$effect(() => {
-  const currentUrl = page.url.toString();
-
-  // 🔥 fire immediately on navigation (BEFORE data arrives)
-  if (currentUrl !== lastUrl) {
-    lastUrl = currentUrl;
-    isSearching = true;
-
-    console.log("SEARCH STARTED (URL change)");
-  }
-});
-function stopSearching() {
-  setTimeout(() => {
-    isSearching = false;
-    console.log("SEARCH FINISHED");
-  }, 150);
-}
+  let { overviewData } = $props();
 </script>
 
 <h1 class="font-custom-style-h1 mt-8 px-5 md:px-0 leading-tight">
@@ -49,19 +28,23 @@ function stopSearching() {
 
 <SearchBar />
 
-<!-- 🔥 OVERVIEW (streaming) -->
-{#if overviewData}
- {#await overviewData}
+<!-- 🔥 OVERVIEW -->
+{#if navigating.type !== null}
+  <!-- show immediately on search -->
+  <OverviewSection isLoading={true} />
+{:else if overviewData}
+  {#await overviewData}
+    <!-- still loading after navigation -->
     <OverviewSection isLoading={true} />
- {:then data}
+  {:then data}
+    <!-- loaded -->
     <OverviewSection overviewData={data} isLoading={false} />
-    {stopSearching()}
-{/await}
+  {/await}
 {/if}
 
 <h2 class="font-custom-style-h2 mt-5 px-5 md:px-0">
   {searchResultsText}
 </h2>
 
-<!-- 🔥 RESULTS -->
-<ResultList isLoading={isSearching} />
+<!-- 🔥 RESULTS (unchanged component) -->
+<ResultList />
