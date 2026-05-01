@@ -79,7 +79,7 @@
 
   <!-- CARD -->
   <div class="mt-2">
-    <div class="bg-gray-100 border border-gray-200 rounded-lg px-5 pt-3 pb-5 shadow-md">
+    <div class="bg-gray-100 border border-gray-200 rounded-lg px-5 pt-5 pb-5 shadow-md">
 
       <div class="bg-white rounded-md px-5 pt-5 pb-4 border border-gray-200 shadow-sm">
 
@@ -102,7 +102,7 @@
   </h2>
 
   <div bind:this={containerRef} class="mt-1">
-    <div class="bg-gray-100 border border-gray-200 rounded-lg px-5 pt-4 pb-5 shadow-md">
+    <div class="bg-gray-100 border border-gray-200 rounded-lg px-5 pt-5 pb-5 shadow-md">
 
       <div class="bg-white rounded-md px-5 pt-5 pb-4 border border-gray-200 shadow-sm">
 
