@@ -6,6 +6,8 @@
 
   let { overviewData, isLoading } = $props();
 
+  let diveDeeperMessage = $state('');
+
   let html = $state('');
   let expanded = $state(false);
   let isOverflowing = $state(false);
@@ -69,6 +71,13 @@
         });
       });
     }
+  }
+  function handleDiveDeeper() {
+    diveDeeperMessage = 'Dive Deeper with GeoChat is not available yet.';
+
+    setTimeout(() => {
+      diveDeeperMessage = '';
+    }, 3000);
   }
 </script>
 
@@ -144,15 +153,21 @@
         {/if}
 
       </div>
-      <!-- DIVE DEEPER BUTTON -->
-      <div class="mt-5 flex justify-center">
+      <!-- DIVE DEEPER -->
+      <div class="mt-5 flex flex-col items-center">
         <button
                 class="flex items-center gap-2 h-12 px-5 bg-custom-8 hover:bg-custom-10 text-white font-custom-style-button-3 rounded-md transition-all duration-200 hover:shadow-md active:translate-y-[1px]"
                 onclick={handleDiveDeeper}
         >
-          <ChatBubble classes="w-4 h-4 shrink-0" />
-          Dive deeper with the Geo.ca Chatbot
+          <ChatBubble classes="w-5 h-5 shrink-0" />
+          Dive deeper with GeoChat
         </button>
+
+        {#if diveDeeperMessage}
+          <div class="mt-2 text-base text-gray-600 text-center">
+            {diveDeeperMessage}
+          </div>
+        {/if}
       </div>
     </div>
   </div>
