@@ -6,7 +6,11 @@ import { sanitizeSemantic } from '$lib/utils/data-sanitization/semantic-results'
 import { formatNumber } from '$lib/utils/format-number';
 import type { GeospatialRecord, UserInfo } from '$lib/db/db-types';
 
-import { SEMANTIC_SEARCH_URL, GEOCORE_API_DOMAIN } from '$env/static/private';
+import {
+    SEMANTIC_SEARCH_URL,
+    GEOCORE_API_DOMAIN,
+    OVERVIEW_API_URL
+} from '$env/static/private';
 
 interface ParsedResponse {
   Items?: GeospatialRecord[];
@@ -67,25 +71,42 @@ interface SemanticSearchParams {
 
 export const load: PageServerLoad = async ({ request, fetch, params, url, cookies }) => {
   const searchMode = url.searchParams.get('searchMethod') === 'classic' || !SEMANTIC_SEARCH_URL ? 'classic' : 'semantic';
-  let response;
-  if (searchMode === 'classic') {
-    response = await generateUrl(
-      fetch,
-      url.searchParams,
-      params.lang,
-      cookies.get('id_token') || '',
-      request.headers.get('x-forwarded-for') || ''
-    );
-  } else {
-    response = await generateSemanticUrl(
-      fetch,
-      url.searchParams,
-      params.lang,
-      cookies.get('id_token') || '',
-      request.headers.get('x-forwarded-for') || ''
-    );
-  }
-  const analytics = await getAnalytics(fetch);
+  const q =
+      url.searchParams.get('q') ||
+      url.searchParams.get('search-terms') ||
+      url.searchParams.get('question') ||
+      '';
+
+  console.log('q=', q);
+
+  const keyword = url.searchParams.get('search-terms') || '';
+
+  const overviewPromise = keyword
+      ? getOverview(fetch, keyword)
+      : null;
+
+  const responsePromise =
+    searchMode === 'classic'
+      ? generateUrl(
+        fetch,
+        url.searchParams,
+        params.lang,
+        cookies.get('id_token') || '',
+        request.headers.get('x-forwarded-for') || ''
+      )
+      : generateSemanticUrl(
+        fetch,
+        url.searchParams,
+        params.lang,
+        cookies.get('id_token') || '',
+        request.headers.get('x-forwarded-for') || ''
+      );
+
+  const analyticsPromise = getAnalytics(fetch);
+
+  const response = await responsePromise;
+  const analytics = await analyticsPromise;
+
   let parsedResponse: ParsedResponse = {};
   let userData: UserInfo = { Item: { uuid: '', favourites: [] } };
   let sanitizedResults: ReturnType<typeof sanitize> | ReturnType<typeof sanitizeSemantic> = [];
@@ -129,6 +150,7 @@ export const load: PageServerLoad = async ({ request, fetch, params, url, cookie
     start: getMin(url.searchParams),
     end: getMin(url.searchParams) + sanitizedResults?.length,
     analytics: analytics,
+    overviewData: overviewPromise,
     searchMode: searchMode,
     totalHits: totalHits,
     canonicalUrl: canonicalUrl,
@@ -238,6 +260,44 @@ async function getAnalytics(fetch: (url: string | URL, options?: RequestInit) =>
   }
 
   return parsedAnalytics?.Items[0] ?? {};
+}
+
+/**
+ * Fetches overview summary data from the Overview API based on the user's search query.
+ *
+ * @param fetch - The fetch function.
+ * @param keyword - The user's search keyword/query.
+ * @returns The overview API response containing summary text and related records.
+ * @async
+ */
+async function getOverview(fetch, keyword: string) {
+  console.log('OVERVIEW START');
+  console.log('OVERVIEW keyword:', keyword);
+
+  try {
+    if (!keyword) {
+      console.log('No keyword, skipping overview fetch');
+      return undefined;
+    }
+
+    const url = `${OVERVIEW_API_URL}?question=${encodeURIComponent(keyword)}`;
+    console.log('fetching:', url);
+
+    const res = await fetch(url);
+    console.log('status:', res.status);
+
+    const text = await res.text();
+    const parsed = JSON.parse(text);
+
+    if (parsed.body) {
+      return JSON.parse(parsed.body);
+    }
+
+    return parsed;
+  } catch (e) {
+    console.error('Overview API error:', e);
+    return undefined;
+  }
 }
 
 /**
