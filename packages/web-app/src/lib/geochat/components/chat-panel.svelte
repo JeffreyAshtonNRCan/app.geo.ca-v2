@@ -54,7 +54,7 @@
         <button class="chat-expand" onclick={() => (isExpanded = !isExpanded)}> ⛶ </button>
 
         <button class="chat-close" onclick={() => (isOpen = false)}>
-          <CloseIcon classes="icon" />
+          <CloseIcon classes="h-4" />
         </button>
       </div>
     </div>
