@@ -48,7 +48,7 @@
   <!-- Messages -->
 
   <div class="messages">
-    {#each state.messages as msg}
+    {#each state.messages as msg, index (index)}
       <div class="chat-row {msg.role}">
         <div class="bubble">
           {@html msg.html}
@@ -68,7 +68,7 @@
   <!-- Input -->
 
   <div class="chat-input">
-    <textarea bind:value={message} rows="1" placeholder="Type a message..." on:keydown={handleKeydown} />
+    <textarea bind:value={message} rows="1" placeholder="Type a message..." on:keydown={handleKeydown}></textarea>
 
     <button on:click={handleSend} disabled={!message.trim()}> Send </button>
   </div>
