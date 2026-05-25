@@ -64,7 +64,7 @@
       <div id="chat-log">
         {#each state.messages as msg, index (index)}
           <div class="chat-row {msg.role}">
-            <div class="bubble">
+            <div class="bubble" class:bot-text={msg.role === 'bot'}>
               {@html msg.html}
             </div>
           </div>
