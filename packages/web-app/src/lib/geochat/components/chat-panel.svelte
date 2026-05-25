@@ -54,7 +54,7 @@
         <button class="chat-expand" onclick={() => (isExpanded = !isExpanded)}> ⛶ </button>
 
         <button class="chat-close" onclick={() => (isOpen = false)}>
-          <CloseIcon classes="h-4 md:h-[1.3125rem]" />
+          <CloseIcon classes="h-3 md:h-[1.3125rem]" />
         </button>
       </div>
     </div>
@@ -87,7 +87,7 @@
     <!-- actions -->
     <div id="chat-actions">
       <button class="dive-deeper-button">
-        <ChatBubbleIcon classes="icon" />
+        <ChatBubbleIcon classes="h-4 md:h-5" />
         Dive deeper with GeoChat
       </button>
     </div>
