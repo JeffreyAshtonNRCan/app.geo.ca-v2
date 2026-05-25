@@ -94,7 +94,7 @@
 
     <!-- input -->
     <div class="chat-input">
-      <textarea id="chat-input" bind:value={message} maxlength="500" placeholder="Type a message..." onkeydown={handleKeydown} />
+      <textarea id="chat-input" bind:value={message} maxlength="500" placeholder="Type a message..." onkeydown={handleKeydown}></textarea>
 
       <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤ </button>
     </div>
@@ -173,11 +173,6 @@
 
     font-size: 16px;
     white-space: nowrap;
-  }
-
-  #chatbot-toggle i {
-    display: inline-flex;
-    font-size: 18px;
   }
 
   #chatbot-toggle .label {
@@ -373,21 +368,21 @@
     width: 100%;
   }
 
-  .bot-text p {
+  :global(.bot-text p) {
     margin: 6px 0;
     transition: max-height 0.2s ease;
   }
 
-  .bot-text ul {
+  :global(.bot-text ul) {
     margin: 8px 0;
     padding-left: 18px;
   }
 
-  .bot-text li {
+  :global(.bot-text) li {
     margin-bottom: 4px;
   }
 
-  .bot-text code {
+  :global(.bot-text code) {
     background: #f1f3f5;
     padding: 2px 4px;
     border-radius: 4px;
@@ -403,83 +398,6 @@
     width: 100%;
     height: 40px;
     background: linear-gradient(to bottom, rgba(229, 231, 235, 0), rgba(229, 231, 235, 1));
-  }
-
-  /* =========================
-     CODE BLOCKS
-  ========================= */
-
-  .code-block {
-    background: #0f172a;
-    color: #e5e7eb;
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 10px 0;
-    font-size: 13px;
-  }
-
-  /* header (language + copy) */
-  .code-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 10px;
-    background: #1e293b;
-    font-size: 12px;
-    color: #94a3b8;
-  }
-
-  /* language label */
-  .code-lang {
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 11px;
-  }
-
-  /* copy button */
-  .copy-btn {
-    background: #334155;
-    border: none;
-    color: #e5e7eb;
-    padding: 3px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 11px;
-  }
-
-  .copy-btn:hover {
-    background: #475569;
-  }
-
-  /* code area */
-  .code-block pre {
-    margin: 0;
-    padding: 10px;
-    overflow-x: auto;
-  }
-
-  .code-block code {
-    font-family: monospace;
-    white-space: pre;
-  }
-
-  .code-actions {
-    display: flex;
-    gap: 6px;
-  }
-
-  .open-btn {
-    background: #535aa4;
-    color: white;
-    border: none;
-    padding: 3px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 11px;
-  }
-
-  .open-btn:hover {
-    background: #130944;
   }
 
   /* =========================
