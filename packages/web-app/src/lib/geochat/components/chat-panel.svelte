@@ -40,7 +40,7 @@
 <div id="chatbot-widget">
   <!-- launcher -->
   <button id="chatbot-toggle" onclick={toggleChat}>
-    <ChatBubbleIcon classes="icon" />
+    <ChatBubbleIcon classes="h-4 md:h-5" />
     <span class="label">Ask GeoChat</span>
   </button>
 
@@ -54,7 +54,7 @@
         <button class="chat-expand" onclick={() => (isExpanded = !isExpanded)}> ⛶ </button>
 
         <button class="chat-close" onclick={() => (isOpen = false)}>
-          <CloseIcon classes="h-3 md:h-[1.3125rem]" />
+          <CloseIcon classes="h-3 md:h-5" />
         </button>
       </div>
     </div>
