@@ -2,6 +2,9 @@
   import { onMount } from 'svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
 
+  import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
+  import CloseIcon from '$lib/components/icons/close.svelte';
+
   let isOpen = false;
   let isExpanded = false;
   let message = '';
@@ -36,7 +39,8 @@
 
 <div id="chatbot-widget">
   <!-- launcher -->
-  <button id="chatbot-toggle" on:click={toggleChat}>
+  <button id="chatbot-toggle" onclick={toggleChat}>
+    <ChatBubbleIcon classes="icon" />
     <span class="label">Ask GeoChat</span>
   </button>
 
@@ -47,9 +51,11 @@
       <span id="chatbot-title"> Ask GeoChat </span>
 
       <div class="icons">
-        <button class="chat-expand" on:click={() => (isExpanded = !isExpanded)}> ⛶ </button>
+        <button class="chat-expand" onclick={() => (isExpanded = !isExpanded)}> ⛶ </button>
 
-        <button class="chat-close" on:click={() => (isOpen = false)}> ✕ </button>
+        <button class="chat-close" onclick={() => (isOpen = false)}>
+          <CloseIcon classes="icon" />
+        </button>
       </div>
     </div>
 
@@ -80,14 +86,17 @@
 
     <!-- actions -->
     <div id="chat-actions">
-      <button class="dive-deeper-button"> Dive deeper with GeoChat </button>
+      <button class="dive-deeper-button">
+        <ChatBubbleIcon classes="icon" />
+        Dive deeper with GeoChat
+      </button>
     </div>
 
     <!-- input -->
     <div class="chat-input">
-      <textarea id="chat-input" bind:value={message} maxlength="500" placeholder="Type a message..." on:keydown={handleKeydown} />
+      <textarea id="chat-input" bind:value={message} maxlength="500" placeholder="Type a message..." onkeydown={handleKeydown} />
 
-      <button id="chat-send" class:disabled={!message.trim()} on:click={handleSend}> ➤ </button>
+      <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤ </button>
     </div>
 
     <div id="chat-counter">
