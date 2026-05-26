@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
 
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
@@ -368,25 +367,18 @@
     width: 100%;
   }
 
-  :global(.bot-text p) {
+  .bot-text :global(p) {
     margin: 6px 0;
     transition: max-height 0.2s ease;
   }
 
-  :global(.bot-text ul) {
+  .bot-text :global(ul) {
     margin: 8px 0;
     padding-left: 18px;
   }
 
-  :global(.bot-text) li {
+  .bot-text :global(li) {
     margin-bottom: 4px;
-  }
-
-  :global(.bot-text code) {
-    background: #f1f3f5;
-    padding: 2px 4px;
-    border-radius: 4px;
-    font-family: monospace;
   }
 
   /* collapsed fade */
