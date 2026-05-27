@@ -220,7 +220,7 @@
 
   #chatbot-panel.large {
     width: 580px;
-    height: 80dvh;
+    height: calc(100dvh - 90px);
   }
 
   /* =========================
