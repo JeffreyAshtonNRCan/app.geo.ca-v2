@@ -8,6 +8,7 @@
   import Breadcrumbs from '$lib/components/breadcrumbs/breadcrumbs.svelte';
   import LeavingNotice from '$lib/components/leaving-notice/leaving-notice.svelte';
   import GoogleTag from '$lib/components/google-tag/google-tag.svelte';
+  import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
 
   interface Props {
     children?: import('svelte').Snippet;
@@ -80,6 +81,8 @@
   <Feedback />
 </main>
 <Footer />
+
+<ChatPanel />
 
 {#if showLeavingSitePopup}
   <LeavingNotice />
