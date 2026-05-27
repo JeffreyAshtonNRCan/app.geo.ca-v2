@@ -199,7 +199,7 @@
   }
 
   #chatbot-panel {
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 70px;
     width: 420px;
