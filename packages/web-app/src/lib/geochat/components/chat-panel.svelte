@@ -52,11 +52,11 @@
 
       <div class="icons">
         <button class="chat-expand" onclick={() => (isExpanded = !isExpanded)}>
-          <ExpandIcon classes="h-3 w-3 md:h-3 md:w-3" />
+          <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
         </button>
 
         <button class="chat-close" onclick={() => (isOpen = false)}>
-          <CloseIcon classes="h-3 w-3 md:h-3 md:w-3" />
+          <CloseIcon classes="h-4 w-4 md:h-5 md:w-5" />
         </button>
       </div>
     </div>
