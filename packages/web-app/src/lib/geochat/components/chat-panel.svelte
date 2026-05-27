@@ -491,14 +491,6 @@
       right: 2.5vw;
       height: 70dvh;
     }
-
-    #chatbot-panel.large {
-      width: 100vw;
-      height: 100dvh;
-      right: 0;
-      bottom: 0;
-      border-radius: 0;
-    }
   }
 
   @media (max-width: 480px) {
