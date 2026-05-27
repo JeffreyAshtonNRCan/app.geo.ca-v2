@@ -3,6 +3,7 @@
 
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
   import CloseIcon from '$lib/components/icons/close.svelte';
+  import ExpandIcon from '$lib/components/icons/expand.svelte';
 
   let isOpen = false;
   let isExpanded = false;
@@ -50,7 +51,9 @@
       <span id="chatbot-title"> Ask GeoChat </span>
 
       <div class="icons">
-        <button class="chat-expand" onclick={() => (isExpanded = !isExpanded)}> ⛶ </button>
+        <button class="chat-expand" onclick={() => (isExpanded = !isExpanded)}>
+          <ExpandIcon classes="h-3 w-3 md:h-3 md:w-3" />
+        </button>
 
         <button class="chat-close" onclick={() => (isOpen = false)}>
           <CloseIcon classes="h-3 w-3 md:h-3 md:w-3" />
