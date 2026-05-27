@@ -228,6 +228,10 @@
     height: calc(100dvh - 100px);
   }
 
+  #chatbot-panel.open {
+    display: flex;
+  }
+
   /* =========================
      CHAT LOG
   ========================= */
