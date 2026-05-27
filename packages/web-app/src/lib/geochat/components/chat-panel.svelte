@@ -4,7 +4,6 @@
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
   import CloseIcon from '$lib/components/icons/close.svelte';
   import ExpandIcon from '$lib/components/icons/expand.svelte';
-  import Tooltip from '$lib/components/tooltip/tooltip.svelte';
 
   let isOpen = false;
   let isExpanded = false;
@@ -52,14 +51,17 @@
       <span id="chatbot-title"> Ask GeoChat </span>
 
       <div class="icons">
-        <button class="chat-expand" aria-describedby="expand-tip" aria-label="Expand chat" onclick={() => (isExpanded = !isExpanded)}>
+        <button
+          class="chat-expand"
+          aria-label="Expand chat"
+          title={isExpanded ? 'Restore' : 'Expand'}
+          onclick={() => (isExpanded = !isExpanded)}
+        >
           <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
-          <Tooltip describedById="expand-tip" tooltipText={isExpanded ? 'Restore chat size' : 'Expand chat'} />
         </button>
 
-        <button class="chat-close" aria-describedby="close-tip" aria-label="Close chat" onclick={() => (isOpen = false)}>
+        <button class="chat-close" aria-label="Close chat" title="Close chat" onclick={() => (isOpen = false)}>
           <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
-          <Tooltip describedById="close-tip" tooltipText="Close chat" />
         </button>
       </div>
     </div>
