@@ -51,11 +51,16 @@
       <span id="chatbot-title"> Ask GeoChat </span>
 
       <div class="icons">
-        <button class="chat-expand" onclick={() => (isExpanded = !isExpanded)}>
+        <button
+          class="chat-expand"
+          aria-label="Expand chat"
+          title={isExpanded ? 'Restore' : 'Expand'}
+          onclick={() => (isExpanded = !isExpanded)}
+        >
           <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
         </button>
 
-        <button class="chat-close" onclick={() => (isOpen = false)}>
+        <button class="chat-close" aria-label="Close chat" title="Close chat" onclick={() => (isOpen = false)}>
           <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
         </button>
       </div>
@@ -480,7 +485,7 @@
   /* =========================
      MOBILE
   ========================= */
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     #chatbot-panel {
       width: 95vw;
       right: 2.5vw;
