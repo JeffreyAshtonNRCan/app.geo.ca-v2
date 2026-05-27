@@ -56,7 +56,7 @@
         </button>
 
         <button class="chat-close" onclick={() => (isOpen = false)}>
-          <CloseIcon classes="h-4 w-4 md:h-5 md:w-5" />
+          <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
         </button>
       </div>
     </div>
