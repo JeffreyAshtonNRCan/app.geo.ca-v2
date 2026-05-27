@@ -164,6 +164,9 @@
   /*}*/
 
   #chatbot-toggle {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -200,27 +203,29 @@
 
   #chatbot-panel {
     position: fixed;
-    right: 0;
-    bottom: 70px;
+    right: 20px;
+    bottom: 20px;
+
     width: 420px;
     height: 65dvh;
+
     min-height: 380px;
-    max-height: 85dvh;
+    max-height: calc(100dvh - 100px);
+
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
     display: none;
     flex-direction: column;
     overflow: hidden;
-  }
 
-  #chatbot-panel.open {
-    display: flex;
+    z-index: 9999;
   }
 
   #chatbot-panel.large {
     width: 580px;
-    height: calc(100dvh - 90px);
+    height: calc(100dvh - 100px);
   }
 
   /* =========================
