@@ -1,92 +1,76 @@
-import type { SSTConfig } from "sst";
-import { SvelteKitSite, Config, Table } from "sst/constructs";
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import { DynamoDBClient, DescribeTableCommand } from "@aws-sdk/client-dynamodb";
+/// <reference path="./.sst/platform/config.d.ts" />
 
 const GEOCORE_API_DOMAIN = "https://geocore.api.geo.ca";
 const SEMANTIC_SEARCH_URL = "https://search-recherche.geocore.api.geo.ca";
 const OVERVIEW_API_URL =
-  "https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/overview";
-const OIDC_CUSTOM_DOMAIN = process.env.OIDC_CUSTOM_DOMAIN;
+    "https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/overview";
 
 console.log("OVERVIEW_API_URL:", OVERVIEW_API_URL);
-/**
- * Gets the ARN of an existing DynamoDB table if it exists.
- *
- * @param tableName The name of the DynamoDB table.
- * @param region The AWS region where the table is located.
- * @returns The ARN of the existing DynamoDB table, or undefined if the table does not exist.
- */
-async function getExistingUserTableArn(
-  tableName: string,
-  region: string,
-): Promise<string | undefined> {
-  const dynamoDBClient = new DynamoDBClient({ region });
-  try {
-    const response = await dynamoDBClient.send(
-      new DescribeTableCommand({ TableName: tableName }),
-    );
-    return response.Table?.TableArn;
-  } catch (error: any) {
-    if (error.name !== "ResourceNotFoundException") {
-      throw error;
-    }
-    return undefined; // If the table doesn't exist, return undefined
-  }
-}
 
-export default {
-  config(_input) {
+export default $config({
+  app(input) {
     return {
       name: "app-geo-ca-v2",
-      region: "ca-central-1",
+      home: "aws",
+      providers: {
+        aws: {
+          region: "ca-central-1",
+        },
+      },
+      removal: input.stage === "production" ? "retain" : "remove",
+      protect: input.stage === "production",
     };
   },
 
-  /**
-   * Defines the stacks for the application.
-   *
-   * @param app The SST app instance.
-   */
-  async stacks(app): Promise<void> {
-    const tableName = `${app.stage}-app-geo-ca-v2-users`;
-    const existingUserTableArn = await getExistingUserTableArn(
-      tableName,
-      app.region,
-    );
+  async run() {
+    const userTableName = `${$app.stage}-app-geo-ca-v2-users`;
+    const bucketName = `${$app.stage}-app-geo-ca-v2-hnap`;
 
-    app.stack(function Site({ stack }) {
-      /*** User Table ***/
+    // Production keeps using the existing table to avoid accidental replacement.
+    const users =
+        $app.stage === "production"
+            ? sst.aws.Dynamo.get("Users", userTableName)
+            : new sst.aws.Dynamo("Users", {
+              fields: {
+                uuid: "string",
+              },
+              primaryIndex: {
+                hashKey: "uuid",
+              },
+            });
 
-      // Check if an existing user table exists. If it does, use it instead of creating a new one.
-      const USER_TABLE = existingUserTableArn
-        ? dynamodb.Table.fromTableArn(stack, "users", existingUserTableArn)
-        : new Table(stack, "users", {
-            fields: { uuid: "string" },
-            primaryIndex: { partitionKey: "uuid" },
-          });
+    // Bucket holding HNAP and geocore geojson records.
+    // Production keeps using the existing bucket to avoid accidental replacement.
+    const hnapBucket =
+        $app.stage === "production"
+            ? sst.aws.Bucket.get("HnapBucket", bucketName)
+            : new sst.aws.Bucket("HnapBucket", {
+              transform: {
+                bucket: (args) => {
+                  args.forceDestroy = true;
+                },
+              },
+            });
 
-      /*** Other Resources ***/
+    // TODO: restore hnap-bridge Lambda trigger (packages/hnap-bridge removed).
+    // When the handler is added back, attach an S3 notification on hnapBucket
+    // for the "hnap/" prefix that feeds the geocore transformation pipeline.
 
-      // Wrap the user table in SST’s Config.Parameter so that it can be referenced in SST functions
-      // This is necessary when an existing table is imported using the Table.fromTableArn method
-      const userTableConfig = new Config.Parameter(stack, "USER_TABLE_NAME", {
-        value: tableName,
-      });
-
-      const site = new SvelteKitSite(stack, "site", {
-        path: "packages/web-app/",
-        bind: [userTableConfig],
-        environment: {
-          GEOCORE_API_DOMAIN,
-          SEMANTIC_SEARCH_URL,
-          OVERVIEW_API_URL,
-        },
-      });
-
-      stack.addOutputs({
-        url: site.url,
-      });
+    const site = new sst.aws.SvelteKit("WebApp", {
+      path: "packages/web-app",
+      link: [users, hnapBucket],
+      environment: {
+        GEOCORE_API_DOMAIN,
+        SEMANTIC_SEARCH_URL,
+        USER_TABLE_NAME: users.name,
+        BUCKET_NAME: hnapBucket.name,
+        OVERVIEW_API_URL,
+      },
     });
+
+    return {
+      url: site.url,
+      userTableName,
+    };
   },
-} satisfies SSTConfig;
+});
