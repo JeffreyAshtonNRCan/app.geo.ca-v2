@@ -53,8 +53,8 @@
       <div class="icons">
         <button
           class="chat-expand"
-          aria-label="Expand chat"
-          title={isExpanded ? 'Restore' : 'Expand'}
+          aria-label="Large chat"
+          title={isExpanded ? 'Small Chat' : 'Large Chat'}
           onclick={() => (isExpanded = !isExpanded)}
         >
           <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
@@ -204,7 +204,7 @@
   #chatbot-panel {
     position: fixed;
     right: 20px;
-    bottom: 20px;
+    bottom: 70px;
 
     width: 420px;
     height: 65dvh;
