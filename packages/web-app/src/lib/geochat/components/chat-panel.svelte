@@ -398,6 +398,14 @@
     margin-bottom: 4px;
   }
 
+  .bot-text :global(a) {
+    @apply text-custom-8 underline;
+  }
+
+  .bot-text :global(a:hover) {
+    @apply no-underline;
+  }
+
   /* collapsed fade */
   .bot-text.collapsed::after {
     content: '';
