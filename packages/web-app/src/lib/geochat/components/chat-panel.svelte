@@ -1,5 +1,6 @@
 <script lang="ts">
   import { chatStore } from '$lib/geochat/stores/chat-store';
+  import type { ChatMessage } from '$lib/geochat/stores/chat-store';
 
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
   import CloseIcon from '$lib/components/icons/close.svelte';
@@ -34,6 +35,16 @@
       event.preventDefault();
       handleSend();
     }
+  }
+
+  function toggleMessage(msg: ChatMessage) {
+    if (msg.role !== 'bot') {
+      return;
+    }
+
+    msg.collapsed = !msg.collapsed;
+
+    state = { ...state };
   }
 </script>
 
@@ -71,7 +82,14 @@
       <div id="chat-log">
         {#each state.messages as msg, index (index)}
           <div class="chat-row {msg.role}">
-            <div class={msg.role === 'bot' ? 'bubble bot-text' : 'bubble'}>
+            <div
+              class={`
+                bubble
+                ${msg.role === 'bot' ? 'bot-text' : ''}
+                ${msg.collapsed ? 'collapsed' : ''}
+              `}
+              onclick={() => toggleMessage(msg)}
+            >
               {@html msg.html}
             </div>
           </div>
@@ -407,15 +425,30 @@
     @apply no-underline;
   }
 
+  .bot-text:global(.collapsed) {
+    max-height: 7.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+
   /* collapsed fade */
-  .bot-text.collapsed::after {
+  .bot-text:global(.collapsed)::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 40px;
-    background: linear-gradient(to bottom, rgba(229, 231, 235, 0), rgba(229, 231, 235, 1));
+    background: linear-gradient(
+            to bottom,
+            rgba(229, 231, 235, 0),
+            rgba(229, 231, 235, 1)
+    );
+  }
+
+  .bot-text:not(:global(.collapsed)) {
+    max-height: none;
   }
 
   /* =========================

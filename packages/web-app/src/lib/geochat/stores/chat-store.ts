@@ -15,6 +15,7 @@ import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 export interface ChatMessage {
   role: 'user' | 'bot';
   html: string;
+  collapsed?: boolean;
 }
 
 interface ChatState {
@@ -37,6 +38,22 @@ function createChatStore() {
   const { subscribe, update, set } = writable(initialState);
 
   const SESSION_ID = getSessionId();
+
+  // ==========================
+  // Collapse Previous Bot Message
+  // ==========================
+
+  function collapseLastBotMessage(messages: ChatMessage[]) {
+    const botMessages = messages.filter((m) => m.role === 'bot');
+
+    if (botMessages.length === 0) {
+      return;
+    }
+
+    const lastBotMessage = botMessages[botMessages.length - 1];
+
+    lastBotMessage.collapsed = true;
+  }
 
   // ==========================
   // Send Message
@@ -65,31 +82,43 @@ function createChatStore() {
 
       const formatted = formatMarkdown(data.answer);
 
-      update((state) => ({
-        ...state,
-        messages: [
-          ...state.messages,
-          {
-            role: 'bot',
-            html: formatted,
-          },
-        ],
-        isThinking: false,
-      }));
+      update((state) => {
+        const updatedMessages = [...state.messages];
+
+        collapseLastBotMessage(updatedMessages);
+
+        updatedMessages.push({
+          role: 'bot',
+          html: formatted,
+          collapsed: false,
+        });
+
+        return {
+          ...state,
+          messages: updatedMessages,
+          isThinking: false,
+        };
+      });
     } catch (err) {
       console.error(err);
 
-      update((state) => ({
-        ...state,
-        messages: [
-          ...state.messages,
-          {
-            role: 'bot',
-            html: 'Sorry, something went wrong.',
-          },
-        ],
-        isThinking: false,
-      }));
+      update((state) => {
+        const updatedMessages = [...state.messages];
+
+        collapseLastBotMessage(updatedMessages);
+
+        updatedMessages.push({
+          role: 'bot',
+          html: 'Sorry, something went wrong.',
+          collapsed: false,
+        });
+
+        return {
+          ...state,
+          messages: updatedMessages,
+          isThinking: false,
+        };
+      });
     }
   }
 
