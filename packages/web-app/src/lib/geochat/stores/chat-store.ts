@@ -90,7 +90,7 @@ function createChatStore() {
         updatedMessages.push({
           role: 'bot',
           html: formatted,
-          collapsed: false,
+          collapsed: formatted.length > 400
         });
 
         return {
