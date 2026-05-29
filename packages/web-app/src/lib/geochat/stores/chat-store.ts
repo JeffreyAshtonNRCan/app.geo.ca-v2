@@ -18,6 +18,7 @@ export interface ChatMessage {
   collapsed?: boolean;
   textLength?: number;
   expandable?: boolean;
+  isCurrent?: boolean;
 }
 
 interface ChatState {
@@ -57,6 +58,13 @@ function createChatStore() {
     if ((lastBotMessage.textLength ?? 0) > 400) {
       lastBotMessage.collapsed = true;
     }
+
+    // remove current flag from previous bot messages
+    messages.forEach((m) => {
+      if (m.role === 'bot') {
+        m.isCurrent = false;
+      }
+    });
   }
 
   // ==========================
@@ -98,7 +106,8 @@ function createChatStore() {
           html: formatted,
           textLength: data.answer.length,
           collapsed: false,
-          expandable: isLongMessage
+          expandable: isLongMessage,
+          isCurrent: true,
         });
 
         return {
