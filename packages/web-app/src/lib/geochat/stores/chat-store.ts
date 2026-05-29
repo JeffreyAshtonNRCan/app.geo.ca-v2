@@ -17,6 +17,7 @@ export interface ChatMessage {
   html: string;
   collapsed?: boolean;
   textLength?: number;
+  expandable?: boolean;
 }
 
 interface ChatState {
@@ -90,11 +91,14 @@ function createChatStore() {
 
         collapseLastBotMessage(updatedMessages);
 
+        const isLongMessage = data.answer.length > 400;
+
         updatedMessages.push({
           role: 'bot',
           html: formatted,
           textLength: data.answer.length,
           collapsed: false,
+          expandable: isLongMessage
         });
 
         return {
