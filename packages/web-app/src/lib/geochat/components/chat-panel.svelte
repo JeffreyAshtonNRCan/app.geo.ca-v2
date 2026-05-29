@@ -82,20 +82,26 @@
       <div id="chat-log">
         {#each state.messages as msg, index (index)}
           <div class="chat-row {msg.role}">
-            {#if msg.role === 'bot'}
+            {#if msg.role === 'bot' && msg.expandable}
               <div
-                class="bubble bot-text {msg.collapsed ? 'collapsed' : ''}"
+                class="bubble bot-text expandable {msg.collapsed ? 'collapsed' : ''}"
                 role="button"
                 tabindex="0"
                 onclick={() => toggleMessage(msg)}
                 onkeydown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    toggleMessage(msg);
-                  }
-                }}
+                if (e.key === 'Enter' || e.key === ' ') {
+                  toggleMessage(msg);
+                }
+              }}
               >
                 {@html msg.html}
               </div>
+
+            {:else if msg.role === 'bot'}
+              <div class="bubble bot-text">
+                {@html msg.html}
+              </div>
+
             {:else}
               <div class="bubble">
                 {@html msg.html}
@@ -434,10 +440,13 @@
     @apply no-underline;
   }
 
+  .bot-text:global(.expandable) {
+    cursor: pointer;
+  }
+
   .bot-text:global(.collapsed) {
     max-height: 7.5rem;
     overflow: hidden;
-    cursor: pointer;
     position: relative;
   }
 
