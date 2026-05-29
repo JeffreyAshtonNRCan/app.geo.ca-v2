@@ -16,6 +16,7 @@ export interface ChatMessage {
   role: 'user' | 'bot';
   html: string;
   collapsed?: boolean;
+  textLength?: number;
 }
 
 interface ChatState {
@@ -52,7 +53,9 @@ function createChatStore() {
 
     const lastBotMessage = botMessages[botMessages.length - 1];
 
-    lastBotMessage.collapsed = true;
+    if ((lastBotMessage.textLength ?? 0) > 400) {
+      lastBotMessage.collapsed = true;
+    }
   }
 
   // ==========================
@@ -90,7 +93,8 @@ function createChatStore() {
         updatedMessages.push({
           role: 'bot',
           html: formatted,
-          collapsed: formatted.length > 400
+          textLength: data.answer.length,
+          collapsed: false,
         });
 
         return {
