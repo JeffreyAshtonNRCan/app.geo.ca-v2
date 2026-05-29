@@ -82,7 +82,7 @@
       <div id="chat-log">
         {#each state.messages as msg, index (index)}
           <div class="chat-row {msg.role}">
-            {#if msg.role === 'bot' && msg.expandable}
+            {#if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
               <div
                 class="bubble bot-text expandable {msg.collapsed ? 'collapsed' : ''}"
                 role="button"
