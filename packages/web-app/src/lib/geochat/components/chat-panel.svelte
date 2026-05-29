@@ -82,16 +82,25 @@
       <div id="chat-log">
         {#each state.messages as msg, index (index)}
           <div class="chat-row {msg.role}">
-            <div
-              class={`
-                bubble
-                ${msg.role === 'bot' ? 'bot-text' : ''}
-                ${msg.collapsed ? 'collapsed' : ''}
-              `}
-              onclick={() => toggleMessage(msg)}
-            >
-              {@html msg.html}
-            </div>
+            {#if msg.role === 'bot'}
+              <div
+                class="bubble bot-text {msg.collapsed ? 'collapsed' : ''}"
+                role="button"
+                tabindex="0"
+                onclick={() => toggleMessage(msg)}
+                onkeydown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    toggleMessage(msg);
+                  }
+                }}
+              >
+                {@html msg.html}
+              </div>
+            {:else}
+              <div class="bubble">
+                {@html msg.html}
+              </div>
+            {/if}
           </div>
         {/each}
 
