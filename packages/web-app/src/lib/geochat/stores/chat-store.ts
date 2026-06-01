@@ -59,12 +59,8 @@ function createChatStore() {
       lastBotMessage.collapsed = true;
     }
 
-    // remove current flag from previous bot messages
-    messages.forEach((m) => {
-      if (m.role === 'bot') {
-        m.isCurrent = false;
-      }
-    });
+    // remove current flag from last bot message
+    lastBotMessage.isCurrent = false;
   }
 
   // ==========================
@@ -175,11 +171,15 @@ function createChatStore() {
                 historyMessages.push({
                   role: 'bot',
                   html: formatMarkdown(msg.text),
+                  expandable: msg.text.length > 400,
+                  collapsed: msg.text.length > 400,
                 });
               }
             });
           });
         }
+
+        collapseLastBotMessage(historyMessages);
 
         // no history -> welcome
         if (historyMessages.length === 0) {
