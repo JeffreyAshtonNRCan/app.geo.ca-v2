@@ -16,7 +16,6 @@ export interface ChatMessage {
   role: 'user' | 'bot';
   html: string;
   collapsed?: boolean;
-  textLength?: number;
   expandable?: boolean;
   isCurrent?: boolean;
 }
@@ -55,10 +54,33 @@ function createChatStore() {
 
     const lastBotMessage = botMessages[botMessages.length - 1];
 
-    if ((lastBotMessage.textLength ?? 0) > 400) {
+    if (lastBotMessage.expandable) {
       lastBotMessage.collapsed = true;
     }
-    
+
+    lastBotMessage.isCurrent = false;
+  }
+
+  function collapseHistoryMessages(messages: ChatMessage[]) {
+    const botMessages = messages.filter((m) => m.role === 'bot');
+
+    if (botMessages.length === 0) {
+      return;
+    }
+
+    // collapse all expandable bot messages
+    botMessages.forEach((m) => {
+      if (m.expandable) {
+        m.collapsed = true;
+      }
+
+      m.isCurrent = false;
+    });
+
+    // keep the newest bot message expanded
+    const lastBotMessage = botMessages[botMessages.length - 1];
+
+    lastBotMessage.collapsed = false;
     lastBotMessage.isCurrent = true;
   }
 
@@ -99,7 +121,6 @@ function createChatStore() {
         updatedMessages.push({
           role: 'bot',
           html: formatted,
-          textLength: data.answer.length,
           collapsed: false,
           expandable: isLongMessage,
           isCurrent: true,
@@ -178,7 +199,7 @@ function createChatStore() {
           });
         }
 
-        collapseLastBotMessage(historyMessages);
+        collapseHistoryMessages(historyMessages);
 
         // no history -> welcome
         if (historyMessages.length === 0) {
