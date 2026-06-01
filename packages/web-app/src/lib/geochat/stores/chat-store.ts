@@ -58,9 +58,8 @@ function createChatStore() {
     if ((lastBotMessage.textLength ?? 0) > 400) {
       lastBotMessage.collapsed = true;
     }
-
-    // remove current flag from last bot message
-    lastBotMessage.isCurrent = false;
+    
+    lastBotMessage.isCurrent = true;
   }
 
   // ==========================
