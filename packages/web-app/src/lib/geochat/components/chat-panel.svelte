@@ -6,9 +6,9 @@
   import CloseIcon from '$lib/components/icons/close.svelte';
   import ExpandIcon from '$lib/components/icons/expand.svelte';
 
-  let isOpen = false;
-  let isExpanded = false;
-  let message = '';
+  let isOpen = $state(false);
+  let isExpanded = $state(false);
+  let message = $state('');
 
   function toggleChat() {
     isOpen = !isOpen;
