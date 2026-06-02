@@ -42,6 +42,10 @@
 
     chatStore.toggleMessage(msg);
   }
+
+  $effect(() => {
+    console.log($chatStore.messages.length);
+  });
 </script>
 
 <div id="chatbot-widget">
