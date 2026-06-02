@@ -18,14 +18,6 @@
     }
   }
 
-  function toggleChat() {
-    isOpen = !isOpen;
-
-    if (isOpen && !$chatStore.initialized) {
-      chatStore.initializeChat();
-    }
-  }
-
   async function handleSend() {
     const trimmed = message.trim();
 
