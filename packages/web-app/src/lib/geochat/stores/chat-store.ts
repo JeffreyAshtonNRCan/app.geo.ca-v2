@@ -84,6 +84,23 @@ function createChatStore() {
     lastBotMessage.isCurrent = true;
   }
 
+  function toggleMessage(message: ChatMessage) {
+    update((state) => {
+      const updatedMessages = [...state.messages];
+
+      const msg = updatedMessages.find((m) => m === message);
+
+      if (msg) {
+        msg.collapsed = !msg.collapsed;
+      }
+
+      return {
+        ...state,
+        messages: updatedMessages,
+      };
+    });
+  }
+
   // ==========================
   // Send Message
   // ==========================
@@ -244,6 +261,7 @@ function createChatStore() {
     subscribe,
     sendMessage,
     initializeChat,
+    toggleMessage,
     set,
   };
 }
