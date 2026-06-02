@@ -53,16 +53,28 @@
       }
 
       const href = anchor.href;
-      const isExternal = href && !href.includes(page.url.host) && !href.includes('geo.ca') && !href.startsWith('mailto');
+      const isExternal =
+              href &&
+              !href.includes(page.url.host) &&
+              !href.includes('geo.ca') &&
+              !href.startsWith('mailto');
 
       if (isExternal) {
         showLeavingSitePopup = true;
 
         // delay navigation to allow for users to read the message
         event.preventDefault();
+
+        const target = anchor.getAttribute('target');
+
         setTimeout(() => {
           showLeavingSitePopup = false;
-          window.location.href = href;
+
+          if (target === '_blank') {
+            window.open(href, '_blank', 'noopener,noreferrer');
+          } else {
+            window.location.href = href;
+          }
         }, 2000);
       }
     }
