@@ -23,9 +23,10 @@
 
     if (!trimmed) return;
 
+    message = '';
+
     await chatStore.sendMessage(trimmed);
 
-    message = '';
   }
 
   function handleKeydown(event: KeyboardEvent) {
