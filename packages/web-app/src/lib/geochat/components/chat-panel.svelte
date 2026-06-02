@@ -40,7 +40,7 @@
       return;
     }
 
-    msg.collapsed = !msg.collapsed;
+    chatStore.toggleMessage(msg);
   }
 </script>
 
