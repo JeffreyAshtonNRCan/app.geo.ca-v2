@@ -6,16 +6,22 @@
   import CloseIcon from '$lib/components/icons/close.svelte';
   import ExpandIcon from '$lib/components/icons/expand.svelte';
 
-  let isOpen = false;
-  let isExpanded = false;
-  let message = '';
-
-  $: state = $chatStore;
+  let isOpen = $state(false);
+  let isExpanded = $state(false);
+  let message = $state('');
 
   function toggleChat() {
     isOpen = !isOpen;
 
-    if (isOpen && !state.initialized) {
+    if (isOpen && !$chatStore.initialized) {
+      chatStore.initializeChat();
+    }
+  }
+
+  function toggleChat() {
+    isOpen = !isOpen;
+
+    if (isOpen && !$chatStore.initialized) {
       chatStore.initializeChat();
     }
   }
@@ -43,8 +49,6 @@
     }
 
     msg.collapsed = !msg.collapsed;
-
-    state = { ...state };
   }
 </script>
 
@@ -80,7 +84,7 @@
     <!-- messages -->
     <div id="chat-log-wrapper">
       <div id="chat-log">
-        {#each state.messages as msg, index (index)}
+        {#each $chatStore.messages as msg, index (index)}
           <div class="chat-row {msg.role}">
             {#if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
               <div
@@ -110,7 +114,7 @@
           </div>
         {/each}
 
-        {#if state.isThinking}
+        {#if $chatStore.isThinking}
           <div class="chat-row bot">
             <div class="bubble bot-text thinking">
               <span class="typing">
