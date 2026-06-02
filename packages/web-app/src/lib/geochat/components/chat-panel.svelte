@@ -94,12 +94,16 @@
                 }
               }}
               >
-                {@html msg.html}
+                <div class="bot-answer">
+                  {@html msg.html}
+                </div>
               </div>
 
             {:else if msg.role === 'bot'}
               <div class="bubble bot-text">
-                {@html msg.html}
+                <div class="bot-answer">
+                  {@html msg.html}
+                </div>
               </div>
 
             {:else}
