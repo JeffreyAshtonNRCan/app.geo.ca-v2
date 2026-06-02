@@ -65,6 +65,10 @@
         // delay navigation to allow for users to read the message
         event.preventDefault();
 
+        // Preserve the anchor's target behavior.
+        // Some components (e.g. GeoChat) intentionally render external links with target="_blank".
+        // Using window.location.href would force navigation into the current tab and ignore the link target.
+
         const target = anchor.getAttribute('target');
 
         setTimeout(() => {
