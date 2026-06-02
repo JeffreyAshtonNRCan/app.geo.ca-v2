@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { tick } from 'svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatMessage } from '$lib/geochat/stores/chat-store';
 
@@ -9,6 +10,8 @@
   let isOpen = $state(false);
   let isExpanded = $state(false);
   let message = $state('');
+
+  let chatLogWrapper: HTMLDivElement;
 
   function toggleChat() {
     isOpen = !isOpen;
@@ -45,7 +48,15 @@
   }
 
   $effect(() => {
-    console.log($chatStore.messages.length);
+    const count = $chatStore.messages.length;
+    const thinking = $chatStore.isThinking;
+
+    tick().then(() => {
+      console.debug(count, thinking);
+      if (chatLogWrapper) {
+        chatLogWrapper.scrollTop = chatLogWrapper.scrollHeight;
+      }
+    });
   });
 </script>
 
@@ -79,7 +90,7 @@
     </div>
 
     <!-- messages -->
-    <div id="chat-log-wrapper">
+    <div id="chat-log-wrapper" bind:this={chatLogWrapper}>
       <div id="chat-log">
         {#each $chatStore.messages as msg, index (index)}
           <div class="chat-row {msg.role}">
