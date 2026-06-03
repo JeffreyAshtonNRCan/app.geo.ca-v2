@@ -89,6 +89,11 @@
         messageHeight: lastBotRow.offsetHeight,
         viewportHeight: chatLogWrapper.clientHeight
       });
+      console.log({
+        offsetTop: lastBotRow.offsetTop,
+        wrapperTop: chatLogWrapper.getBoundingClientRect().top,
+        rowTop: lastBotRow.getBoundingClientRect().top
+      });
 
       const messageHeight = lastBotRow.offsetHeight;
       const viewportHeight = chatLogWrapper.clientHeight;
