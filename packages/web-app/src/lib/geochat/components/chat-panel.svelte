@@ -100,8 +100,17 @@
 
       if (messageHeight > viewportHeight) {
         const TOP_PADDING = 16;
+
+        const wrapperRect = chatLogWrapper.getBoundingClientRect();
+        const rowRect = lastBotRow.getBoundingClientRect();
+
+        const scrollAmount =
+                chatLogWrapper.scrollTop +
+                (rowRect.top - wrapperRect.top) -
+                TOP_PADDING;
+
         chatLogWrapper.scrollTo({
-          top: Math.max(0, lastBotRow.offsetTop - TOP_PADDING),
+          top: scrollAmount,
           behavior: 'smooth'
         });
       } else {
