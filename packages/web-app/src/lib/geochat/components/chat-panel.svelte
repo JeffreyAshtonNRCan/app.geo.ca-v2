@@ -84,12 +84,18 @@
         return;
       }
 
+      console.log({
+        offsetTop: lastBotRow.offsetTop,
+        messageHeight: lastBotRow.offsetHeight,
+        viewportHeight: chatLogWrapper.clientHeight
+      });
+
       const messageHeight = lastBotRow.offsetHeight;
       const viewportHeight = chatLogWrapper.clientHeight;
 
       if (messageHeight > viewportHeight) {
-        lastBotRow.scrollIntoView({
-          block: 'start',
+        chatLogWrapper.scrollTo({
+          top: lastBotRow.offsetTop,
           behavior: 'smooth',
         });
       } else {
