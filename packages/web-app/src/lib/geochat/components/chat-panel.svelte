@@ -48,21 +48,32 @@
   }
 
   let lastBotCount = 0;
+  let lastThinking = false;
 
   $effect(() => {
     const botCount = $chatStore.messages.filter(
             (m) => m.role === 'bot'
     ).length;
 
-    if (botCount <= lastBotCount) {
-      lastBotCount = botCount;
+    const thinking = $chatStore.isThinking;
+
+    const newBotMessage = botCount > lastBotCount;
+    const thinkingStarted = thinking && !lastThinking;
+
+    lastBotCount = botCount;
+    lastThinking = thinking;
+
+    if (!newBotMessage && !thinkingStarted) {
       return;
     }
 
-    lastBotCount = botCount;
-
     tick().then(() => {
       if (!chatLogWrapper) {
+        return;
+      }
+
+      if (thinkingStarted) {
+        chatLogWrapper.scrollTop = chatLogWrapper.scrollHeight;
         return;
       }
 
