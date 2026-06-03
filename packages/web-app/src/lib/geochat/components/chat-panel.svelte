@@ -47,13 +47,41 @@
     chatStore.toggleMessage(msg);
   }
 
+  let lastBotCount = 0;
+
   $effect(() => {
-    const count = $chatStore.messages.length;
-    const thinking = $chatStore.isThinking;
+    const botCount = $chatStore.messages.filter(
+            (m) => m.role === 'bot'
+    ).length;
+
+    if (botCount <= lastBotCount) {
+      lastBotCount = botCount;
+      return;
+    }
+
+    lastBotCount = botCount;
 
     tick().then(() => {
-      console.debug(count, thinking);
-      if (chatLogWrapper) {
+      if (!chatLogWrapper) {
+        return;
+      }
+
+      const botRows = chatLogWrapper.querySelectorAll('.chat-row.bot');
+      const lastBotRow = botRows[botRows.length - 1] as HTMLElement | undefined;
+
+      if (!lastBotRow) {
+        return;
+      }
+
+      const messageHeight = lastBotRow.offsetHeight;
+      const viewportHeight = chatLogWrapper.clientHeight;
+
+      if (messageHeight > viewportHeight) {
+        lastBotRow.scrollIntoView({
+          block: 'start',
+          behavior: 'smooth',
+        });
+      } else {
         chatLogWrapper.scrollTop = chatLogWrapper.scrollHeight;
       }
     });
