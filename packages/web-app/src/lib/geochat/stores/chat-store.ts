@@ -26,6 +26,15 @@ interface ChatState {
   initialized: boolean;
 }
 
+interface HistoryMessage {
+  role: string;
+  text: string;
+}
+
+interface HistorySession {
+  history: HistoryMessage[];
+}
+
 // ==========================
 // Store
 // ==========================
@@ -105,7 +114,10 @@ function createChatStore() {
   // Send Message
   // ==========================
 
-  async function sendMessage(message: string) {
+  async function sendMessage(
+      message: string,
+      lang: string
+  ){
     const trimmed = message.trim();
 
     if (!trimmed) return;
@@ -124,7 +136,13 @@ function createChatStore() {
     }));
 
     try {
-      const data = await sendChatMessage(SESSION_ID, trimmed);
+      const data = await sendChatMessage(
+          SESSION_ID,
+          trimmed,
+          lang,
+      );
+
+      console.log ('data=', data);
 
       const formatted = formatMarkdown(data.answer);
 
@@ -176,7 +194,7 @@ function createChatStore() {
   // Load History
   // ==========================
 
-  async function initializeChat() {
+  async function initializeChat(lang: string) {
     update((state) => ({
       ...state,
       isThinking: true,
@@ -189,10 +207,10 @@ function createChatStore() {
         const historyMessages: ChatMessage[] = [];
 
         if (data.sessions && Array.isArray(data.sessions)) {
-          data.sessions.forEach((session: any) => {
+          data.sessions.forEach((session: HistorySession) => {
             if (!Array.isArray(session.history)) return;
 
-            session.history.forEach((msg: any) => {
+            session.history.forEach((msg: HistoryMessage) => {
               if (!msg?.text) return;
 
               // user
@@ -226,7 +244,7 @@ function createChatStore() {
             initialized: true,
           }));
 
-          await sendMessage('welcome message');
+          await sendMessage('welcome message', lang);
 
           return;
         }
@@ -244,7 +262,7 @@ function createChatStore() {
           initialized: true,
         }));
 
-        await sendMessage('welcome message');
+        await sendMessage('welcome message', lang);
       }
     } catch (err) {
       console.error(err);
