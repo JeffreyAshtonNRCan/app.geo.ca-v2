@@ -295,13 +295,12 @@
     color: #fff;
     cursor: pointer;
 
-    font-size: 16px;
     white-space: nowrap;
   }
 
-  #chatbot-toggle .label {
-    font-size: 16px;
-  }
+  /*#chatbot-toggle .label {*/
+  /*  font-size: inherit;*/
+  /*}*/
 
   #chatbot-toggle {
     transition: background 0.2s ease;
