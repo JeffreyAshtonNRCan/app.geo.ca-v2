@@ -15,6 +15,7 @@ import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 export interface ChatMessage {
   role: 'user' | 'bot';
   html: string;
+  languageMismatch?: boolean;
   collapsed?: boolean;
   expandable?: boolean;
   isCurrent?: boolean;
@@ -156,6 +157,7 @@ function createChatStore() {
         updatedMessages.push({
           role: 'bot',
           html: formatted,
+          languageMismatch: data.type === 'language_mismatch',
           collapsed: false,
           expandable: isLongMessage,
           isCurrent: true,

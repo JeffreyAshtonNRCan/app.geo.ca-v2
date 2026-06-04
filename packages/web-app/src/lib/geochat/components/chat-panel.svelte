@@ -9,6 +9,10 @@
   import ExpandIcon from '$lib/components/icons/expand.svelte';
 
   const lang = page.params.lang?.startsWith('fr') ? 'fr' : 'en';
+  const alternateLanguageUrl =
+          page.params.lang === 'fr-ca'
+            ? page.url.pathname.replace('/fr-ca/', '/en-ca/')
+            : page.url.pathname.replace('/en-ca/', '/fr-ca/');
 
   let isOpen = $state(false);
   let isExpanded = $state(false);
@@ -143,7 +147,22 @@
       <div id="chat-log">
         {#each $chatStore.messages as msg, index (index)}
           <div class="chat-row {msg.role}">
-            {#if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
+            {#if msg.role === 'bot' && msg.languageMismatch}
+              <div class="bubble bot-text">
+                <p>
+                  {lang.startsWith('fr')
+                    ? 'Cette question a été posée dans une langue différente de la page actuelle.'
+                    : 'This question was asked in a different language than the current page.'}
+                </p>
+
+                <a href={alternateLanguageUrl}>
+                  {lang.startsWith('fr')
+                    ? 'Changer de langue'
+                    : 'Change language'}
+                </a>
+              </div>
+
+            {:else if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
               <div
                 class="bubble bot-text expandable {msg.collapsed ? 'collapsed' : ''}"
                 role="button"
