@@ -115,7 +115,9 @@
 
 <div id="chatbot-widget">
   <!-- launcher -->
-  <button id="chatbot-toggle" onclick={toggleChat}>
+  <button id="chatbot-toggle"
+    class="font-custom-style-button-1"
+    onclick={toggleChat}>
     <ChatBubbleIcon classes="h-4 md:h-5" />
     <span class="label">Ask GeoChat</span>
   </button>
