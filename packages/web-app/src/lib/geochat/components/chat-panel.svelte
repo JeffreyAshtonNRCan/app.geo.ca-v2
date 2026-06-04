@@ -8,7 +8,7 @@
   import CloseIcon from '$lib/components/icons/close.svelte';
   import ExpandIcon from '$lib/components/icons/expand.svelte';
 
-  const lang = page.params.lang!;
+  const lang = page.params.lang?.startsWith('fr') ? 'fr' : 'en';
 
   let isOpen = $state(false);
   let isExpanded = $state(false);
