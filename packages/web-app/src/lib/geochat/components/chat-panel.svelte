@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from '$app/state';
   import { tick } from 'svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatMessage } from '$lib/geochat/stores/chat-store';
@@ -6,6 +7,8 @@
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
   import CloseIcon from '$lib/components/icons/close.svelte';
   import ExpandIcon from '$lib/components/icons/expand.svelte';
+
+  const lang = page.params.lang!;
 
   let isOpen = $state(false);
   let isExpanded = $state(false);
@@ -17,19 +20,16 @@
     isOpen = !isOpen;
 
     if (isOpen && !$chatStore.initialized) {
-      chatStore.initializeChat();
+      chatStore.initializeChat(lang);
     }
   }
 
   async function handleSend() {
-    const trimmed = message.trim();
-
-    if (!trimmed) return;
+    const text = message;
 
     message = '';
 
-    await chatStore.sendMessage(trimmed);
-
+    await chatStore.sendMessage(text, lang);
   }
 
   function handleKeydown(event: KeyboardEvent) {
@@ -83,17 +83,6 @@
       if (!lastBotRow) {
         return;
       }
-
-      console.log({
-        offsetTop: lastBotRow.offsetTop,
-        messageHeight: lastBotRow.offsetHeight,
-        viewportHeight: chatLogWrapper.clientHeight
-      });
-      console.log({
-        offsetTop: lastBotRow.offsetTop,
-        wrapperTop: chatLogWrapper.getBoundingClientRect().top,
-        rowTop: lastBotRow.getBoundingClientRect().top
-      });
 
       const messageHeight = lastBotRow.offsetHeight;
       const viewportHeight = chatLogWrapper.clientHeight;

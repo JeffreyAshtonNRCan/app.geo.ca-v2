@@ -4,7 +4,11 @@ const CHAT_API_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/
 
 const CHAT_HISTORY_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chathistory';
 
-export async function sendChatMessage(sessionId: string, message: string) {
+export async function sendChatMessage(
+    sessionId: string,
+    message: string,
+    lang: string
+) {
   const response = await fetch(CHAT_API_URL, {
     method: 'POST',
     headers: {
@@ -13,6 +17,7 @@ export async function sendChatMessage(sessionId: string, message: string) {
     body: JSON.stringify({
       session_id: sessionId,
       message,
+      lang,
     }),
   });
 
