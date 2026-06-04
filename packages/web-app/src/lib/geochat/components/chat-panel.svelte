@@ -116,7 +116,7 @@
 <div id="chatbot-widget">
   <!-- launcher -->
   <button id="chatbot-toggle"
-    class="font-custom-style-button-1"
+    class="font-custom-style-button-1 bg-custom-16"
     onclick={toggleChat}>
     <ChatBubbleIcon classes="h-4 md:h-5" />
     <span class="label">Ask GeoChat</span>
@@ -291,7 +291,6 @@
     border-radius: 28px; /* pill shape instead of circle */
     border: 0;
 
-    background: #5859a2;
     color: #fff;
     cursor: pointer;
 
