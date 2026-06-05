@@ -153,12 +153,12 @@
               <div class="bubble bot-text">
                  {lang.startsWith('fr')
                     ? 'Cette question a été posée dans une langue différente de la page actuelle.'
-                    : 'This question was asked in a different language than the current page.'}
+                    : 'This question was asked in French.  You are currently using the English GeoChat.'}
 
                 <a href={alternateLanguageUrl} data-sveltekit-reload>
                   {lang.startsWith('fr')
                     ? 'Changer de langue'
-                    : 'Change language'}
+                    : 'Cliquez ici pour la version française'}
                 </a>
               </div>
 
@@ -169,10 +169,10 @@
                 tabindex="0"
                 onclick={() => toggleMessage(msg)}
                 onkeydown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  toggleMessage(msg);
-                }
-              }}
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    toggleMessage(msg);
+                  }
+                }}
               >
                 {@html msg.html}
               </div>
