@@ -8,17 +8,23 @@
   import CloseIcon from '$lib/components/icons/close.svelte';
   import ExpandIcon from '$lib/components/icons/expand.svelte';
 
-  const lang = page.params.lang?.startsWith('fr') ? 'fr' : 'en';
-  const alternateLanguageUrl =
-          page.params.lang === 'fr-ca'
-            ? page.url.pathname.replace('/fr-ca/', '/en-ca/')
-            : page.url.pathname.replace('/en-ca/', '/fr-ca/');
-
   let isOpen = $state(false);
   let isExpanded = $state(false);
   let message = $state('');
 
   let chatLogWrapper: HTMLDivElement;
+
+  function getAlternateLanguageUrl(): string {
+    const pathname =
+            page.params.lang === 'fr-ca'
+                    ? page.url.pathname.replace('/fr-ca/', '/en-ca/')
+                    : page.url.pathname.replace('/en-ca/', '/fr-ca/');
+
+    return `${pathname}${page.url.search}${page.url.hash}`;
+  }
+
+  const lang = page.params.lang?.startsWith('fr') ? 'fr' : 'en';
+  const alternateLanguageUrl = getAlternateLanguageUrl();
 
   function toggleChat() {
     isOpen = !isOpen;
