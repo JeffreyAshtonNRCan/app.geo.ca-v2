@@ -14,17 +14,18 @@
 
   let chatLogWrapper: HTMLDivElement;
 
-  function getAlternateLanguageUrl(): string {
+  const alternateLanguageUrl = $derived.by(() => {
     const pathname =
             page.params.lang === 'fr-ca'
                     ? page.url.pathname.replace('/fr-ca/', '/en-ca/')
                     : page.url.pathname.replace('/en-ca/', '/fr-ca/');
 
     return `${pathname}${page.url.search}${page.url.hash}`;
-  }
+  });
 
-  const lang = page.params.lang?.startsWith('fr') ? 'fr' : 'en';
-  const alternateLanguageUrl = getAlternateLanguageUrl();
+  const lang = $derived(
+          page.params.lang?.startsWith('fr') ? 'fr' : 'en'
+  );
 
   function toggleChat() {
     isOpen = !isOpen;
