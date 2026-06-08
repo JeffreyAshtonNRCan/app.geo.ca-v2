@@ -1,9 +1,10 @@
 import type { Action } from 'svelte/action';
 
 export const draggable: Action<HTMLElement> = (node) => {
-    const panel = node.closest('#chatbot-panel') as HTMLElement | null;
 
-    if (!panel) {
+    const panel = node.closest('#chatbot-panel');
+
+    if (!(panel instanceof HTMLElement)) {
         console.warn('draggable: #chatbot-panel not found');
         return {};
     }
@@ -12,8 +13,9 @@ export const draggable: Action<HTMLElement> = (node) => {
     let offsetX = 0;
     let offsetY = 0;
 
+    let hasMoved = false;
+
     function handleMouseDown(event: MouseEvent) {
-        // Left mouse button only
         if (event.button !== 0) {
             return;
         }
@@ -23,10 +25,7 @@ export const draggable: Action<HTMLElement> = (node) => {
         offsetX = event.clientX - rect.left;
         offsetY = event.clientY - rect.top;
 
-        // Switch from bottom/right positioning to top/left positioning
-        panel.style.right = 'auto';
-        panel.style.bottom = 'auto';
-
+        hasMoved = false;
         isDragging = true;
 
         document.addEventListener('mousemove', handleMouseMove);
@@ -38,6 +37,12 @@ export const draggable: Action<HTMLElement> = (node) => {
     function handleMouseMove(event: MouseEvent) {
         if (!isDragging) {
             return;
+        }
+
+        if (!hasMoved) {
+            panel.style.right = 'auto';
+            panel.style.bottom = 'auto';
+            hasMoved = true;
         }
 
         const maxLeft = window.innerWidth - panel.offsetWidth;
