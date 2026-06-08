@@ -64,6 +64,16 @@
   let lastBotCount = 0;
   let lastThinking = false;
 
+  async function toggleExpanded() {
+    isExpanded = !isExpanded;
+
+    await tick();
+
+    if (chatbotPanel) {
+      chatbotPanel.removeAttribute('style');
+    }
+  }
+
   $effect(() => {
     const botCount = $chatStore.messages.filter(
             (m) => m.role === 'bot'
@@ -157,9 +167,7 @@
           class="chat-expand"
           aria-label="Large chat"
           title={isExpanded ? 'Small Chat' : 'Large Chat'}
-          onclick={() => {
-            isExpanded = !isExpanded;
-          }}
+          onclick={toggleExpanded}
         >
           <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
         </button>
