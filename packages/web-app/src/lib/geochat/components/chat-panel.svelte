@@ -159,13 +159,6 @@
           title={isExpanded ? 'Small Chat' : 'Large Chat'}
           onclick={() => {
             isExpanded = !isExpanded;
-
-            if (chatbotPanel) {
-              chatbotPanel.style.left = '';
-              chatbotPanel.style.top = '';
-              chatbotPanel.style.right = '';
-              chatbotPanel.style.bottom = '';
-            }
           }}
         >
           <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
