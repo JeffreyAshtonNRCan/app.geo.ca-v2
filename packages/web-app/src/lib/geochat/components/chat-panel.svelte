@@ -3,6 +3,7 @@
   import { tick } from 'svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatMessage } from '$lib/geochat/stores/chat-store';
+  import { draggable } from '$lib/geochat/utils/draggable';
 
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
   import CloseIcon from '$lib/components/icons/close.svelte';
@@ -12,7 +13,9 @@
   let isExpanded = $state(false);
   let message = $state('');
 
+  let chatbotPanel: HTMLDivElement;
   let chatLogWrapper: HTMLDivElement;
+
 
   const lang = $derived(
           page.params.lang?.startsWith('fr') ? 'fr' : 'en'
@@ -118,6 +121,15 @@
       }
     });
   });
+
+  $effect(() => {
+    if (!isOpen && chatbotPanel) {
+      chatbotPanel.style.left = '';
+      chatbotPanel.style.top = '';
+      chatbotPanel.style.right = '';
+      chatbotPanel.style.bottom = '';
+    }
+  });
 </script>
 
 <div id="chatbot-widget">
@@ -130,9 +142,14 @@
   </button>
 
   <!-- panel -->
-  <div id="chatbot-panel" class:open={isOpen} class:large={isExpanded}>
+  <div
+    id="chatbot-panel"
+    bind:this={chatbotPanel}
+    class:open={isOpen}
+    class:large={isExpanded}
+  >
     <!-- header -->
-    <div class="chat-header">
+    <div class="chat-header" use:draggable>
       <span id="chatbot-title"> Ask GeoChat </span>
 
       <div class="icons">
@@ -247,6 +264,15 @@
     color: #fff;
     font-weight: bold;
     z-index: 10;
+  }
+
+  .chat-header {
+    cursor: grab;
+    user-select: none;
+  }
+
+  .chat-header:active {
+    cursor: grabbing;
   }
 
   .icons {
