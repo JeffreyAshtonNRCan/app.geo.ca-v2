@@ -677,6 +677,10 @@
   ========================= */
   @media (max-width: 768px) {
     #chatbot-panel {
+      left: auto !important;
+      top: auto !important;
+      bottom: 70px !important;
+
       width: 95vw;
       right: 2.5vw;
       height: 70dvh;
