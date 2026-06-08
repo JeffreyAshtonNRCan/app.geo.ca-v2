@@ -9,6 +9,8 @@ export const draggable: Action<HTMLElement> = (node) => {
         return {};
     }
 
+    const panelElement: HTMLElement = panel;
+
     let isDragging = false;
     let offsetX = 0;
     let offsetY = 0;
@@ -20,7 +22,7 @@ export const draggable: Action<HTMLElement> = (node) => {
             return;
         }
 
-        const rect = panel.getBoundingClientRect();
+        const rect = panelElement.getBoundingClientRect();
 
         offsetX = event.clientX - rect.left;
         offsetY = event.clientY - rect.top;
@@ -40,13 +42,13 @@ export const draggable: Action<HTMLElement> = (node) => {
         }
 
         if (!hasMoved) {
-            panel.style.right = 'auto';
-            panel.style.bottom = 'auto';
+            panelElement.style.right = 'auto';
+            panelElement.style.bottom = 'auto';
             hasMoved = true;
         }
 
-        const maxLeft = window.innerWidth - panel.offsetWidth;
-        const maxTop = window.innerHeight - panel.offsetHeight;
+        const maxLeft = window.innerWidth - panelElement.offsetWidth;
+        const maxTop = window.innerHeight - panelElement.offsetHeight;
 
         const left = Math.max(
             0,
@@ -58,8 +60,8 @@ export const draggable: Action<HTMLElement> = (node) => {
             Math.min(event.clientY - offsetY, maxTop)
         );
 
-        panel.style.left = `${left}px`;
-        panel.style.top = `${top}px`;
+        panelElement.style.left = `${left}px`;
+        panelElement.style.top = `${top}px`;
     }
 
     function handleMouseUp() {
