@@ -285,6 +285,10 @@
     cursor: grabbing;
   }
 
+  .chat-header button {
+    cursor: pointer;
+  }
+
   .icons {
     margin-left: auto;
     display: flex;
