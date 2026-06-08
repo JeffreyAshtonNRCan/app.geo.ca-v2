@@ -47,16 +47,21 @@ export const draggable: Action<HTMLElement> = (node) => {
             hasMoved = true;
         }
 
-        const maxLeft = window.innerWidth - panelElement.offsetWidth;
-        const maxTop = window.innerHeight - panelElement.offsetHeight;
+        const MARGIN = 10;
+
+        const maxLeft =
+            window.innerWidth - panelElement.offsetWidth - MARGIN;
+
+        const maxTop =
+            window.innerHeight - panelElement.offsetHeight - MARGIN;
 
         const left = Math.max(
-            0,
+            MARGIN,
             Math.min(event.clientX - offsetX, maxLeft)
         );
 
         const top = Math.max(
-            0,
+            MARGIN,
             Math.min(event.clientY - offsetY, maxTop)
         );
 
