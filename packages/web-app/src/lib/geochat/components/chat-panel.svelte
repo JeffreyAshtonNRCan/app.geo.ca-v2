@@ -277,6 +277,7 @@
   }
 
   .chat-header {
+    touch-action: none;
     cursor: grab;
     user-select: none;
   }
