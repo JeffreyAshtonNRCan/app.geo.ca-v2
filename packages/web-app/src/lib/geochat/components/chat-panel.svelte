@@ -191,7 +191,7 @@
 
                 <a href={alternateLanguageUrl} data-sveltekit-reload>
                   {lang.startsWith('fr')
-                    ? 'Changer de langue'
+                    ? 'Click here for the English version'
                     : 'Cliquez ici pour la version française'}
                 </a>
               </div>
@@ -248,13 +248,13 @@
 
     <!-- input -->
     <div class="chat-input">
-      <textarea id="chat-input" bind:value={message} maxlength="500" placeholder="Type a message..." onkeydown={handleKeydown}></textarea>
+      <textarea id="chat-input" bind:value={message} maxlength="100" placeholder="Type a message..." onkeydown={handleKeydown}></textarea>
 
       <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤ </button>
     </div>
 
     <div id="chat-counter">
-      {message.length} / 500
+      {message.length} / 100
     </div>
   </div>
 </div>
@@ -686,7 +686,7 @@
       top: auto !important;
       bottom: 70px !important;
 
-      width: 95vw;
+      width: 85vw;
       right: 2.5vw;
       height: 70dvh;
     }
