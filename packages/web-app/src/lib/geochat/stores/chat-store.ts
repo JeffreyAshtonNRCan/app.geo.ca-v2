@@ -49,6 +49,8 @@ function createChatStore() {
 
   const { subscribe, update, set } = writable(initialState);
 
+  const WELCOME_MESSAGE = 'welcome message';
+
   const SESSION_ID = getSessionId();
 
   // ==========================
@@ -123,16 +125,20 @@ function createChatStore() {
 
     if (!trimmed) return;
 
+    const isWelcomeMessage = trimmed === WELCOME_MESSAGE;
+
     // add user message
     update((state) => ({
       ...state,
-      messages: [
-        ...state.messages,
-        {
-          role: 'user',
-          html: escapeHtml(trimmed),
-        },
-      ],
+      messages: isWelcomeMessage
+          ? state.messages
+          : [
+            ...state.messages,
+            {
+              role: 'user',
+              html: escapeHtml(trimmed),
+            },
+          ],
       isThinking: true,
     }));
 
@@ -216,7 +222,7 @@ function createChatStore() {
               if (!msg?.text) return;
 
               // user
-              if (msg.role === 'user' && msg.text !== 'welcome message') {
+              if (msg.role === 'user' && msg.text !== WELCOME_MESSAGE) {
                 historyMessages.push({
                   role: 'user',
                   html: escapeHtml(msg.text),
@@ -238,7 +244,7 @@ function createChatStore() {
 
         collapseHistoryMessages(historyMessages);
 
-        // no history -> welcome
+        // no history -> welcome message
         if (historyMessages.length === 0) {
           update((state) => ({
             ...state,
@@ -246,7 +252,7 @@ function createChatStore() {
             initialized: true,
           }));
 
-          await sendMessage('welcome message', lang);
+          await sendMessage(WELCOME_MESSAGE, lang);
 
           return;
         }
@@ -264,7 +270,7 @@ function createChatStore() {
           initialized: true,
         }));
 
-        await sendMessage('welcome message', lang);
+        await sendMessage(WELCOME_MESSAGE, lang);
       }
     } catch (err) {
       console.error(err);
