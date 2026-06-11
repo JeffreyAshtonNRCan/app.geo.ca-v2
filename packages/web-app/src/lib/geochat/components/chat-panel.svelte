@@ -690,6 +690,11 @@
       right: 2.5vw;
       height: 70dvh;
     }
+
+    #chatbot-panel.large {
+      width: calc(100vw - 20px);
+      right: 10px;
+    }
   }
 
   @media (max-width: 480px) {
