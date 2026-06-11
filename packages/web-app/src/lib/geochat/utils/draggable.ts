@@ -29,21 +29,33 @@ export const draggable: Action<HTMLElement> = (node) => {
             hasMoved = true;
         }
 
+        const rect = panelElement.getBoundingClientRect();
+
         const maxLeft =
-            window.innerWidth - panelElement.offsetWidth - MARGIN;
+            window.innerWidth - rect.width - MARGIN;
 
         const maxTop =
-            window.innerHeight - panelElement.offsetHeight - MARGIN;
+            window.innerHeight - rect.height - MARGIN;
 
-        const left = Math.max(
+        let left = Math.max(
             MARGIN,
             Math.min(clientX - offsetX, maxLeft)
         );
 
-        const top = Math.max(
+        let top = Math.max(
             MARGIN,
             Math.min(clientY - offsetY, maxTop)
         );
+
+        // Safety check: keep right edge visible
+        if (left + rect.width > window.innerWidth - MARGIN) {
+            left = window.innerWidth - rect.width - MARGIN;
+        }
+
+        // Safety check: keep bottom edge visible
+        if (top + rect.height > window.innerHeight - MARGIN) {
+            top = window.innerHeight - rect.height - MARGIN;
+        }
 
         panelElement.style.left = `${left}px`;
         panelElement.style.top = `${top}px`;
