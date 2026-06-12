@@ -50,6 +50,10 @@ function createChatStore() {
   const { subscribe, update, set } = writable(initialState);
 
   const WELCOME_MESSAGE = 'welcome message';
+  const ERROR_MESSAGE = {
+    en: 'Sorry, something went wrong.',
+    fr: 'Désolé, une erreur est survenue.',
+  };
 
   const SESSION_ID = getSessionId();
 
@@ -151,14 +155,16 @@ function createChatStore() {
 
       console.log ('data=', data);
 
-      const formatted = formatMarkdown(data.answer);
+      // prefer markdown response, fall back to plain text
+      const responseText = data.answer_markdown ?? data.answer ?? '';
+      const formatted = formatMarkdown(responseText);
 
       update((state) => {
         const updatedMessages = [...state.messages];
 
         collapseLastBotMessage(updatedMessages);
 
-        const isLongMessage = data.answer.length > 400;
+        const isLongMessage = responseText.length > 400;
 
         updatedMessages.push({
           role: 'bot',
@@ -185,7 +191,7 @@ function createChatStore() {
 
         updatedMessages.push({
           role: 'bot',
-          html: 'Sorry, something went wrong.',
+          html: ERROR_MESSAGE[lang as 'en' | 'fr'] ?? ERROR_MESSAGE.en,
           collapsed: false,
         });
 
