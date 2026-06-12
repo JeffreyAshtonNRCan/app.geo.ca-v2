@@ -159,25 +159,44 @@
     class:large={isExpanded}
   >
     <!-- header -->
-    <div class="chat-header">
-      <div class="drag-handle" use:draggable>
-        <span id="chatbot-title">Ask GeoChat</span>
-      </div>
+    <div
+      id="chatbot-panel"
+      role="dialog"
+      aria-labelledby="chatbot-title"
+    >
+      <div class="chat-header">
+        <div class="drag-handle" use:draggable>
+          <span id="chatbot-title">
+            {lang === 'fr' ? 'Demandez au GeoChat' : 'Ask GeoChat'}
+          </span>
+        </div>
+        <div class="icons">
+          <button
+            class="chat-expand"
+            aria-label={lang === 'fr'
+              ? (isExpanded ? 'Réduire le clavardage' : 'Agrandir le clavardage')
+              : (isExpanded ? 'Switch to small chat' : 'Switch to large chat')}
+            title={lang === 'fr'
+              ? (isExpanded ? 'Petit clavardage' : 'Grand clavardage')
+              : (isExpanded ? 'Small Chat' : 'Large Chat')}
+            onclick={toggleExpanded}
+          >
+            <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
+          </button>
 
-      <div class="icons">
-        <button
-          class="chat-expand"
-          aria-label="Large chat"
-          title={isExpanded ? 'Small Chat' : 'Large Chat'}
-          onclick={toggleExpanded}
-        >
-          <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
-        </button>
-
-        <button class="chat-close" aria-label="Close chat" title="Close chat" onclick={() => (isOpen = false)}>
-          <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
-        </button>
-      </div>
+          <button
+            class="chat-close"
+            aria-label={lang === 'fr'
+              ? 'Fermer le clavardage'
+              : 'Close chat'}
+            title={lang === 'fr'
+              ? 'Fermer'
+              : 'Close'}
+            onclick={() => (isOpen = false)}
+          >
+            <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
+          </button>
+        </div>
     </div>
 
     <!-- messages -->
