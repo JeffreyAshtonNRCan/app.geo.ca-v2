@@ -157,7 +157,9 @@
     class="font-custom-style-button-1 bg-custom-16"
     onclick={toggleChat}>
     <ChatBubbleIcon classes="h-4 md:h-5" />
-    <span class="label">Ask GeoChat</span>
+    <span class="label">
+      {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
+    </span>
   </button>
 
   <!-- panel -->
