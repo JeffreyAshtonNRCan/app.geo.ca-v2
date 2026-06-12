@@ -173,7 +173,7 @@
     <div class="chat-header">
       <div class="drag-handle" use:draggable>
         <span id="chatbot-title">
-          {lang === 'fr' ? 'Demandez au GeoChat' : 'Ask GeoChat'}
+          {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
         </span>
       </div>
       <div class="icons">
