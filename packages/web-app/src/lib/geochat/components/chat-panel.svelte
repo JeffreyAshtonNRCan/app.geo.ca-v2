@@ -16,6 +16,15 @@
   let chatbotPanel: HTMLDivElement;
   let chatLogWrapper: HTMLDivElement;
 
+  const UI_TEXT = {
+    en: {
+      diveDeeper: 'Dive deeper with GeoChat',
+    },
+    fr: {
+      diveDeeper: 'Approfondissez avec GéoChat',
+    },
+  } as const;
+
 
   const lang = $derived(
           page.params.lang?.startsWith('fr') ? 'fr' : 'en'
@@ -260,7 +269,7 @@
     <div id="chat-actions">
       <button class="dive-deeper-button">
         <ChatBubbleIcon classes="h-4 md:h-5" />
-        Dive deeper with GeoChat
+        {UI_TEXT[lang].diveDeeper}
       </button>
     </div>
 
