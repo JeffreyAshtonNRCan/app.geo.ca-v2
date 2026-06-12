@@ -159,8 +159,10 @@
     class:large={isExpanded}
   >
     <!-- header -->
-    <div class="chat-header" use:draggable>
-      <span id="chatbot-title"> Ask GeoChat </span>
+    <div class="chat-header">
+      <div class="drag-handle" use:draggable>
+        <span id="chatbot-title">Ask GeoChat</span>
+      </div>
 
       <div class="icons">
         <button
@@ -276,15 +278,6 @@
     z-index: 10;
   }
 
-  .chat-header {
-    touch-action: none;
-    cursor: grab;
-    user-select: none;
-  }
-
-  .chat-header:active {
-    cursor: grabbing;
-  }
 
   .chat-header button {
     cursor: pointer;
@@ -302,6 +295,20 @@
     color: inherit;
     cursor: pointer;
     padding: 0;
+  }
+
+  .drag-handle {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+  }
+
+  .drag-handle:active {
+    cursor: grabbing;
   }
 
   /* =========================
