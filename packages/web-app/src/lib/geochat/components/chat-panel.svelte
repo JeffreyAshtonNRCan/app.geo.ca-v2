@@ -731,7 +731,8 @@
     }
   }
 
-  @media (max-width: 480px) {
+  /*@media (max-width: 480px) {*/
+  @media (max-width: 680px) {
     #chatbot-toggle {
       width: 56px;
       padding: 0;
