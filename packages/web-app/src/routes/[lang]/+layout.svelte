@@ -74,11 +74,11 @@
         setTimeout(() => {
           showLeavingSitePopup = false;
 
-          if (target === '_blank') {
-            window.open(href, '_blank', 'noopener,noreferrer');
-          } else {
+          // if (target === '_blank') {
+          //   window.open(href, '_blank', 'noopener,noreferrer');
+          // } else {
             window.location.href = href;
-          }
+          // }
         }, 2000);
       }
     }
