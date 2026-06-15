@@ -219,6 +219,8 @@ function createChatStore() {
       if (checkSession()) {
         const data = await loadChatHistory(SESSION_ID);
 
+        console.log ('history data=', data);
+
         const historyMessages: ChatMessage[] = [];
 
         if (data.sessions && Array.isArray(data.sessions)) {
