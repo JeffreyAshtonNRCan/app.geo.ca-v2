@@ -156,7 +156,8 @@ function createChatStore() {
       console.log ('data=', data);
 
       // prefer markdown response, fall back to plain text
-      const responseText = data.answer_markdown ?? data.answer ?? '';
+      // const responseText = data.answer_markdown ?? data.answer ?? '';
+      const responseText = data.answer;
       const formatted = formatMarkdown(responseText);
 
       update((state) => {
