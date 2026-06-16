@@ -609,7 +609,7 @@
     margin-left: 0.25em;
     vertical-align: -0.375em;
 
-    background-color: black;
+    background-color: currentColor;
     -webkit-mask: url('/icons/download.svg') center/contain no-repeat;
     mask: url('/icons/download.svg') center/contain no-repeat;
   }
