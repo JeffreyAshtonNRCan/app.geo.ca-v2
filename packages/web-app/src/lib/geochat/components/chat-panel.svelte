@@ -606,7 +606,7 @@
     display: inline-block;
     width: 1.5em;
     height: 1.5em;
-    margin-left: 0.25em;
+    margin-left: 0.2em;
     vertical-align: -0.375em;
 
     background-color: currentColor;

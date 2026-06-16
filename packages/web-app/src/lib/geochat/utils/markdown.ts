@@ -41,16 +41,16 @@ export function formatMarkdown(text: string): string {
   );
 
   // plain urls
-  text = text.replace(
-      /(^|[\s>])(https?:\/\/[^\s<]+)/g,
-      (match, prefix, url) => {
-        const isDownload = DOWNLOAD_EXTENSIONS.test(url);
-
-        return isDownload
-            ? `${prefix}<a href="${url}" target="_blank" rel="noopener noreferrer" data-download="true">${url}</a>`
-            : `${prefix}<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-      }
-  );
+  // text = text.replace(
+  //     /(^|[\s>])(https?:\/\/[^\s<]+)/g,
+  //     (match, prefix, url) => {
+  //       const isDownload = DOWNLOAD_EXTENSIONS.test(url);
+  //
+  //       return isDownload
+  //           ? `${prefix}<a href="${url}" target="_blank" rel="noopener noreferrer" data-download="true">${url}</a>`
+  //           : `${prefix}<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+  //     }
+  // );
 
   // unordered lists
   text = text.replace(/^- (.*)$/gm, '<li>$1</li>\n');
