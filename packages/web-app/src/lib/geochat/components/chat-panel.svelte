@@ -603,9 +603,10 @@
   .bot-text :global(a[data-download="true"])::after {
     content: '';
     display: inline-block;
-    width: 1em;
-    height: 1em;
-    margin-left: 0.2em;
+    font-weight: 600;
+    width: 1.25em;
+    height: 1.25em;
+    margin-left: 0.25em;
     vertical-align: -0.125em;
 
     background-color: currentColor;
