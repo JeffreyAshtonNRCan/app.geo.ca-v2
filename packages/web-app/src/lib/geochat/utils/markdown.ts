@@ -28,6 +28,12 @@ export function formatMarkdown(text: string): string {
   // inline code
   text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
 
+  // remove URLs that appear at the end of link labels
+  text = text.replace(
+      /\[([^\]]+?)\s*\|\s*https?:\/\/[^\]]+\]\((https?:\/\/[^\s)]+)\)/g,
+      '[$1]($2)'
+  );
+
   // markdown links
   text = text.replace(
       /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
