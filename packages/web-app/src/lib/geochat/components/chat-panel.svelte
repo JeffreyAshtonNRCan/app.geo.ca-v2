@@ -594,6 +594,7 @@
 
   .bot-text :global(a) {
     @apply text-custom-8 underline;
+    font-weight: 600;
   }
 
   .bot-text :global(a:hover) {
@@ -603,11 +604,10 @@
   .bot-text :global(a[data-download="true"])::after {
     content: '';
     display: inline-block;
-    font-weight: 600;
-    width: 1.25em;
-    height: 1.25em;
+    width: 1.5em;
+    height: 1.5em;
     margin-left: 0.25em;
-    vertical-align: -0.125em;
+    vertical-align: -0.375em;
 
     background-color: currentColor;
     -webkit-mask: url('/icons/download.svg') center/contain no-repeat;
