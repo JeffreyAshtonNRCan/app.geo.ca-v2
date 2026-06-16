@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 
-const SESSION_ID_KEY = 'geobot_session_id';
-const SESSION_STARTED_KEY = 'geobot_session_started';
+const SESSION_ID_KEY = 'geochat_session_id';
+const SESSION_STARTED_KEY = 'geochat_session_started';
 
 export function getSessionId(): string {
   if (!browser) {

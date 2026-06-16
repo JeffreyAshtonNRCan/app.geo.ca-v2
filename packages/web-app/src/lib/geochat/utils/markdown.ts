@@ -9,6 +9,10 @@ export function formatMarkdown(text: string): string {
     return '';
   }
 
+  // downloadable file extensions
+  const DOWNLOAD_EXTENSIONS =
+      /\.(zip|pdf|csv|xlsx?|docx?|pptx?|geojson|json|xml|gpkg|shp|kml|kmz|7z|rar)(\?|#|$)/i;
+
   text = escapeHtml(text);
 
   // normalize line endings
@@ -25,10 +29,28 @@ export function formatMarkdown(text: string): string {
   text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
 
   // markdown links
-  text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  text = text.replace(
+      /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+      (match, label, url) => {
+        const isDownload = DOWNLOAD_EXTENSIONS.test(url);
+
+        return isDownload
+            ? `<a href="${url}" target="_blank" rel="noopener noreferrer" data-download="true">${label}</a>`
+            : `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+      }
+  );
 
   // plain urls
-  text = text.replace(/(^|[\s>])(https?:\/\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer">$2</a>');
+  text = text.replace(
+      /(^|[\s>])(https?:\/\/[^\s<]+)/g,
+      (match, prefix, url) => {
+        const isDownload = DOWNLOAD_EXTENSIONS.test(url);
+
+        return isDownload
+            ? `${prefix}<a href="${url}" target="_blank" rel="noopener noreferrer" data-download="true">${url}</a>`
+            : `${prefix}<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+      }
+  );
 
   // unordered lists
   text = text.replace(/^- (.*)$/gm, '<li>$1</li>\n');

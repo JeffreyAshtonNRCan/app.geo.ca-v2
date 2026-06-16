@@ -600,6 +600,19 @@
     @apply no-underline;
   }
 
+  .bot-text :global(a[data-download="true"])::after {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-left: 0.2em;
+    vertical-align: -0.125em;
+
+    background-color: currentColor;
+    -webkit-mask: url('/icons/download.svg') center/contain no-repeat;
+    mask: url('/icons/download.svg') center/contain no-repeat;
+  }
+
   .bot-text:global(.expandable) {
     cursor: pointer;
   }
