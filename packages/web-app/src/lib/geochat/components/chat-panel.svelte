@@ -601,10 +601,13 @@
     @apply no-underline;
   }
 
+  .bot-text :global(a[data-download="true"]) {
+    white-space: nowrap;
+  }
+
   .bot-text :global(a[data-download="true"])::after {
     content: '';
     display: inline-block;
-    white-space: nowrap;
     width: 1.5em;
     height: 1.5em;
     margin-left: 0.2em;
