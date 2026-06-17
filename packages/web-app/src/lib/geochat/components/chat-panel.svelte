@@ -602,7 +602,9 @@
   }
 
   .bot-text :global(a[data-download="true"]) {
-    white-space: nowrap;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center;
   }
 
   .bot-text :global(a[data-download="true"])::after {
