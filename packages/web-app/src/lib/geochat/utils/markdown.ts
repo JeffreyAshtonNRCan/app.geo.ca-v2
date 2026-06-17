@@ -58,8 +58,9 @@ export function formatMarkdown(text: string): string {
   //     }
   // );
 
-  // unordered lists
-  text = text.replace(/^- (.*)$/gm, '<li>$1</li>\n');
+  // unordered lists (- item or * item)
+  text = text.replace(/^[-*] (.*)$/gm, '<li>$1</li>\n');
+  //text = text.replace(/^\s*[-*] (.*)$/gm, '<li>$1</li>\n');  support indented bullets
 
   // ordered lists
   text = text.replace(/^\d+\. (.*)$/gm, '<li>$1</li>\n');
