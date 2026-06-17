@@ -53,8 +53,12 @@
       }
 
       const href = anchor.href;
+
+      const isDownload = anchor.hasAttribute('data-download');
+
       const isExternal =
               href &&
+              !isDownload &&
               !href.includes(page.url.host) &&
               !href.includes('geo.ca') &&
               !href.startsWith('mailto');
