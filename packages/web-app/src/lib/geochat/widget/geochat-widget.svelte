@@ -236,6 +236,9 @@
   #chatbot-panel.large {
     width: 580px;
     height: calc(100dvh - 100px);
+
+    top: 20px;
+    bottom: auto;
   }
 
   /* =========================
