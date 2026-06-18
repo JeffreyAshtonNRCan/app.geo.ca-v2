@@ -129,7 +129,7 @@
     position: fixed;
     right: 20px;
     bottom: 20px;
-    z-index: 20000;
+    z-index: 10020;
   }
 
   #chatbot-toggle {
@@ -230,7 +230,7 @@
     flex-direction: column;
     overflow: hidden;
 
-    z-index: 9999;
+    z-index: 10020;
   }
 
   #chatbot-panel.large {
