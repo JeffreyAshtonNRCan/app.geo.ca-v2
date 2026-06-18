@@ -1,51 +1,27 @@
 <script lang="ts">
-  import { page } from '$app/state';
   import { tick } from 'svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatMessage } from '$lib/geochat/stores/chat-store';
-  import { draggable } from '$lib/geochat/utils/draggable';
 
-  import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
-  import CloseIcon from '$lib/components/icons/close.svelte';
-  import ExpandIcon from '$lib/components/icons/expand.svelte';
+  let {
+    lang = 'en',
+    alternateLanguageUrl = '',
+  }: {
+    lang?: 'en' | 'fr';
+    alternateLanguageUrl?: string;
+  } = $props();
 
-  let isOpen = $state(false);
-  let isExpanded = $state(false);
   let message = $state('');
-
-  let chatbotPanel: HTMLDivElement;
   let chatLogWrapper: HTMLDivElement;
 
-  const UI_TEXT = {
-    en: {
-      diveDeeper: 'Dive deeper with GeoChat',
-    },
-    fr: {
-      diveDeeper: 'Approfondissez avec GéoChat',
-    },
-  } as const;
-
-
-  const lang = $derived(
-          page.params.lang?.startsWith('fr') ? 'fr' : 'en'
-  );
-
-  const alternateLanguageUrl = $derived.by(() => {
-    const pathname =
-      page.params.lang === 'fr-ca'
-              ? page.url.pathname.replace('/fr-ca/', '/en-ca/')
-              : page.url.pathname.replace('/en-ca/', '/fr-ca/');
-
-    return `${pathname}${page.url.search}${page.url.hash}`;
-  });
-
-  function toggleChat() {
-    isOpen = !isOpen;
-
-    if (isOpen && !$chatStore.initialized) {
-      chatStore.initializeChat(lang);
-    }
-  }
+  // const alternateLanguageUrl = $derived.by(() => {
+  //   const pathname =
+  //     page.params.lang === 'fr-ca'
+  //             ? page.url.pathname.replace('/fr-ca/', '/en-ca/')
+  //             : page.url.pathname.replace('/en-ca/', '/fr-ca/');
+  //
+  //   return `${pathname}${page.url.search}${page.url.hash}`;
+  // });
 
   async function handleSend() {
     const text = message;
@@ -73,20 +49,8 @@
   let lastBotCount = 0;
   let lastThinking = false;
 
-  async function toggleExpanded() {
-    isExpanded = !isExpanded;
-
-    await tick();
-
-    if (chatbotPanel) {
-      chatbotPanel.removeAttribute('style');
-    }
-  }
-
   $effect(() => {
-    const botCount = $chatStore.messages.filter(
-            (m) => m.role === 'bot'
-    ).length;
+    const botCount = $chatStore.messages.filter((m) => m.role === 'bot').length;
 
     const thinking = $chatStore.isThinking;
 
@@ -126,309 +90,91 @@
         const wrapperRect = chatLogWrapper.getBoundingClientRect();
         const rowRect = lastBotRow.getBoundingClientRect();
 
-        const scrollAmount =
-                chatLogWrapper.scrollTop +
-                (rowRect.top - wrapperRect.top) -
-                TOP_PADDING;
+        const scrollAmount = chatLogWrapper.scrollTop + (rowRect.top - wrapperRect.top) - TOP_PADDING;
 
         chatLogWrapper.scrollTo({
           top: scrollAmount,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       } else {
         chatLogWrapper.scrollTop = chatLogWrapper.scrollHeight;
       }
     });
   });
-
-  $effect(() => {
-    if (!isOpen && chatbotPanel) {
-      chatbotPanel.style.left = '';
-      chatbotPanel.style.top = '';
-      chatbotPanel.style.right = '';
-      chatbotPanel.style.bottom = '';
-    }
-  });
 </script>
 
-<div id="chatbot-widget">
-  <!-- launcher -->
-  <button id="chatbot-toggle"
-    class="font-custom-style-button-1 bg-custom-16"
-    onclick={toggleChat}>
-    <ChatBubbleIcon classes="h-4 md:h-5" />
-    <span class="label">
-      {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
-    </span>
-  </button>
+<!-- messages -->
+<div id="chat-log-wrapper" bind:this={chatLogWrapper}>
+  <div id="chat-log">
+    {#each $chatStore.messages as msg, index (index)}
+      <div class="chat-row {msg.role}">
+        {#if msg.role === 'bot' && msg.languageMismatch}
+          <div class="bubble bot-text">
+            {lang.startsWith('fr')
+              ? 'Cette question a été posée dans une langue différente de la page actuelle.'
+              : 'This question was asked in French.  You are currently using the English GeoChat.'}
 
-  <!-- panel -->
-  <div
-    id="chatbot-panel"
-    bind:this={chatbotPanel}
-    class:open={isOpen}
-    class:large={isExpanded}
-    role="dialog"
-    aria-labelledby="chatbot-title"
-  >
-    <!-- header -->
-    <div class="chat-header">
-      <div class="drag-handle" use:draggable>
-        <span id="chatbot-title">
-          {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
-        </span>
-      </div>
-      <div class="icons">
-        <button
-          class="chat-expand"
-          aria-label={lang === 'fr'
-            ? (isExpanded ? 'Réduire le clavardage' : 'Agrandir le clavardage')
-            : (isExpanded ? 'Switch to small chat' : 'Switch to large chat')}
-          title={lang === 'fr'
-            ? (isExpanded ? 'Petit clavardage' : 'Grand clavardage')
-            : (isExpanded ? 'Small Chat' : 'Large Chat')}
-          onclick={toggleExpanded}
-        >
-          <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
-        </button>
-
-        <button
-          class="chat-close"
-          aria-label={lang === 'fr'
-            ? 'Fermer le clavardage'
-            : 'Close chat'}
-          title={lang === 'fr'
-            ? 'Fermer'
-            : 'Close'}
-          onclick={() => (isOpen = false)}
-        >
-          <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
-        </button>
-      </div>
-    </div>
-
-    <!-- messages -->
-    <div id="chat-log-wrapper" bind:this={chatLogWrapper}>
-      <div id="chat-log">
-        {#each $chatStore.messages as msg, index (index)}
-          <div class="chat-row {msg.role}">
-            {#if msg.role === 'bot' && msg.languageMismatch}
-              <div class="bubble bot-text">
-                 {lang.startsWith('fr')
-                    ? 'Cette question a été posée dans une langue différente de la page actuelle.'
-                    : 'This question was asked in French.  You are currently using the English GeoChat.'}
-
-                <a href={alternateLanguageUrl} data-sveltekit-reload>
-                  {lang.startsWith('fr')
-                    ? 'Click here for the English version'
-                    : 'Cliquez ici pour la version française'}
-                </a>
-              </div>
-
-            {:else if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
-              <div
-                class="bubble bot-text expandable {msg.collapsed ? 'collapsed' : ''}"
-                role="button"
-                tabindex="0"
-                onclick={() => toggleMessage(msg)}
-                onkeydown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    toggleMessage(msg);
-                  }
-                }}
-              >
-                {@html msg.html}
-              </div>
-
-            {:else if msg.role === 'bot'}
-              <div class="bubble bot-text">
-                {@html msg.html}
-              </div>
-
-            {:else}
-              <div class="bubble">
-                {@html msg.html}
-              </div>
-            {/if}
+            <a href={alternateLanguageUrl}>
+              {lang.startsWith('fr') ? 'Click here for the English version' : 'Cliquez ici pour la version française'}
+            </a>
           </div>
-        {/each}
-
-        {#if $chatStore.isThinking}
-          <div class="chat-row bot">
-            <div class="bubble bot-text thinking">
-              <span class="typing">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </div>
+        {:else if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
+          <div
+            class="bubble bot-text expandable {msg.collapsed ? 'collapsed' : ''}"
+            role="button"
+            tabindex="0"
+            onclick={() => toggleMessage(msg)}
+            onkeydown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                toggleMessage(msg);
+              }
+            }}
+          >
+            {@html msg.html}
+          </div>
+        {:else if msg.role === 'bot'}
+          <div class="bubble bot-text">
+            {@html msg.html}
+          </div>
+        {:else}
+          <div class="bubble">
+            {@html msg.html}
           </div>
         {/if}
       </div>
-    </div>
+    {/each}
 
-    <!-- actions -->
-    <div id="chat-actions">
-      <button class="dive-deeper-button">
-        <ChatBubbleIcon classes="h-4 md:h-5" />
-        {UI_TEXT[lang].diveDeeper}
-      </button>
-    </div>
-
-    <!-- input -->
-    <div class="chat-input">
-      <textarea id="chat-input" bind:value={message} maxlength="100" placeholder="Type a message..." onkeydown={handleKeydown}></textarea>
-
-      <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤ </button>
-    </div>
-
-    <div id="chat-counter">
-      {message.length} / 100
-    </div>
+    {#if $chatStore.isThinking}
+      <div class="chat-row bot">
+        <div class="bubble bot-text thinking">
+          <span class="typing">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+      </div>
+    {/if}
   </div>
+</div>
+
+<!-- input -->
+<div class="chat-input">
+  <textarea id="chat-input" bind:value={message} maxlength="100" placeholder="Type a message..." onkeydown={handleKeydown}></textarea>
+
+  <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤</button>
+</div>
+
+<div id="chat-counter">
+  {message.length} / 100
 </div>
 
 <style lang="postcss">
   @reference "../../../app.css";
-  /* =========================
-   CHAT HEADER
-========================= */
-  .chat-header {
-    position: sticky;
-    top: 0;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background: #5859a2;
-    color: #fff;
-    font-weight: bold;
-    z-index: 10;
-  }
-
-
-  .chat-header button {
-    cursor: pointer;
-  }
-
-  .icons {
-    margin-left: auto;
-    display: flex;
-    gap: 12px;
-  }
-
-  .chat-header .icons button {
-    background: transparent;
-    border: 0;
-    color: inherit;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .drag-handle {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    cursor: grab;
-    user-select: none;
-    touch-action: none;
-  }
-
-  .drag-handle:active {
-    cursor: grabbing;
-  }
 
   /* =========================
-     CHAT WIDGET
-  ========================= */
-  #chatbot-widget {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 20000;
-  }
-
-  /*#chatbot-toggle {*/
-  /*    width: 56px;*/
-  /*    height: 56px;*/
-  /*    border-radius: 50%;*/
-  /*    border: 0;*/
-  /*    background: #5859a2;*/
-  /*    color: #fff;*/
-  /*    cursor: pointer;*/
-  /*    font-size: 20px;*/
-  /*}*/
-
-  #chatbot-toggle {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    height: 42px;
-    padding: 0 16px;
-
-    border-radius: 28px; /* pill shape instead of circle */
-    border: 0;
-
-    color: #fff;
-    cursor: pointer;
-
-    white-space: nowrap;
-  }
-
-  /*#chatbot-toggle .label {*/
-  /*  font-size: inherit;*/
-  /*}*/
-
-  #chatbot-toggle {
-    transition: background 0.2s ease;
-  }
-
-  #chatbot-toggle:hover {
-    background: #130944;
-  }
-
-  #chatbot-toggle:active {
-    transform: scale(0.97);
-  }
-
-  #chatbot-panel {
-    position: fixed;
-    right: 20px;
-    bottom: 70px;
-
-    width: 420px;
-    height: 65dvh;
-
-    min-height: 380px;
-    max-height: calc(100dvh - 100px);
-
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-
-    z-index: 9999;
-  }
-
-  #chatbot-panel.large {
-    width: 580px;
-    height: calc(100dvh - 100px);
-  }
-
-  #chatbot-panel.open {
-    display: flex;
-  }
-
-  /* =========================
-     CHAT LOG
-  ========================= */
+       CHAT LOG
+    ========================= */
   #chat-log-wrapper {
     flex: 1;
     overflow-y: auto;
@@ -448,19 +194,22 @@
   #chat-log-wrapper::-webkit-scrollbar {
     width: 10px;
   }
+
   #chat-log-wrapper::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
+
   #chat-log-wrapper::-webkit-scrollbar-thumb {
     background: #5b58a0;
   }
+
   #chat-log-wrapper::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
 
   /* =========================
-     CHAT INPUT
-  ========================= */
+       CHAT INPUT
+    ========================= */
   .chat-input {
     display: flex;
     flex: 0 0 auto;
@@ -511,8 +260,8 @@
   }
 
   /* =========================
-     CHAT ROWS
-  ========================= */
+       CHAT ROWS
+    ========================= */
   .chat-row {
     display: flex;
     width: 100%;
@@ -564,8 +313,8 @@
   }
 
   /* =========================
-     BOT TEXT / MARKDOWN
-  ========================= */
+       BOT TEXT / MARKDOWN
+    ========================= */
   .chat-row.bot .bot-text {
     display: flex;
     flex-direction: column;
@@ -601,13 +350,13 @@
     @apply no-underline;
   }
 
-  .bot-text :global(a[data-download="true"]) {
+  .bot-text :global(a[data-download='true']) {
     white-space: nowrap !important;
     display: inline-flex !important;
     align-items: center;
   }
 
-  .bot-text :global(a[data-download="true"])::after {
+  .bot-text :global(a[data-download='true'])::after {
     content: '';
     display: inline-block;
     width: 1.5em;
@@ -638,11 +387,7 @@
     left: 0;
     width: 100%;
     height: 40px;
-    background: linear-gradient(
-            to bottom,
-            rgba(229, 231, 235, 0),
-            rgba(229, 231, 235, 1)
-    );
+    background: linear-gradient(to bottom, rgba(229, 231, 235, 0), rgba(229, 231, 235, 1));
   }
 
   .bot-text:not(:global(.collapsed)) {
@@ -650,8 +395,8 @@
   }
 
   /* =========================
-     TYPING INDICATOR
-  ========================= */
+       TYPING INDICATOR
+    ========================= */
   .typing {
     display: inline-flex;
     gap: 4px;
@@ -668,6 +413,7 @@
   .typing span:nth-child(2) {
     animation-delay: 0.2s;
   }
+
   .typing span:nth-child(3) {
     animation-delay: 0.4s;
   }
@@ -686,40 +432,8 @@
   }
 
   /* =========================
-     ACTIONS
-  ========================= */
-  #chat-actions {
-    border-top: 1px solid #eee;
-    padding: 8px 10px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-  }
-
-  #chat-actions .dive-deeper-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #535aa4;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 8px 20px;
-    gap: 8px;
-    border: none;
-    outline: none;
-    box-shadow: none;
-  }
-
-  #chat-actions .dive-deeper-button:hover {
-    background: #130944;
-  }
-
-  /* =========================
-     ANIMATIONS
-  ========================= */
+       ANIMATIONS
+    ========================= */
   @keyframes chatFade {
     from {
       opacity: 0;
@@ -728,40 +442,6 @@
     to {
       opacity: 1;
       transform: none;
-    }
-  }
-
-  /* =========================
-     MOBILE
-  ========================= */
-  @media (max-width: 768px) {
-    #chatbot-panel {
-      /*left: auto !important;*/
-      /*top: auto !important;*/
-      bottom: 70px !important;
-
-      width: 85vw;
-      right: 2.5vw;
-      height: 70dvh;
-    }
-
-    #chatbot-panel.large {
-      width: calc(100vw - 20px);
-      right: 10px;
-    }
-  }
-
-  /*@media (max-width: 480px) {*/
-  @media (max-width: 680px) {
-    #chatbot-toggle {
-      width: 56px;
-      padding: 0;
-      justify-content: center;
-      border-radius: 50%;
-    }
-
-    #chatbot-toggle .label {
-      display: none;
     }
   }
 </style>
