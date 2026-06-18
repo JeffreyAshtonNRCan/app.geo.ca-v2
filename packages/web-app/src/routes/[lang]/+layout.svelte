@@ -8,7 +8,7 @@
   import Breadcrumbs from '$lib/components/breadcrumbs/breadcrumbs.svelte';
   import LeavingNotice from '$lib/components/leaving-notice/leaving-notice.svelte';
   import GoogleTag from '$lib/components/google-tag/google-tag.svelte';
-  import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
+  import SvelteKitWidget from '$lib/geochat/widget/sveltekit-widget.svelte';
 
   interface Props {
     children?: import('svelte').Snippet;
@@ -56,12 +56,7 @@
 
       const isDownload = anchor.hasAttribute('data-download');
 
-      const isExternal =
-              href &&
-              !isDownload &&
-              !href.includes(page.url.host) &&
-              !href.includes('geo.ca') &&
-              !href.startsWith('mailto');
+      const isExternal = href && !isDownload && !href.includes(page.url.host) && !href.includes('geo.ca') && !href.startsWith('mailto');
 
       if (isExternal) {
         showLeavingSitePopup = true;
@@ -81,7 +76,7 @@
           // if (target === '_blank') {
           //   window.open(href, '_blank', 'noopener,noreferrer');
           // } else {
-            window.location.href = href;
+          window.location.href = href;
           // }
         }, 2000);
       }
@@ -102,7 +97,7 @@
 </main>
 <Footer />
 
-<ChatPanel />
+<SvelteKitWidget />
 
 {#if showLeavingSitePopup}
   <LeavingNotice />
