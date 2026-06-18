@@ -108,15 +108,15 @@
         </button>
       </div>
     </div>
-    <ChatPanel {lang} {alternateLanguageUrl} />
-
-    <!-- actions -->
-    <div id="chat-actions">
-      <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>
-        <ChatBubbleIcon classes="h-4 md:h-5" />
-        {UI_TEXT[lang].diveDeeper}
-      </button>
-    </div>
+    <ChatPanel {lang} {alternateLanguageUrl}>
+      <!-- actions -->
+      <div slot="actions" id="chat-actions">
+        <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>
+          <ChatBubbleIcon classes="h-4 md:h-5" />
+          {UI_TEXT[lang].diveDeeper}
+        </button>
+      </div>
+    </ChatPanel>
   </div>
 {/if}
 
