@@ -114,7 +114,13 @@
               ? 'Cette question a été posée dans une langue différente de la page actuelle.'
               : 'This question was asked in French.  You are currently using the English GeoChat.'}
 
-            <a href={alternateLanguageUrl}>
+            <a
+              href={alternateLanguageUrl}
+              onclick={(e) => {
+                e.preventDefault();
+                window.location.assign(alternateLanguageUrl);
+              }}
+            >
               {lang.startsWith('fr') ? 'Click here for the English version' : 'Cliquez ici pour la version française'}
             </a>
           </div>
