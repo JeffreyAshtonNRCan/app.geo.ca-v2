@@ -9,6 +9,7 @@ vite.config.ts.timestamp-*
 *.mjs
 .idea/
 **/.idea/
+dist-wordpress/
 
 # Generated local lint reports
 .eslint-any.json
