@@ -12,7 +12,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/lib/geochat/widget/wordpress.ts'),
       name: 'GeoChat',
       formats: ['iife'],
-      fileName: () => 'geochat',
+      fileName: () => 'geochat.js',
     },
   },
 });
