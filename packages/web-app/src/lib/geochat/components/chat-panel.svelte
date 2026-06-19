@@ -164,9 +164,6 @@
   </div>
 </div>
 
-<!-- actions (Dive Deeper Button) -->
-<slot name="actions" />
-
 <!-- input -->
 <div class="chat-input">
   <textarea id="chat-input" bind:value={message} maxlength="100" placeholder="Type a message..." onkeydown={handleKeydown}></textarea>
