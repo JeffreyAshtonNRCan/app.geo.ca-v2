@@ -110,7 +110,7 @@
     </div>
     <ChatPanel {lang} {alternateLanguageUrl}>
       <!-- actions -->
-      <div slot="actions" id="chat-actions">
+      <div id="chat-actions">
         <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>
           <ChatBubbleIcon classes="h-4 md:h-5" />
           {UI_TEXT[lang].diveDeeper}
@@ -195,6 +195,11 @@
     color: inherit;
     cursor: pointer;
     padding: 0;
+  }
+
+  .chat-header .icons svg {
+    width: 20px;
+    height: 20px;
   }
 
   .drag-handle {
