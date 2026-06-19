@@ -197,9 +197,10 @@
     padding: 0;
   }
 
-  .chat-header .icons svg {
+  .chat-header .icons :global(svg) {
     width: 20px;
     height: 20px;
+    display: block;
   }
 
   .drag-handle {
