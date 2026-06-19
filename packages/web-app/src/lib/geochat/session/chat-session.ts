@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+const browser = typeof window !== 'undefined';
 
 const SESSION_ID_KEY = 'geochat_session_id';
 const SESSION_STARTED_KEY = 'geochat_session_started';
