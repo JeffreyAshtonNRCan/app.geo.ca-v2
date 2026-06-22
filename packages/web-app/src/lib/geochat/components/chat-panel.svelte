@@ -119,6 +119,10 @@
   });
 </script>
 
+<!--
+  Download links are rendered inside {@html msg.html}, so we cannot use a Svelte
+  icon component.  Download icon used by a[data-download='true']::after. Embedded as a data URI
+     to keep the WordPress widget self-contained (no external SVG file required). -->
 <!-- messages -->
 <div id="chat-log-wrapper" bind:this={chatLogWrapper}>
   <div id="chat-log" style={`--download-icon-uri: url("${DOWNLOAD_ICON_URI}")`}>
@@ -183,7 +187,7 @@
 {#if showDiveDeeper}
   <div id="chat-actions">
     <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>
-      <ChatBubbleIcon classes="h-4 md:h-5" />
+      <ChatBubbleIcon classes="h-4 w-4 md:h-5 md:w-5" />
       {UI_TEXT[lang].diveDeeper}
     </button>
   </div>
