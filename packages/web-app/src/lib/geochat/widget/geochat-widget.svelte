@@ -177,14 +177,12 @@
   }
 
   .chat-header .chat-expand :global(svg) {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 20px;
+    height: 20px;
     display: block;
   }
 
   .chat-header .chat-close :global(svg) {
-    width: 1rem;
-    height: 1rem;
     display: block;
   }
 
