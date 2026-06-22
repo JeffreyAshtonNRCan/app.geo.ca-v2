@@ -474,4 +474,36 @@
       transform: none;
     }
   }
+
+  /* =========================
+   ACTIONS
+========================= */
+  #chat-actions {
+    border-top: 1px solid #eee;
+    padding: 8px 10px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+  }
+
+  #chat-actions .dive-deeper-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #535aa4;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 20px;
+    gap: 8px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  #chat-actions .dive-deeper-button:hover {
+    background: #130944;
+  }
 </style>
