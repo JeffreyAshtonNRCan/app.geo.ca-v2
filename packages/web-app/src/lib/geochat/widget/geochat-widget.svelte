@@ -176,9 +176,15 @@
     padding: 0;
   }
 
-  .chat-header .icons :global(svg) {
-    width: 20px;
-    height: 20px;
+  .chat-header .chat-expand :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+  }
+
+  .chat-header .chat-close :global(svg) {
+    width: 1rem;
+    height: 1rem;
     display: block;
   }
 
