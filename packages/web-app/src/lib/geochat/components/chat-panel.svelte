@@ -513,11 +513,11 @@
     background: #130944;
   }
 
-  #chat-actions .dive-deeper-button :global(svg) {
-    width: 20px !important;
-    height: 20px !important;
-    min-width: 20px;
-    min-height: 20px;
-    flex-shrink: 0;
-  }
+  /*#chat-actions .dive-deeper-button :global(svg) {*/
+  /*  width: 20px !important;*/
+  /*  height: 20px !important;*/
+  /*  min-width: 20px;*/
+  /*  min-height: 20px;*/
+  /*  flex-shrink: 0;*/
+  /*}*/
 </style>
