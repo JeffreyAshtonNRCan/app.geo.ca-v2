@@ -3,6 +3,7 @@
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatMessage } from '$lib/geochat/stores/chat-store';
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
+  import { DOWNLOAD_ICON_URI } from '$lib/geochat/utils/download-icon';
 
   let {
     lang = 'en',
@@ -120,7 +121,7 @@
 
 <!-- messages -->
 <div id="chat-log-wrapper" bind:this={chatLogWrapper}>
-  <div id="chat-log">
+  <div id="chat-log" style={`--download-icon-uri: url("${DOWNLOAD_ICON_URI}")`}>
     {#each $chatStore.messages as msg, index (index)}
       <div class="chat-row {msg.role}">
         {#if msg.role === 'bot' && msg.languageMismatch}
@@ -395,8 +396,9 @@
     vertical-align: -0.375em;
 
     background-color: currentColor;
-    -webkit-mask: url('/icons/download.svg') center/contain no-repeat;
-    mask: url('/icons/download.svg') center/contain no-repeat;
+
+    -webkit-mask: var(--download-icon-uri) center/contain no-repeat;
+    mask: var(--download-icon-uri) center/contain no-repeat;
   }
 
   .bot-text:global(.expandable) {
