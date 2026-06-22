@@ -2,17 +2,29 @@
   import { tick } from 'svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatMessage } from '$lib/geochat/stores/chat-store';
+  import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
 
   let {
     lang = 'en',
     alternateLanguageUrl = '',
+    showDiveDeeper = false,
   }: {
     lang?: 'en' | 'fr';
     alternateLanguageUrl?: string;
+    showDiveDeeper?: boolean;
   } = $props();
 
   let message = $state('');
   let chatLogWrapper: HTMLDivElement;
+
+  const UI_TEXT = {
+    en: {
+      diveDeeper: 'Dive deeper with GeoChat',
+    },
+    fr: {
+      diveDeeper: 'Approfondissez avec GéoChat',
+    },
+  } as const;
 
   // const alternateLanguageUrl = $derived.by(() => {
   //   const pathname =
@@ -23,6 +35,9 @@
   //   return `${pathname}${page.url.search}${page.url.hash}`;
   // });
 
+  function openFullGeoChat() {
+    window.location.href = lang === 'fr' ? '/fr-ca/geochat' : '/en-ca/geochat';
+  }
   async function handleSend() {
     const text = message;
 
@@ -163,6 +178,15 @@
     {/if}
   </div>
 </div>
+
+{#if showDiveDeeper}
+  <div id="chat-actions">
+    <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>
+      <ChatBubbleIcon classes="h-4 md:h-5" />
+      {UI_TEXT[lang].diveDeeper}
+    </button>
+  </div>
+{/if}
 
 <!-- input -->
 <div class="chat-input">
