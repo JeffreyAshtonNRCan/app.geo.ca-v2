@@ -36,9 +36,9 @@
   //   return `${pathname}${page.url.search}${page.url.hash}`;
   // });
 
-  function openFullGeoChat() {
-    window.location.href = lang === 'fr' ? '/fr-ca/geochat' : '/en-ca/geochat';
-  }
+  // function openFullGeoChat() {
+  //   window.location.href = lang === 'fr' ? '/fr-ca/geochat' : '/en-ca/geochat';
+  // }
   async function handleSend() {
     const text = message;
 
@@ -184,14 +184,16 @@
   </div>
 </div>
 
-{#if showDiveDeeper}
-  <div id="chat-actions">
-    <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>
-      <ChatBubbleIcon classes="h-4 w-4 md:h-5 md:w-5" />
-      {UI_TEXT[lang].diveDeeper}
-    </button>
-  </div>
-{/if}
+<!--{#if showDiveDeeper}-->
+<!--  <div id="chat-actions">-->
+<!--    <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>-->
+<!--      <ChatBubbleIcon classes="h-4 w-4 md:h-5 md:w-5" />-->
+<!--      {UI_TEXT[lang].diveDeeper}-->
+<!--    </button>-->
+<!--  </div>-->
+<!--{/if}-->
+
+<slot name="actions" />
 
 <!-- input -->
 <div class="chat-input">
@@ -492,26 +494,26 @@
     justify-content: center;
   }
 
-  #chat-actions .dive-deeper-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #535aa4;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 8px 20px;
-    gap: 8px;
-    border: none;
-    outline: none;
-    box-shadow: none;
-  }
+  /*#chat-actions .dive-deeper-button {*/
+  /*  display: flex;*/
+  /*  align-items: center;*/
+  /*  justify-content: center;*/
+  /*  background: #535aa4;*/
+  /*  border-radius: 5px;*/
+  /*  color: #fff;*/
+  /*  cursor: pointer;*/
+  /*  font-size: 16px;*/
+  /*  font-weight: 600;*/
+  /*  padding: 8px 20px;*/
+  /*  gap: 8px;*/
+  /*  border: none;*/
+  /*  outline: none;*/
+  /*  box-shadow: none;*/
+  /*}*/
 
-  #chat-actions .dive-deeper-button:hover {
-    background: #130944;
-  }
+  /*#chat-actions .dive-deeper-button:hover {*/
+  /*  background: #130944;*/
+  /*}*/
 
   /*#chat-actions .dive-deeper-button :global(svg) {*/
   /*  width: 20px !important;*/
