@@ -183,6 +183,8 @@
   }
 
   .chat-header .chat-close :global(svg) {
+    width: 16px;
+    height: 16px;
     display: block;
   }
 
