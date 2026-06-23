@@ -16,6 +16,15 @@
     alternateLanguageUrl?: string;
   } = $props();
 
+  const UI_TEXT = {
+    en: {
+      diveDeeper: 'Dive deeper with GeoChat',
+    },
+    fr: {
+      diveDeeper: 'Approfondissez avec GéoChat',
+    },
+  } as const;
+
   let chatbotPanel = $state<HTMLDivElement | undefined>(undefined);
 
   let isOpen = $state(false);
@@ -37,6 +46,10 @@
     if (chatbotPanel) {
       chatbotPanel.removeAttribute('style');
     }
+  }
+
+  function openFullGeoChat() {
+    window.location.href = lang === 'fr' ? '/fr-ca/geochat' : '/en-ca/geochat';
   }
 
   $effect(() => {
@@ -95,7 +108,14 @@
         </button>
       </div>
     </div>
-    <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={true} />
+    <ChatPanel {lang} {alternateLanguageUrl}>
+      <div slot="actions" id="chat-actions">
+        <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>
+          <ChatBubbleIcon />
+          {UI_TEXT[lang].diveDeeper}
+        </button>
+      </div>
+    </ChatPanel>
   </div>
 {/if}
 

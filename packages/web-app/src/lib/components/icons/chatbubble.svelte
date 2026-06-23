@@ -18,6 +18,7 @@
   does not consistently apply Tailwind SVG sizing classes (e.g. h-4/w-4)
   in the bundled widget, which can cause the icon to render at 0×0 or
   incorrect sizes.
+  Example: <ChatBubbleIcon width={16} height={16} />
 -->
 <svg class={`chat-bubble-icon ${classes}`} {width} {height} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
   <path
