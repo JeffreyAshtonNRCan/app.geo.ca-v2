@@ -26,3 +26,7 @@ export function getWordPressLang() {
     alternateLanguageUrl,
   };
 }
+
+export function getWordPressConfig() {
+  return (window as any).GeoChatConfig;
+}
