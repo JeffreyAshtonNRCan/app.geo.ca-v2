@@ -1,14 +1,15 @@
 // src/lib/geochat/api/chat-api.ts
 
-const CHAT_API_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chat';
+import { getGeoChatConfig } from '$lib/geochat/geochat-config';
 
-const CHAT_HISTORY_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chathistory';
+// const CHAT_API_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chat';
+//
+// const CHAT_HISTORY_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chathistory';
 
-export async function sendChatMessage(
-    sessionId: string,
-    message: string,
-    lang: string
-) {
+// const { chatApiUrl: CHAT_API_URL, chatHistoryUrl: CHAT_HISTORY_URL } = getGeoChatConfig();
+
+export async function sendChatMessage(sessionId: string, message: string, lang: string) {
+  const { chatApiUrl: CHAT_API_URL } = getGeoChatConfig();
   const response = await fetch(CHAT_API_URL, {
     method: 'POST',
     headers: {
@@ -34,6 +35,7 @@ export async function loadChatHistory(sessionId: string, limit = 25) {
     limit: String(limit),
   });
 
+  const { chatHistoryUrl: CHAT_HISTORY_URL } = getGeoChatConfig();
   const response = await fetch(`${CHAT_HISTORY_URL}?${params}`);
 
   if (!response.ok) {
