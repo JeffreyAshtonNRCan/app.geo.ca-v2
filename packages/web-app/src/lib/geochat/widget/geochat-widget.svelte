@@ -51,7 +51,7 @@
 
 <div id="chatbot-widget">
   <!-- launcher -->
-  <button id="chatbot-toggle" class="font-custom-style-button-1 bg-custom-16" onclick={toggleChat}>
+  <button id="chatbot-toggle" class="font-custom-style-button-1" onclick={toggleChat}>
     <ChatBubbleIcon classes="h-4 md:h-5" />
     <span class="label">
       {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
@@ -105,12 +105,11 @@
     CHAT WIDGET
     ========================= */
   #chatbot-widget {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
     z-index: 10020;
   }
 
+  /*  Background color is defined here because the standalone WordPress build does
+  not always generate custom Tailwind utility classes */
   #chatbot-toggle {
     position: fixed;
     right: 20px;
@@ -126,12 +125,11 @@
     border: 0;
 
     color: #fff;
+    background: #5859a2;
     cursor: pointer;
 
     white-space: nowrap;
-  }
 
-  #chatbot-toggle {
     transition: background 0.2s ease;
   }
 
