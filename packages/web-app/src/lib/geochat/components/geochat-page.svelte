@@ -55,6 +55,16 @@
     overflow: hidden;
   }
 
+  .chat-panel :global(#chat-log-wrapper) {
+    flex: 1;
+    margin: 0;
+    border: none;
+  }
+
+  .chat-panel :global(#chat-log) {
+    height: 100%;
+  }
+
   .history,
   .records {
     border: 1px solid #ddd;
