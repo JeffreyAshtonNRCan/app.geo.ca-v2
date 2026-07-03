@@ -23,20 +23,19 @@
 <style>
   .geochat-page {
     display: grid;
-    grid-template-columns: 320px minmax(0, 1fr) 380px;
+    grid-template-columns: 320px 1fr 380px;
     gap: 1rem;
 
-    width: 100%;
-    min-width: 0;
-
     height: calc(100vh - 180px);
+
+    align-items: stretch;
   }
 
   .history,
   .chat,
   .records {
-    min-width: 0;
     min-height: 0;
+    height: 100%;
   }
 
   .chat {
@@ -55,12 +54,6 @@
 
     overflow: hidden;
   }
-
-  /*.chat-panel > * {*/
-  /*  flex: 1 1 auto;*/
-  /*  min-width: 0;*/
-  /*  min-height: 0;*/
-  /*}*/
 
   .history,
   .records {
