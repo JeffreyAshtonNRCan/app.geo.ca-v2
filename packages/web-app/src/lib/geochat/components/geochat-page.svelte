@@ -46,6 +46,8 @@
 
   .chat-panel {
     display: flex;
+    flex-direction: column;
+
     flex: 1 1 auto;
 
     min-width: 0;
@@ -54,11 +56,11 @@
     overflow: hidden;
   }
 
-  .chat-panel > * {
-    flex: 1 1 auto;
-    min-width: 0;
-    min-height: 0;
-  }
+  /*.chat-panel > * {*/
+  /*  flex: 1 1 auto;*/
+  /*  min-width: 0;*/
+  /*  min-height: 0;*/
+  /*}*/
 
   .history,
   .records {
