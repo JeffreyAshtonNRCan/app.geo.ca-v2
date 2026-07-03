@@ -62,7 +62,7 @@
   }
 
   .chat-panel :global(#chat-log) {
-    height: 100%;
+    padding: 12px 10px 10px;
   }
 
   .history,
