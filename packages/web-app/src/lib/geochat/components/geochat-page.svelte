@@ -1,12 +1,12 @@
 <script lang="ts">
-  import ChatHistoryPanel from '$lib/geochat/components/chat-history.svelte';
+  import HistoryPanelPanel from '$lib/geochat/components/history-panel.svelte';
   import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
   import RecordsPanel from '$lib/geochat/components/records-panel.svelte';
 </script>
 
 <div class="geochat-page">
   <aside class="history">
-    <ChatHistoryPanel />
+    <HistoryPanelPanel />
   </aside>
 
   <main class="chat">
