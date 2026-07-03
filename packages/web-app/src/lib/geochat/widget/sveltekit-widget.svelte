@@ -29,4 +29,7 @@
   });
 </script>
 
-<GeoChatWidget {lang} {alternateLanguageUrl} />
+// no widget for full page chat
+{#if !page.url.pathname.endsWith('/geochat')}
+  <GeoChatWidget {lang} {alternateLanguageUrl} />
+{/if}
