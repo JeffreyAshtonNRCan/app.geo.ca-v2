@@ -5,18 +5,34 @@
 </script>
 
 <div class="geochat-page">
-  <aside class="history">
-    <HistoryPanel />
+  <aside class="panel history">
+    <div class="panel-header">
+      <h2>History</h2>
+    </div>
+
+    <div class="panel-body">
+      <HistoryPanel />
+    </div>
   </aside>
 
-  <div class="chat">
-    <div class="chat-panel">
+  <section class="panel chat">
+    <div class="panel-header">
+      <h2>GeoChat</h2>
+    </div>
+
+    <div class="panel-body chat-panel">
       <ChatPanel />
     </div>
-  </div>
+  </section>
 
-  <aside class="records">
-    <RecordsPanel />
+  <aside class="panel records">
+    <div class="panel-header">
+      <h2>Records &amp; Map</h2>
+    </div>
+
+    <div class="panel-body">
+      <RecordsPanel />
+    </div>
   </aside>
 </div>
 
@@ -25,55 +41,51 @@
     display: grid;
     grid-template-columns: 320px 1fr 380px;
     gap: 1rem;
-
     height: calc(100vh - 180px);
-
     align-items: stretch;
   }
 
-  .history,
-  .chat,
-  .records {
+  .panel {
+    display: flex;
+    flex-direction: column;
     min-height: 0;
-    height: 100%;
+    border: 1px solid #ddd;
+    background: #fff;
   }
 
-  .chat {
+  .panel-header {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  .panel-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .panel-body {
+    flex: 1;
+    min-height: 0;
     display: flex;
-    width: 100%;
+    flex-direction: column;
   }
 
   .chat-panel {
-    display: flex;
-    flex-direction: column;
-
-    flex: 1 1 auto;
-
     min-width: 0;
-    min-height: 0;
-
     overflow: hidden;
   }
 
   .chat-panel :global(#chat-log-wrapper) {
     flex: 1;
-    margin: 0;
+    overflow-y: auto;
+    margin: 0 0 8px;
     border: none;
   }
 
   .chat-panel :global(#chat-log) {
     padding: 12px 10px 10px;
-  }
-
-  .chat-panel :global(#chat-log-wrapper) {
-    flex: 1;
-    overflow-y: auto;
-    margin: 0 0 8px 0;
-    border: none;
-  }
-
-  .history,
-  .records {
-    border: 1px solid #ddd;
   }
 </style>
