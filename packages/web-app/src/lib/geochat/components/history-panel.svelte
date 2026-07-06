@@ -17,12 +17,6 @@
     flex-direction: column;
   }
 
-  h3 {
-    margin: 0;
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-  }
-
   .history-list {
     padding: 1rem;
   }

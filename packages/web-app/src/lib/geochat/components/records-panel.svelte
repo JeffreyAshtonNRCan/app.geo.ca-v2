@@ -13,12 +13,6 @@
     min-height: 0;
   }
 
-  h3 {
-    margin: 0;
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-  }
-
   .records-panel {
     display: flex;
     flex-direction: column;
