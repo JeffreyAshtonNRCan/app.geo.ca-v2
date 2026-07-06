@@ -2,14 +2,6 @@
   import HistoryPanel from '$lib/geochat/components/history-panel.svelte';
   import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
   import RecordsPanel from '$lib/geochat/components/records-panel.svelte';
-
-  import { onMount } from 'svelte';
-
-  onMount(() => {
-    console.log('GeoChat page mounted');
-  });
-
-  console.log('GeoChat page rendered');
 </script>
 
 <div class="geochat-page">
