@@ -128,4 +128,8 @@
   .chat-panel :global(#chat-log) {
     padding: 0 10px;
   }
+
+  .chat-panel :global(.chat-input) {
+    margin-top: 8px;
+  }
 </style>
