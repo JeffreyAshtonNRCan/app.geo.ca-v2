@@ -53,28 +53,30 @@
     min-height: 0;
   }
 
-  .history,
-  .records {
-    background: #f5f5f5;
-  }
-
   .panel-header {
+    background: #fff;
     padding: 1rem;
     border-bottom: 1px solid #ddd;
     text-align: center;
-    font-size: 1.25rem;
-    font-weight: 600;
   }
 
   .panel-body {
     flex: 1;
     min-height: 0;
-    padding: 1rem;
+  }
+
+  .history .panel-body,
+  .records .panel-body {
+    background: #f5f5f5;
   }
 
   .history :global(.history-list),
   .records :global(.records-list),
   .records :global(.map) {
+    background: #fff;
+  }
+
+  .chat .panel-body {
     background: #fff;
   }
 
