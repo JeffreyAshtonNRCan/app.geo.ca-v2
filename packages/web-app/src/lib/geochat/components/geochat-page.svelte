@@ -10,7 +10,7 @@
       <h2>History</h2>
     </div>
 
-    <div class="panel-body">
+    <div class="panel-content">
       <HistoryPanel />
     </div>
   </aside>
@@ -20,7 +20,7 @@
       <h2>GeoChat</h2>
     </div>
 
-    <div class="panel-body chat-panel">
+    <div class="panel-content chat-panel">
       <ChatPanel />
     </div>
   </section>
@@ -30,7 +30,7 @@
       <h2>Records &amp; Map</h2>
     </div>
 
-    <div class="panel-body">
+    <div class="panel-content">
       <RecordsPanel />
     </div>
   </aside>
@@ -60,13 +60,16 @@
     text-align: center;
   }
 
-  .panel-body {
+  .panel-content {
     flex: 1;
     min-height: 0;
+
+    display: flex;
+    flex-direction: column;
   }
 
-  .history .panel-body,
-  .records .panel-body {
+  .history .panel-content,
+  .records .panel-content {
     background: #f5f5f5;
   }
 
@@ -76,12 +79,16 @@
     background: #fff;
   }
 
-  .chat .panel-body {
+  .chat .panel-content {
     background: #fff;
   }
 
   .chat-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     min-width: 0;
+    min-height: 0;
     overflow: hidden;
   }
 
