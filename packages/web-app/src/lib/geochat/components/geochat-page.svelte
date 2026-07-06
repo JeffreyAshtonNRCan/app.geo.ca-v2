@@ -5,15 +5,17 @@
 </script>
 
 <div class="geochat-page">
-  <aside class="panel history">
+  <div class="panel history">
     <div class="panel-header">
       <h2>History</h2>
     </div>
 
-    <div class="panel-content">
-      <HistoryPanel />
+    <div class="panel-body">
+      <div class="panel-content">
+        <HistoryPanel />
+      </div>
     </div>
-  </aside>
+  </div>
 
   <section class="panel chat">
     <div class="panel-header">
@@ -25,15 +27,17 @@
     </div>
   </section>
 
-  <aside class="panel records">
+  <div class="panel records">
     <div class="panel-header">
       <h2>Records &amp; Map</h2>
     </div>
 
-    <div class="panel-content">
-      <RecordsPanel />
+    <div class="panel-body">
+      <div class="panel-content">
+        <RecordsPanel />
+      </div>
     </div>
-  </aside>
+  </div>
 </div>
 
 <style>
@@ -59,12 +63,17 @@
     text-align: center;
   }
 
-  .panel-content {
+  .panel-body {
     flex: 1;
     min-height: 0;
+    background: #f5f5f5;
+    padding: 1rem;
+  }
 
-    display: flex;
-    flex-direction: column;
+  .panel-content {
+    height: 100%;
+    min-height: 0;
+    background: #fff;
   }
 
   .history .panel-content,
