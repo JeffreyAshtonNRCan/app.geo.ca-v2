@@ -65,6 +65,13 @@
     padding: 12px 10px 10px;
   }
 
+  .chat-panel :global(#chat-log-wrapper) {
+    flex: 1;
+    overflow-y: auto;
+    margin: 0 0 8px 0;
+    border: none;
+  }
+
   .history,
   .records {
     border: 1px solid #ddd;
