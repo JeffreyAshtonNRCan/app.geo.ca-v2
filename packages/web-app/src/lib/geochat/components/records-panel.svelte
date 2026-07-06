@@ -1,6 +1,4 @@
 <div class="records-panel">
-  <h3>Records & Map</h3>
-
   <div class="records-body">
     <div class="records-list">Supporting records will appear here.</div>
 

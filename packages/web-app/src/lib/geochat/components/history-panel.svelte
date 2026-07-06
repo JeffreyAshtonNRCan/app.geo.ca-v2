@@ -1,5 +1,3 @@
-<h3>History</h3>
-
 <div class="history-list">
   <div>+ New Chat</div>
 
