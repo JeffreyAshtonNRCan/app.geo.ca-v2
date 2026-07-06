@@ -87,6 +87,7 @@
 
   .chat .panel-body {
     background: #fff;
+    padding: 1rem 1rem 0;
   }
 
   .panel-content {
