@@ -48,29 +48,34 @@
   .panel {
     display: flex;
     flex-direction: column;
-    min-height: 0;
     border: 1px solid #ddd;
     background: #fff;
+    min-height: 0;
+  }
+
+  .history,
+  .records {
+    background: #f5f5f5;
   }
 
   .panel-header {
     padding: 1rem;
     border-bottom: 1px solid #ddd;
     text-align: center;
-  }
-
-  .panel-header h2 {
-    margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    line-height: 1.2;
   }
 
   .panel-body {
     flex: 1;
     min-height: 0;
-    display: flex;
-    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .history :global(.history-list),
+  .records :global(.records-list),
+  .records :global(.map) {
+    background: #fff;
   }
 
   .chat-panel {
