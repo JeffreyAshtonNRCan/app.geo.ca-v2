@@ -45,10 +45,19 @@
 <style>
   .geochat-page {
     display: grid;
-    grid-template-columns: 320px 1fr 380px;
+    grid-template-columns:
+      minmax(220px, 1fr)
+      minmax(0, 2fr)
+      minmax(0, 2fr);
     gap: 1rem;
     height: calc(100vh - 180px);
     align-items: stretch;
+  }
+
+  .history,
+  .chat,
+  .records {
+    min-width: 0;
   }
 
   .panel {
