@@ -129,7 +129,14 @@
     padding: 0 10px;
   }
 
-  .chat-panel :global(.chat-input) {
+  /*.chat-panel :global(.chat-input) {*/
+  /*  margin-top: 8px;*/
+  /*}*/
+  .chat-panel :global(#chat-input) {
     margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
   }
 </style>
