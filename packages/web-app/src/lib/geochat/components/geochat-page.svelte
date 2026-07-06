@@ -80,13 +80,11 @@
     padding: 1rem;
   }
 
-  /* History & Records */
   .history .panel-body,
   .records .panel-body {
     background: #f5f5f5;
   }
 
-  /* Chat */
   .chat .panel-body {
     background: #fff;
   }
@@ -97,12 +95,6 @@
     display: flex;
     flex-direction: column;
     background: #fff;
-  }
-
-  .chat-panel {
-    min-width: 0;
-    min-height: 0;
-    overflow: hidden;
   }
 
   /* Chat stays white with no inset wrapper */
