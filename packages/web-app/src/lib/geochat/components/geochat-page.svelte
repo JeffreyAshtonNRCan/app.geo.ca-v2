@@ -96,7 +96,7 @@
 
   .chat .panel-body {
     background: #fff;
-    padding: 1rem 1rem 0;
+    padding: 0 1rem 0;
   }
 
   .panel-content {
@@ -111,6 +111,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
+    padding-top: 1rem;
     min-width: 0;
     min-height: 0;
     overflow: hidden;
