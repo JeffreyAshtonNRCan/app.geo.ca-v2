@@ -63,31 +63,44 @@
     text-align: center;
   }
 
+  .panel-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
   .panel-body {
     flex: 1;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* History & Records have gray body with inset white content */
+  .history .panel-body,
+  .records .panel-body {
     background: #f5f5f5;
     padding: 1rem;
   }
 
   .panel-content {
-    height: 100%;
+    flex: 1;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
     background: #fff;
   }
 
-  .history .panel-content,
-  .records .panel-content {
-    background: #f5f5f5;
-  }
-
-  .history :global(.history-list),
-  .records :global(.records-list),
-  .records :global(.map) {
+  /* Chat stays white with no inset wrapper */
+  .chat .panel-body {
     background: #fff;
+    padding: 0;
   }
 
   .chat .panel-content {
+    flex: 1;
+    min-height: 0;
     background: #fff;
   }
 
