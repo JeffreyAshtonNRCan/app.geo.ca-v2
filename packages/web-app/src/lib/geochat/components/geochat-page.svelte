@@ -97,12 +97,6 @@
     background: #fff;
   }
 
-  /* Chat stays white with no inset wrapper */
-  .chat .panel-body {
-    background: #fff;
-    padding: 0;
-  }
-
   .chat .panel-content {
     flex: 1;
     min-height: 0;
@@ -122,7 +116,7 @@
     flex: 1;
     overflow-y: auto;
     margin: 0 0 8px;
-    border: none;
+    /*border: none;*/
   }
 
   .chat-panel :global(#chat-log) {
