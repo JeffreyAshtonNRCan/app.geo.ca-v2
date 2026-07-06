@@ -126,6 +126,6 @@
   }
 
   .chat-panel :global(#chat-log) {
-    padding-bottom: 8px;
+    padding: 0 10px 8px;
   }
 </style>
