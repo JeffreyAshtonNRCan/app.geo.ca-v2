@@ -107,19 +107,14 @@
     background: #fff;
   }
 
-  .chat .panel-content {
-    flex: 1;
-    min-height: 0;
-    background: #fff;
-  }
-
   .chat-panel {
     display: flex;
-    flex-direction: column;
     flex: 1;
+    flex-direction: column;
     min-width: 0;
     min-height: 0;
     overflow: hidden;
+    background: #fff;
   }
 
   .chat-panel :global(#chat-log-wrapper) {
@@ -131,6 +126,6 @@
   }
 
   .chat-panel :global(#chat-log) {
-    padding-bottom: 4px;
+    padding-bottom: 8px;
   }
 </style>
