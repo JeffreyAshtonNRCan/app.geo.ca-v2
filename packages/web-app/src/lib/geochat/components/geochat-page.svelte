@@ -56,7 +56,6 @@
   .panel-header {
     background: #fff;
     padding: 1rem;
-    border-bottom: 1px solid #ddd;
     text-align: center;
   }
 
