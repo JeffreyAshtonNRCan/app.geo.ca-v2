@@ -111,7 +111,6 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    padding-top: 1rem;
     min-width: 0;
     min-height: 0;
     overflow: hidden;
