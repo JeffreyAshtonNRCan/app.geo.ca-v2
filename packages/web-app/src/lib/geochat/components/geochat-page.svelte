@@ -120,7 +120,7 @@
   .chat-panel :global(#chat-log-wrapper) {
     flex: 1;
     overflow-y: auto;
-    margin: 0;
+    margin: 0 0 8px;
     border: 1px solid #ddd;
     background: #fff;
   }
@@ -133,6 +133,6 @@
   /*  margin-top: 8px;*/
   /*}*/
   .chat-panel :global(#chat-input) {
-    margin-top: 8px;
+    margin-top: 0;
   }
 </style>
