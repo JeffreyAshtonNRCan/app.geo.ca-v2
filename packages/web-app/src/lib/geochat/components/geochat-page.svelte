@@ -120,12 +120,12 @@
   .chat-panel :global(#chat-log-wrapper) {
     flex: 1;
     overflow-y: auto;
-    margin: 0;
+    margin: 0 0 8px;
     border: 1px solid #ddd;
     background: #fff;
   }
 
   .chat-panel :global(#chat-log) {
-    padding: 0 10px 8px;
+    padding: 0 10px;
   }
 </style>
