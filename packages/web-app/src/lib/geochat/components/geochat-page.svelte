@@ -22,8 +22,10 @@
       <h2>GeoChat</h2>
     </div>
 
-    <div class="panel-content chat-panel">
-      <ChatPanel />
+    <div class="panel-body">
+      <div class="panel-content chat-panel">
+        <ChatPanel />
+      </div>
     </div>
   </section>
 
@@ -75,13 +77,18 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
+    padding: 1rem;
   }
 
-  /* History & Records have gray body with inset white content */
+  /* History & Records */
   .history .panel-body,
   .records .panel-body {
     background: #f5f5f5;
-    padding: 1rem;
+  }
+
+  /* Chat */
+  .chat .panel-body {
+    background: #fff;
   }
 
   .panel-content {
@@ -90,6 +97,12 @@
     display: flex;
     flex-direction: column;
     background: #fff;
+  }
+
+  .chat-panel {
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
   }
 
   /* Chat stays white with no inset wrapper */
