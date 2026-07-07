@@ -1,7 +1,22 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   import HistoryPanel from '$lib/geochat/components/history-panel.svelte';
   import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
   import RecordsPanel from '$lib/geochat/components/records-panel.svelte';
+  import { chatStore } from '$lib/geochat/stores/chat-store';
+
+  let {
+    lang = 'en',
+  }: {
+    lang?: 'en' | 'fr';
+  } = $props();
+
+  onMount(() => {
+    if (!$chatStore.initialized) {
+      chatStore.initializeChat(lang);
+    }
+  });
 </script>
 
 <div class="geochat-page">
