@@ -24,7 +24,7 @@
   function toggleChat() {
     isOpen = !isOpen;
 
-    if (isOpen && !$chatStore.initialized) {
+    if (isOpen) {
       chatStore.initializeChat(lang);
     }
   }
