@@ -1,6 +1,6 @@
 // src/lib/geochat/stores/chat-stores.ts
 
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 import { sendChatMessage, loadChatHistory } from '$lib/geochat/api/chat-api';
 
@@ -47,7 +47,9 @@ function createChatStore() {
     initialized: false,
   };
 
-  const { subscribe, update, set } = writable(initialState);
+  const store = writable(initialState);
+
+  const { subscribe, update, set } = store;
 
   const WELCOME_MESSAGE = 'welcome message';
   const ERROR_MESSAGE = {
@@ -121,10 +123,7 @@ function createChatStore() {
   // Send Message
   // ==========================
 
-  async function sendMessage(
-      message: string,
-      lang: string
-  ){
+  async function sendMessage(message: string, lang: string) {
     const trimmed = message.trim();
 
     if (!trimmed) return;
@@ -135,8 +134,8 @@ function createChatStore() {
     update((state) => ({
       ...state,
       messages: isWelcomeMessage
-          ? state.messages
-          : [
+        ? state.messages
+        : [
             ...state.messages,
             {
               role: 'user',
@@ -147,13 +146,9 @@ function createChatStore() {
     }));
 
     try {
-      const data = await sendChatMessage(
-          SESSION_ID,
-          trimmed,
-          lang,
-      );
+      const data = await sendChatMessage(SESSION_ID, trimmed, lang);
 
-      console.log ('data=', data);
+      console.log('data=', data);
 
       // prefer markdown response, fall back to plain text
       // const responseText = data.answer_markdown ?? data.answer ?? '';
@@ -210,6 +205,9 @@ function createChatStore() {
   // ==========================
 
   async function initializeChat(lang: string) {
+    if (get(store).initialized) {
+      return;
+    }
     update((state) => ({
       ...state,
       isThinking: true,
@@ -219,7 +217,7 @@ function createChatStore() {
       if (checkSession()) {
         const data = await loadChatHistory(SESSION_ID);
 
-        console.log ('history data=', data);
+        console.log('history data=', data);
 
         const historyMessages: ChatMessage[] = [];
 

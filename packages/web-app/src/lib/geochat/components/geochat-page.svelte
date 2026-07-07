@@ -13,9 +13,7 @@
   } = $props();
 
   onMount(() => {
-    if (!$chatStore.initialized) {
-      chatStore.initializeChat(lang);
-    }
+    chatStore.initializeChat(lang);
   });
 </script>
 
