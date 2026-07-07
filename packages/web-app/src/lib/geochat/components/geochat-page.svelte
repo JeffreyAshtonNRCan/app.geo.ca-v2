@@ -12,8 +12,14 @@
     lang?: 'en' | 'fr';
   } = $props();
 
+  console.log('lang=', lang);
+
   onMount(() => {
+    console.log('GeoChatPage mounted');
+    console.log('initialized =', $chatStore.initialized);
+
     if (!$chatStore.initialized) {
+      console.log('calling initializeChat');
       chatStore.initializeChat(lang);
     }
   });
