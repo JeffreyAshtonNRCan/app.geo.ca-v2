@@ -5,37 +5,40 @@
 </script>
 
 <div class="geochat-page">
-  <div class="panel panel-history">
+  <!-- History -->
+  <aside class="panel panel-history">
     <div class="panel-header">
       <h2>History</h2>
     </div>
 
-    <div class="panel-content">
+    <div class="panel-body">
       <HistoryPanel />
     </div>
-  </div>
+  </aside>
 
+  <!-- Chat -->
   <section class="panel panel-chat">
     <div class="panel-header">
       <h2>GeoChat</h2>
     </div>
 
-    <div class="panel-content">
+    <div class="panel-body">
       <div class="chat-container">
         <ChatPanel />
       </div>
     </div>
   </section>
 
-  <div class="panel panel-records">
+  <!-- Records -->
+  <aside class="panel panel-records">
     <div class="panel-header">
       <h2>Records &amp; Map</h2>
     </div>
 
-    <div class="panel-content">
+    <div class="panel-body">
       <RecordsPanel />
     </div>
-  </div>
+  </aside>
 </div>
 
 <style>
@@ -55,6 +58,7 @@
     flex-direction: column;
     min-width: 0;
     min-height: 0;
+
     border: 1px solid #ddd;
     background: #fff;
   }
@@ -72,7 +76,7 @@
     line-height: 1.2;
   }
 
-  .panel-content {
+  .panel-body {
     flex: 1;
     min-height: 0;
     display: flex;
@@ -80,35 +84,44 @@
     padding: 1rem;
   }
 
-  .panel-history .panel-content,
-  .panel-records .panel-content {
+  /* History & Records keep grey background */
+  .panel-history .panel-body,
+  .panel-records .panel-body {
     background: #f5f5f5;
   }
 
-  .panel-chat .panel-content {
-    padding: 0 1rem;
+  /* Chat is white and flush at the top */
+  .panel-chat .panel-body {
     background: #fff;
+    padding: 0 1rem;
   }
 
   .chat-container {
     flex: 1;
-    min-width: 0;
     min-height: 0;
+
     display: flex;
     flex-direction: column;
+
     overflow: hidden;
     background: #fff;
   }
 
+  /* ChatPanel overrides */
+
   .chat-container :global(#chat-log-wrapper) {
     flex: 1;
     overflow-y: auto;
-    margin-bottom: 8px;
+
     border: 1px solid #ddd;
     background: #fff;
   }
 
   .chat-container :global(#chat-log) {
     padding: 0 10px;
+  }
+
+  .chat-container :global(#chat-input) {
+    margin-top: 8px;
   }
 </style>
