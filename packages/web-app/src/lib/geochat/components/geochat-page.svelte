@@ -5,40 +5,41 @@
 </script>
 
 <div class="geochat-page">
-  <!-- History -->
-  <aside class="panel panel-history">
+  <div class="panel history">
     <div class="panel-header">
       <h2>History</h2>
     </div>
 
     <div class="panel-body">
-      <HistoryPanel />
+      <div class="panel-content">
+        <HistoryPanel />
+      </div>
     </div>
-  </aside>
+  </div>
 
-  <!-- Chat -->
-  <section class="panel panel-chat">
+  <section class="panel chat">
     <div class="panel-header">
       <h2>GeoChat</h2>
     </div>
 
     <div class="panel-body">
-      <div class="chat-container">
+      <div class="panel-content chat-panel">
         <ChatPanel />
       </div>
     </div>
   </section>
 
-  <!-- Records -->
-  <aside class="panel panel-records">
+  <div class="panel records">
     <div class="panel-header">
       <h2>Records &amp; Map</h2>
     </div>
 
     <div class="panel-body">
-      <RecordsPanel />
+      <div class="panel-content">
+        <RecordsPanel />
+      </div>
     </div>
-  </aside>
+  </div>
 </div>
 
 <style>
@@ -53,20 +54,24 @@
     align-items: stretch;
   }
 
+  .history,
+  .chat,
+  .records {
+    min-width: 0;
+  }
+
   .panel {
     display: flex;
     flex-direction: column;
-    min-width: 0;
-    min-height: 0;
-
     border: 1px solid #ddd;
     background: #fff;
+    min-height: 0;
   }
 
   .panel-header {
+    background: #fff;
     padding: 1rem;
     text-align: center;
-    background: #fff;
   }
 
   .panel-header h2 {
@@ -84,44 +89,50 @@
     padding: 1rem;
   }
 
-  /* History & Records keep grey background */
-  .panel-history .panel-body,
-  .panel-records .panel-body {
+  .history .panel-body,
+  .records .panel-body {
     background: #f5f5f5;
   }
 
-  /* Chat is white and flush at the top */
-  .panel-chat .panel-body {
+  .chat .panel-body {
     background: #fff;
-    padding: 0 1rem;
+    padding: 0 1rem 0;
   }
 
-  .chat-container {
+  .panel-content {
     flex: 1;
     min-height: 0;
-
     display: flex;
     flex-direction: column;
+    background: #fff;
+  }
 
+  .chat-panel {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
     overflow: hidden;
     background: #fff;
   }
 
-  /* ChatPanel overrides */
-
-  .chat-container :global(#chat-log-wrapper) {
+  .chat-panel :global(#chat-log-wrapper) {
     flex: 1;
     overflow-y: auto;
-
+    margin: 0 0 8px;
     border: 1px solid #ddd;
     background: #fff;
   }
 
-  .chat-container :global(#chat-log) {
+  .chat-panel :global(#chat-log) {
     padding: 0 10px;
   }
 
-  .chat-container :global(#chat-input) {
-    margin-top: 8px;
+  /*.chat-panel :global(.chat-input) {*/
+  /*  margin-top: 8px;*/
+  /*}*/
+  .chat-panel :global(#chat-input) {
+    margin-top: 0;
   }
 </style>
