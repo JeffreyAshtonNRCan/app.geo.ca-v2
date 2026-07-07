@@ -135,4 +135,8 @@
   .chat-layout :global(#chat-input) {
     margin-top: 0;
   }
+
+  .chat-layout :global(#chat-log) {
+    padding: 10px 10px 8px;
+  }
 </style>
