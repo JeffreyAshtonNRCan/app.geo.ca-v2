@@ -1,6 +1,6 @@
 <script lang="ts">
   import HistoryPanel from '$lib/geochat/components/history-panel.svelte';
-  import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
+  import ChatPanel from '$lib/geochat/components/chat-layout.svelte';
   import RecordsPanel from '$lib/geochat/components/records-panel.svelte';
 </script>
 
@@ -23,7 +23,7 @@
     </div>
 
     <div class="panel-body">
-      <div class="panel-content chat-panel">
+      <div class="panel-content chat-layout">
         <ChatPanel />
       </div>
     </div>
@@ -107,7 +107,7 @@
     background: #fff;
   }
 
-  .chat-panel {
+  .chat-layout {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -117,7 +117,7 @@
     background: #fff;
   }
 
-  .chat-panel :global(#chat-log-wrapper) {
+  .chat-layout :global(#chat-log-wrapper) {
     flex: 1;
     overflow-y: auto;
     margin: 0 0 8px;
@@ -125,14 +125,14 @@
     background: #fff;
   }
 
-  .chat-panel :global(#chat-log) {
+  .chat-layout :global(#chat-log) {
     padding: 0 10px;
   }
 
-  /*.chat-panel :global(.chat-input) {*/
+  /*.chat-layout :global(.chat-input) {*/
   /*  margin-top: 8px;*/
   /*}*/
-  .chat-panel :global(#chat-input) {
+  .chat-layout :global(#chat-input) {
     margin-top: 0;
   }
 </style>
