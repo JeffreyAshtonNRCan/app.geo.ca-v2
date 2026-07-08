@@ -4,8 +4,9 @@
   import GeoChatWidget from '../widget/geochat-widget.svelte';
   import { setGeoChatConfig } from '$lib/geochat/geochat-config';
 
-  const lang = $derived(page.params.lang ?? 'en-ca');
+  const locale = $derived(page.params.lang ?? 'en-ca');
 
+  const lang = $derived(locale.startsWith('fr') ? 'fr' : 'en');
   const alternateLanguageUrl = $derived.by(() => {
     const pathname =
       page.params.lang === 'fr-ca' ? page.url.pathname.replace('/fr-ca/', '/en-ca/') : page.url.pathname.replace('/en-ca/', '/fr-ca/');
@@ -18,7 +19,7 @@
     console.log('lang =', lang);
     console.log('goto =', `/${lang}/geochat`);
 
-    goto(`/${lang}/geochat`);
+    goto(`/${locale}/geochat`);
   }
 
   // TODO: Replace hardcoded URLs with environment variables.
