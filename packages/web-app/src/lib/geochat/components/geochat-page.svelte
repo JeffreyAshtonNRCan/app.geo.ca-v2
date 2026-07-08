@@ -8,8 +8,10 @@
 
   let {
     lang = 'en',
+    alternateLanguageUrl = '',
   }: {
     lang?: 'en' | 'fr';
+    alternateLanguageUrl?: string;
   } = $props();
 
   onMount(() => {
@@ -37,7 +39,7 @@
 
     <div class="panel-body">
       <div class="panel-content chat-layout">
-        <ChatPanel />
+        <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} />
       </div>
     </div>
   </section>

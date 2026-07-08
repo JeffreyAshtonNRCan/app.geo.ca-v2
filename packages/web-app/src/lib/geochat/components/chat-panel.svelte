@@ -9,10 +9,12 @@
     lang = 'en',
     alternateLanguageUrl = '',
     showDiveDeeper = false,
+    onDiveDeeper,
   }: {
     lang?: 'en' | 'fr';
     alternateLanguageUrl?: string;
     showDiveDeeper?: boolean;
+    onDiveDeeper?: () => void;
   } = $props();
 
   let message = $state('');
@@ -27,18 +29,6 @@
     },
   } as const;
 
-  // const alternateLanguageUrl = $derived.by(() => {
-  //   const pathname =
-  //     page.params.lang === 'fr-ca'
-  //             ? page.url.pathname.replace('/fr-ca/', '/en-ca/')
-  //             : page.url.pathname.replace('/en-ca/', '/fr-ca/');
-  //
-  //   return `${pathname}${page.url.search}${page.url.hash}`;
-  // });
-
-  function openFullGeoChat() {
-    window.location.href = lang === 'fr' ? '/fr-ca/geochat' : '/en-ca/geochat';
-  }
   async function handleSend() {
     const text = message;
 
@@ -186,7 +176,7 @@
 
 {#if showDiveDeeper}
   <div id="chat-actions">
-    <button class="dive-deeper-button" onclick={openFullGeoChat} disabled>
+    <button class="dive-deeper-button" onclick={onDiveDeeper}>
       <ChatBubbleIcon classes="h-4 w-4 md:h-5 md:w-5" />
       {UI_TEXT[lang].diveDeeper}
     </button>

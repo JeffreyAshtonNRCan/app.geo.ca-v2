@@ -11,9 +11,11 @@
   let {
     lang = 'en',
     alternateLanguageUrl = '',
+    onDiveDeeper,
   }: {
     lang?: 'en' | 'fr';
     alternateLanguageUrl?: string;
+    onDiveDeeper?: () => void;
   } = $props();
 
   let chatbotPanel = $state<HTMLDivElement | undefined>(undefined);
@@ -95,7 +97,7 @@
         </button>
       </div>
     </div>
-    <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={true} />
+    <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={true} {onDiveDeeper} />
   </div>
 {/if}
 
