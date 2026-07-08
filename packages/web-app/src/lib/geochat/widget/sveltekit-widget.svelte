@@ -4,7 +4,7 @@
   import GeoChatWidget from '../widget/geochat-widget.svelte';
   import { setGeoChatConfig } from '$lib/geochat/geochat-config';
 
-  const lang = $derived(page.params.lang?.startsWith('fr') ? 'fr' : 'en');
+  const lang = $derived(page.params.lang ?? 'en-ca');
 
   const alternateLanguageUrl = $derived.by(() => {
     const pathname =
@@ -14,6 +14,10 @@
   });
 
   function handleDiveDeeper() {
+    console.log('page.params.lang =', page.params.lang);
+    console.log('lang =', lang);
+    console.log('goto =', `/${lang}/geochat`);
+
     goto(`/${lang}/geochat`);
   }
 
