@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import GeoChatWidget from '../widget/geochat-widget.svelte';
   import { setGeoChatConfig } from '$lib/geochat/geochat-config';
@@ -11,6 +12,10 @@
 
     return `${pathname}${page.url.search}${page.url.hash}`;
   });
+
+  function handleDiveDeeper() {
+    goto(`/${lang}/geochat`);
+  }
 
   // TODO: Replace hardcoded URLs with environment variables.
   // WordPress supplies these via plugin settings.
@@ -31,5 +36,5 @@
 
 // no widget for full page chat
 {#if !page.url.pathname.endsWith('/geochat')}
-  <GeoChatWidget {lang} {alternateLanguageUrl} />
+  <GeoChatWidget {lang} {alternateLanguageUrl} onDiveDeeper={handleDiveDeeper} />
 {/if}
