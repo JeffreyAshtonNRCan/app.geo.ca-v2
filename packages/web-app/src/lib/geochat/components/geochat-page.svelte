@@ -26,7 +26,7 @@
 <div class="geochat-page px-5 md:px-0">
   <div class="panel history">
     <div class="panel-header">
-      <h2>History</h2>
+      <h2>Chat History</h2>
     </div>
 
     <div class="panel-body">
@@ -38,7 +38,7 @@
 
   <section class="panel chat">
     <div class="panel-header">
-      <h2>GeoChat</h2>
+      <h2>Chat</h2>
     </div>
 
     <div class="panel-body">
