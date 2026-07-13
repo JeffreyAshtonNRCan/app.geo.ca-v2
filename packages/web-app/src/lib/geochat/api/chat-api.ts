@@ -57,7 +57,7 @@ export function warmUpChat(): void {
   console.log('warmup sent');
 
   fetch(CHAT_WARMUP_URL, {
-    method: 'POST',
+    method: 'GET',
     keepalive: true,
   }).catch(() => {
     // Ignore errors
