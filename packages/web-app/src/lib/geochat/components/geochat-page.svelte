@@ -19,7 +19,11 @@
   });
 </script>
 
-<div class="geochat-page">
+<h1 class="font-custom-style-h1 mt-8 px-5 md:px-0 leading-tight">GeoChat</h1>
+
+<p class="mb-8 mt-3 font-open-sans px-5 md:px-0">Ask questions about GEO.ca datasets in natural language.</p>
+
+<div class="geochat-page px-5 md:px-0">
   <div class="panel history">
     <div class="panel-header">
       <h2>History</h2>
