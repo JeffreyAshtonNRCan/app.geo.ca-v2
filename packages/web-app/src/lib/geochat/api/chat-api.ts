@@ -44,3 +44,22 @@ export async function loadChatHistory(sessionId: string, limit = 25) {
 
   return await response.json();
 }
+
+const CHAT_WARMUP_URL = 'https://to6pecf1xb.execute-api.ca-central-1.amazonaws.com/staging/warmup';
+
+let warmupSent = false;
+
+export function warmUpChat(): void {
+  console.log('warmup');
+  if (warmupSent) return;
+  warmupSent = true;
+
+  console.log('warmup sent');
+
+  fetch(CHAT_WARMUP_URL, {
+    method: 'POST',
+    keepalive: true,
+  }).catch(() => {
+    // Ignore errors
+  });
+}

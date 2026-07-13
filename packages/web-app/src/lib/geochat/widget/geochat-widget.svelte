@@ -6,6 +6,7 @@
   import CloseIcon from '$lib/components/icons/close.svelte';
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
+  import { warmUpChat } from '$lib/geochat/api/chat-api';
   import { tick } from 'svelte';
 
   let {
@@ -53,8 +54,7 @@
 
 <div id="chatbot-widget">
   <!-- launcher -->
-  <button id="chatbot-toggle" class="font-custom-style-button-1" onclick={toggleChat}>
-    <ChatBubbleIcon classes="h-4 md:h-5" />
+  <button id="chatbot-toggle" class="font-custom-style-button-1" onpointerenter={warmUpChat} ontouchstart={warmUpChat} onclick={toggleChat}>
     <span class="label">
       {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
     </span>
