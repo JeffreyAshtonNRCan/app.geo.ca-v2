@@ -45,7 +45,7 @@ export async function loadChatHistory(sessionId: string, limit = 25) {
   return await response.json();
 }
 
-const CHAT_WARMUP_URL = 'https://to6pecf1xb.execute-api.ca-central-1.amazonaws.com/staging/warmup';
+const CHAT_WARMUP_URL = 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/warmup';
 
 let warmupSent = false;
 
