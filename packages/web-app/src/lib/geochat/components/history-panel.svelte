@@ -1,5 +1,12 @@
+<script lang="ts">
+  import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
+</script>
+
 <div class="history-list">
-  <button class="new-chat">+ New Chat</button>
+  <button class="new-chat">
+    <ChatBubbleIcon width={18} height={18} />
+    <span>New Chat</span>
+  </button>
 
   <ul>
     <li>Chat #1</li>
