@@ -1,15 +1,29 @@
 <div class="history-content">
-  <button class="new-chat">+ New Chat</button>
+  <div class="history-list">
+    <button class="new-chat">+ New Chat</button>
 
-  <ul>
-    <li>Chat #1</li>
-    <li>Chat #2</li>
-  </ul>
+    <ul>
+      <li>Chat #1</li>
+      <li>Chat #2</li>
+    </ul>
+  </div>
 </div>
 
 <style>
   .history-content {
     padding: 1rem;
+  }
+
+  .history-list {
+    flex: 1;
+
+    margin: 0.75rem;
+    padding: 1rem;
+
+    background: #fff;
+    border: 1px solid #ddd;
+
+    overflow-y: auto;
   }
 
   .new-chat {
