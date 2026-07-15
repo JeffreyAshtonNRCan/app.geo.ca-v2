@@ -27,16 +27,22 @@
 
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
   <div class="panel history" class:collapsed={historyCollapsed}>
-    <button
-      type="button"
-      class="history-toggle"
-      onclick={() => (historyCollapsed = !historyCollapsed)}
-      aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
-    >
-      {historyCollapsed ? '❯' : '❮'}
-    </button>
+    <div class="panel-header history-header">
+      <button
+        type="button"
+        class="history-toggle"
+        onclick={() => (historyCollapsed = !historyCollapsed)}
+        aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
+      >
+        {historyCollapsed ? '❯' : '❮'}
+      </button>
 
-    <div class="history-content">
+      {#if !historyCollapsed}
+        <h2>Chat History</h2>
+      {/if}
+    </div>
+
+    <div class="panel-body history-content">
       <HistoryPanel />
     </div>
   </div>
@@ -93,6 +99,20 @@
     min-width: 0;
   }
 
+  .history-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .history-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
   .history {
     display: flex;
     flex-direction: column;
@@ -122,7 +142,7 @@
     width: 34px;
     height: 34px;
 
-    margin: 1rem 0.5rem;
+    margin: 0;
 
     display: flex;
     align-items: center;
@@ -151,9 +171,12 @@
     transform: scale(0.96);
   }
 
+  .history.collapsed .history-header {
+    justify-content: center;
+  }
+
   .history.collapsed .history-toggle {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0;
   }
 
   .panel {

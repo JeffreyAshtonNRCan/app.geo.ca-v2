@@ -1,14 +1,10 @@
 <div class="history-content">
-  <button class="new-chat"> + New Chat </button>
+  <button class="new-chat">+ New Chat</button>
 
-  <div class="section">
-    <h3>Chat History</h3>
-
-    <ul>
-      <li>Chat #1</li>
-      <li>Chat #2</li>
-    </ul>
-  </div>
+  <ul>
+    <li>Chat #1</li>
+    <li>Chat #2</li>
+  </ul>
 </div>
 
 <style>
