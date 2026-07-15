@@ -3,7 +3,13 @@
 </script>
 
 <div class="history-list">
-  <button class="button-3 text-nowrap shadow-[0rem_0.1875rem_0.375rem_#00000029] cursor-pointer mb-4">
+  <button
+    class="text-nowrap h-12 px-5 rounded-[0.3125rem]
+         font-custom-style-button-3
+         shadow-[0rem_0.1875rem_0.375rem_#00000029]
+         bg-custom-16 hover:bg-custom-23
+         text-white cursor-pointer"
+  >
     <PlusIcon classes="inline h-5 mr-2" />
     New Chat
   </button>
