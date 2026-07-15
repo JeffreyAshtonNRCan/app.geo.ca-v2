@@ -3,8 +3,9 @@
 </script>
 
 <div class="history-list">
-  <button class="new-chat" aria-label="New Chat" title="New Chat">
+  <button class="new-chat">
     <PlusIcon width={18} height={18} />
+    <span>New Chat</span>
   </button>
 
   <ul>
@@ -25,14 +26,13 @@
   }
 
   .new-chat {
-    width: 34px;
-    height: 34px;
-
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 0.5rem;
 
-    padding: 0;
+    height: 34px;
+    padding: 0 12px;
+
     margin-bottom: 1rem;
 
     background: #5a539d;
@@ -41,10 +41,14 @@
     border: 1px solid #4c458d;
     border-radius: 6px;
 
+    font-size: 0.95rem;
+    font-weight: 600;
+
     cursor: pointer;
-    transition:
-      background-color 150ms ease,
-      transform 150ms ease;
+  }
+
+  .new-chat svg {
+    flex-shrink: 0;
   }
 
   .new-chat:hover {
