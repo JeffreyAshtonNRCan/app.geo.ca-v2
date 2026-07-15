@@ -119,8 +119,8 @@
   }
 
   .history-toggle {
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
 
     margin: 1rem 0.5rem;
 
@@ -129,11 +129,11 @@
     justify-content: center;
 
     border: 1px solid #4c458d;
-    border-radius: 6px;
+    border-radius: 5px;
     background: #5a539d;
     color: #fff;
 
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1;
 
     cursor: pointer;
