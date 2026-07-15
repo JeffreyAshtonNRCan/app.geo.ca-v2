@@ -28,8 +28,10 @@
   .new-chat {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
 
+    min-width: 120px;
     height: 34px;
     padding: 0 12px;
 
