@@ -30,7 +30,14 @@
     <div class="panel-header history-header">
       <button
         type="button"
-        class="history-toggle"
+        class="history-toggle
+       h-[34px] w-[34px]
+       rounded-[0.3125rem]
+       bg-custom-16 hover:bg-custom-23
+       text-white
+       inline-flex items-center justify-center
+       cursor-pointer
+       transition-colors"
         onclick={() => (historyCollapsed = !historyCollapsed)}
         aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
       >
@@ -141,36 +148,17 @@
   }
 
   .history-toggle {
-    width: 34px;
-    height: 34px;
-
-    margin: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid #4c458d;
-    border-radius: 5px;
-    background: #5a539d;
-    color: #fff;
-
     font-size: 20px;
     line-height: 1;
-
-    cursor: pointer;
-
-    transition:
-      background-color 150ms ease,
-      transform 200ms ease;
-  }
-
-  .history-toggle:hover {
-    background: #4c458d;
+    transition: transform 200ms ease;
   }
 
   .history-toggle:active {
     transform: scale(0.96);
+  }
+
+  .history.collapsed .history-toggle {
+    margin: 0;
   }
 
   .history.collapsed .history-header {
