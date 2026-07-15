@@ -14,6 +14,8 @@
     alternateLanguageUrl?: string;
   } = $props();
 
+  let historyCollapsed = $state(false);
+
   onMount(() => {
     chatStore.initializeChat(lang);
   });
@@ -23,16 +25,19 @@
 
 <p class="mb-8 mt-3 font-open-sans px-5 md:px-0">Ask questions about GEO.ca datasets in natural language.</p>
 
-<div class="geochat-page px-5 md:px-0">
-  <div class="panel history">
-    <div class="panel-header">
-      <h2>Chat History</h2>
-    </div>
+<div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
+  <div class="panel history" class:collapsed={historyCollapsed}>
+    <button
+      type="button"
+      class="history-toggle"
+      onclick={() => (historyCollapsed = !historyCollapsed)}
+      aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
+    >
+      {historyCollapsed ? '❯' : '❮'}
+    </button>
 
-    <div class="panel-body">
-      <div class="panel-content">
-        <HistoryPanel />
-      </div>
+    <div class="history-content">
+      <HistoryPanel />
     </div>
   </div>
 
@@ -65,12 +70,21 @@
   .geochat-page {
     display: grid;
     grid-template-columns:
-      minmax(220px, 1fr)
+      240px
       minmax(0, 2fr)
       minmax(0, 2fr);
     gap: 1rem;
     height: calc(100vh - 180px);
     align-items: stretch;
+
+    transition: grid-template-columns 250ms ease;
+  }
+
+  .geochat-page.history-collapsed {
+    grid-template-columns:
+      64px
+      minmax(0, 2fr)
+      minmax(0, 2fr);
   }
 
   .history,
@@ -79,12 +93,76 @@
     min-width: 0;
   }
 
+  .history {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .history-content {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+
+    opacity: 1;
+    transform: translateX(0);
+
+    transition:
+      opacity 250ms ease,
+      transform 250ms ease;
+  }
+
+  .history.collapsed .history-content {
+    opacity: 0;
+    transform: translateX(-16px);
+    pointer-events: none;
+  }
+
+  .history-toggle {
+    width: 42px;
+    height: 42px;
+
+    margin: 1rem 0.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #4c458d;
+    border-radius: 6px;
+    background: #5a539d;
+    color: #fff;
+
+    font-size: 24px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+      background-color 150ms ease,
+      transform 200ms ease;
+  }
+
+  .history-toggle:hover {
+    background: #4c458d;
+  }
+
+  .history-toggle:active {
+    transform: scale(0.96);
+  }
+
+  .history.collapsed .history-toggle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .panel {
     display: flex;
     flex-direction: column;
     border: 1px solid #ddd;
     background: #fff;
     min-height: 0;
+    box-sizing: border-box;
   }
 
   .panel-header {

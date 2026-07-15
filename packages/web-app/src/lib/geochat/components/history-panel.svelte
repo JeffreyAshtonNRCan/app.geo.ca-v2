@@ -1,8 +1,8 @@
-<div class="history-list">
-  <div>+ New Chat</div>
+<div class="history-content">
+  <button class="new-chat"> + New Chat </button>
 
   <div class="section">
-    <strong>Chat History</strong>
+    <h3>Chat History</h3>
 
     <ul>
       <li>Chat #1</li>
@@ -12,17 +12,22 @@
 </div>
 
 <style>
-  :global(.history) {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .history-list {
+  .history-content {
     padding: 1rem;
   }
 
+  .new-chat {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .section h3 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+  }
+
   ul {
-    margin: 1rem 0 0;
+    margin: 0;
     padding-left: 1.25rem;
   }
 
