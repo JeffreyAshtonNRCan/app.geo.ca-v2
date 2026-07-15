@@ -42,8 +42,10 @@
       {/if}
     </div>
 
-    <div class="panel-body history-content">
-      <HistoryPanel />
+    <div class="panel-body">
+      <div class="panel-content history-content">
+        <HistoryPanel />
+      </div>
     </div>
   </div>
 
