@@ -4,13 +4,16 @@
 
 <div class="history-list">
   <button
-    class="text-nowrap h-12 px-5 rounded-[0.3125rem]
+    class="text-nowrap
+         h-[34px] px-3
+         rounded-[0.3125rem]
          font-custom-style-button-3
          shadow-[0rem_0.1875rem_0.375rem_#00000029]
          bg-custom-16 hover:bg-custom-23
-         text-white cursor-pointer"
+         text-white cursor-pointer
+         inline-flex items-center"
   >
-    <PlusIcon classes="inline h-5 mr-2" />
+    <PlusIcon classes="inline h-4 w-4 mr-2" />
     New Chat
   </button>
 
