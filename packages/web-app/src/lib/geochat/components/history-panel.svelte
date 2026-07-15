@@ -13,12 +13,9 @@
   }
 
   .history-list {
-    height: 100%;
-    box-sizing: border-box;
-
+    flex: 1;
     padding: 1rem;
-    background: #fff;
-    border: 1px solid #ddd;
+    overflow-y: auto;
   }
 
   .new-chat {
