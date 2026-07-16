@@ -55,10 +55,9 @@
 
   .records-body {
     display: grid;
-    grid-template-rows: 220px minmax(0, 1fr);
+    grid-template-rows: 180px 1fr;
     gap: 1rem;
     height: 100%;
-    min-height: 0;
   }
 
   .records-list {
