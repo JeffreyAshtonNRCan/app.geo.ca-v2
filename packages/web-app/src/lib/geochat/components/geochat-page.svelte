@@ -31,13 +31,13 @@
       <button
         type="button"
         class="history-toggle
-       h-[34px] w-[34px]
-       rounded-[0.3125rem]
-       bg-custom-16 hover:bg-custom-23
-       text-white
-       inline-flex items-center justify-center
-       cursor-pointer
-       transition-colors"
+           h-[34px] w-[34px]
+           rounded-[0.3125rem]
+           bg-custom-16 hover:bg-custom-23
+           text-white
+           inline-flex items-center justify-center
+           cursor-pointer
+           transition-colors"
         onclick={() => (historyCollapsed = !historyCollapsed)}
         aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
       >
