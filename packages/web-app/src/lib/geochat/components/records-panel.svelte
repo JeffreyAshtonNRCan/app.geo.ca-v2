@@ -78,6 +78,10 @@
     margin-top: 0.25rem;
     font-size: 0.875rem;
     color: #666;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .empty {
