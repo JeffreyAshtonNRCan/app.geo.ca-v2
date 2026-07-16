@@ -135,15 +135,25 @@ function createChatStore() {
     update((state) => {
       const updatedMessages = [...state.messages];
 
-      const msg = updatedMessages.find((m) => m === message);
+      const wasCurrent = message.isCurrent;
 
-      if (msg) {
-        msg.collapsed = !msg.collapsed;
+      // Always toggle collapsed state
+      message.collapsed = !message.collapsed;
+
+      // If selecting a different message,
+      // make it the current one.
+      if (!wasCurrent) {
+        updatedMessages.forEach((m) => {
+          if (m.role === 'bot') {
+            m.isCurrent = m === message;
+          }
+        });
       }
 
       return {
         ...state,
         messages: updatedMessages,
+        records: wasCurrent ? state.records : (message.records ?? []),
       };
     });
   }
