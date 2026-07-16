@@ -68,18 +68,18 @@
   }
 
   .records-list::-webkit-scrollbar-thumb {
-    background: var(--custom-16);
+    background: #535aa4;
     border-radius: 9999px;
   }
 
   .records-list::-webkit-scrollbar-thumb:hover {
-    background: var(--custom-23);
+    background: #130944;
   }
 
   /* Firefox */
   .records-list {
     scrollbar-width: thin;
-    scrollbar-color: var(--custom-16) transparent;
+    scrollbar-color: #535aa4 transparent;
   }
 
   .record {
