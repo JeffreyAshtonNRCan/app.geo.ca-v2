@@ -59,6 +59,29 @@
     overflow-y: auto;
   }
 
+  .records-list::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .records-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .records-list::-webkit-scrollbar-thumb {
+    background: var(--custom-16);
+    border-radius: 9999px;
+  }
+
+  .records-list::-webkit-scrollbar-thumb:hover {
+    background: var(--custom-23);
+  }
+
+  /* Firefox */
+  .records-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--custom-16) transparent;
+  }
+
   .record {
     display: block;
     width: 100%;
