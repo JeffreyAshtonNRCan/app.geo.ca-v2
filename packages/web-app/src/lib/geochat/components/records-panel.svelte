@@ -34,7 +34,7 @@
     </div>
 
     <div class="map">
-      <Map coordinates={testCoordinates} id={testUuid} dynamic={true} mapType="record" footer={false} />
+      <Map coordinates={testCoordinates} id={testUuid} dynamic={true} mapType="record" footer={false} mapFill={true} />
     </div>
   </div>
 </div>

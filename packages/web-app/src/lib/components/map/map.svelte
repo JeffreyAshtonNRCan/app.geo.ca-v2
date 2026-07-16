@@ -23,6 +23,7 @@
     footer?: boolean;
     timeSlider?: boolean;
     chart?: boolean;
+    mapFill?: boolean;
   }
 
   let {
@@ -34,6 +35,7 @@
     footer = false,
     timeSlider = false,
     chart = false,
+    mapFill = false,
   }: Props = $props();
 
   let mapId = $derived(`map-${mapType}-${id}`);
@@ -263,4 +265,12 @@
   });
 </script>
 
-<div id={mapId} class="bg-blue-500/5 w-full aspect-video" data-config={sConfig} data-lang={mapLang} style="border: gray 1px solid;"></div>
+<div
+  id={mapId}
+  class="bg-blue-500/5 w-full"
+  class:aspect-video={!mapFill}
+  class:h-full={mapFill}
+  data-config={sConfig}
+  data-lang={mapLang}
+  style="border: gray 1px solid;"
+></div>
