@@ -34,17 +34,19 @@
   }
 
   .records-panel {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    height: 100%;
     min-height: 0;
-    padding: 0;
   }
 
   .records-body {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    gap: 0.5rem;
+    gap: 1rem;
+    padding: 1rem;
+    flex: 1;
+    min-height: 0;
   }
 
   .records-list,
