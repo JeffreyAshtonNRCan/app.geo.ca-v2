@@ -89,7 +89,7 @@
       minmax(0, 2fr)
       minmax(0, 2fr);
     gap: 1rem;
-    height: calc(100vh - 180px);
+    min-height: calc(100vh - 180px);
     align-items: stretch;
 
     transition: grid-template-columns 250ms ease;
