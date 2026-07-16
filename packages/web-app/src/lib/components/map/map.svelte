@@ -234,6 +234,10 @@
       if (document.getElementById(mapId)) {
         // Build the map from the config
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
+
+        setTimeout(() => {
+          window.dispatchEvent(new Event('resize'));
+        }, 500);
       }
 
       // Add bounding box when no map is available
