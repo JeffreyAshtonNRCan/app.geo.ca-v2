@@ -74,9 +74,7 @@
     </div>
 
     <div class="panel-body">
-      <div class="panel-content">
-        <RecordsPanel />
-      </div>
+      <RecordsPanel />
     </div>
   </div>
 </div>
