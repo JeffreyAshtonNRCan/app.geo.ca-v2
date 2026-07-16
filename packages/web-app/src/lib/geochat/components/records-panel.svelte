@@ -45,11 +45,7 @@
   .records-body {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    gap: 1rem;
-    flex: 1;
-    min-height: 0;
-
-    padding: 0;
+    gap: 0.5rem;
   }
 
   .records-list,
