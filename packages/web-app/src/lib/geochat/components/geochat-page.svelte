@@ -209,6 +209,11 @@
     padding: 0 1rem 0;
   }
 
+  .records .panel-body {
+    background: #f5f5f5;
+    padding: 0;
+  }
+
   .panel-content {
     flex: 1;
     min-height: 0;
