@@ -65,11 +65,6 @@
     min-height: 0;
   }
 
-  .map {
-    min-height: 0;
-    overflow: hidden;
-  }
-
   .records-list {
     overflow-y: auto;
   }
@@ -132,5 +127,8 @@
     height: 100%;
     min-height: 0;
     overflow: hidden;
+
+    border-top: 1px solid #e5e7eb;
+    padding-top: 0.75rem;
   }
 </style>
