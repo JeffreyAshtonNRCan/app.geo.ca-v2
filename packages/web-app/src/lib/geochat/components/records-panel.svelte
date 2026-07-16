@@ -1,6 +1,26 @@
+<script lang="ts">
+  import { chatStore } from '$lib/geochat/stores/chat-store';
+</script>
+
 <div class="records-panel">
   <div class="records-body">
-    <div class="records-list">Supporting records will appear here.</div>
+    <div class="records-list">
+      {#if $chatStore.records.length === 0}
+        <div class="empty">Supporting records will appear here.</div>
+      {:else}
+        {#each $chatStore.records as record (record.uuid)}
+          <button class="record">
+            <div class="record-title">
+              {record.title_display}
+            </div>
+
+            <div class="record-description">
+              {record.description_display}
+            </div>
+          </button>
+        {/each}
+      {/if}
+    </div>
 
     <div class="map">Map placeholder</div>
   </div>
@@ -33,6 +53,36 @@
   .map {
     min-height: 0;
     border: 1px solid #ddd;
+  }
+
+  .records-list {
+    overflow-y: auto;
+  }
+
+  .record {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    text-align: left;
+    border: 0;
+    border-bottom: 1px solid #eee;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .record-title {
+    font-weight: 600;
+  }
+
+  .record-description {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .empty {
+    padding: 1rem;
+    color: #666;
   }
 
   .map {

@@ -12,9 +12,35 @@ import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 // Types
 // ==========================
 
+interface ChatRecord {
+  uuid: string;
+
+  rank: number;
+
+  title_display: string;
+  title_en: string;
+  title_fr: string;
+
+  description_display: string;
+  description_en: string;
+  description_fr: string;
+
+  publisher: {
+    en: string;
+    fr: string;
+  };
+
+  geometry_type: string;
+
+  relevance_score: number;
+}
+
 export interface ChatMessage {
   role: 'user' | 'bot';
   html: string;
+
+  records?: ChatRecord[];
+
   languageMismatch?: boolean;
   collapsed?: boolean;
   expandable?: boolean;
@@ -23,6 +49,8 @@ export interface ChatMessage {
 
 interface ChatState {
   messages: ChatMessage[];
+  records: ChatRecord[];
+
   isThinking: boolean;
   initialized: boolean;
 }
@@ -43,6 +71,7 @@ interface HistorySession {
 function createChatStore() {
   const initialState: ChatState = {
     messages: [],
+    records: [],
     isThinking: false,
     initialized: false,
   };
@@ -165,6 +194,7 @@ function createChatStore() {
         updatedMessages.push({
           role: 'bot',
           html: formatted,
+          records: data.records,
           languageMismatch: data.type === 'language_mismatch',
           collapsed: false,
           expandable: isLongMessage,
@@ -174,6 +204,7 @@ function createChatStore() {
         return {
           ...state,
           messages: updatedMessages,
+          records: data.records ?? [],
           isThinking: false,
         };
       });
