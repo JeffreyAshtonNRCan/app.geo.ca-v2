@@ -34,12 +34,11 @@
   }
 
   .records-panel {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
     min-height: 0;
-
-    padding: 0.5rem;
+    padding: 0;
   }
 
   .records-body {
