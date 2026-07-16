@@ -55,14 +55,19 @@
 
   .records-body {
     display: grid;
-    grid-template-rows: 220px 1fr;
+    grid-template-rows: 220px minmax(0, 1fr);
     gap: 1rem;
     height: 100%;
+    min-height: 0;
   }
 
-  .records-list,
+  .records-list {
+    overflow-y: auto;
+    min-height: 0;
+  }
+
   .map {
-    min-height: 300px;
+    min-height: 0;
     overflow: hidden;
   }
 
@@ -124,8 +129,9 @@
   }
 
   .map {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
   }
 </style>
