@@ -55,17 +55,15 @@
 
   .records-body {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 220px 1fr;
     gap: 1rem;
-    padding: 1rem;
-    flex: 1;
-    min-height: 0;
+    height: 100%;
   }
 
   .records-list,
   .map {
-    min-height: 0;
-    border: 1px solid #ddd;
+    min-height: 300px;
+    overflow: hidden;
   }
 
   .records-list {
