@@ -263,4 +263,4 @@
   });
 </script>
 
-<div id={mapId} class="bg-blue-500/5 w-full aspect-video" data-config={sConfig} data-lang={mapLang} style="border: gray 1px solid;"></div>
+<div id={mapId} class="bg-blue-500/5 w-full h-full" data-config={sConfig} data-lang={mapLang} style="border: gray 1px solid;"></div>
