@@ -74,7 +74,9 @@
     </div>
 
     <div class="panel-body">
-      <RecordsPanel />
+      <div class="panel-content">
+        <RecordsPanel />
+      </div>
     </div>
   </div>
 </div>
@@ -205,11 +207,6 @@
   .chat .panel-body {
     background: #fff;
     padding: 0 1rem 0;
-  }
-
-  .records .panel-body {
-    background: #f5f5f5;
-    padding: 0;
   }
 
   .panel-content {
