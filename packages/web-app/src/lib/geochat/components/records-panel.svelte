@@ -1,5 +1,16 @@
 <script lang="ts">
   import { chatStore } from '$lib/geochat/stores/chat-store';
+  import Map from '$lib/components/map/map.svelte';
+
+  const testUuid = '175fc87a-acce-4f98-a03a-32846481efc8';
+
+  const testCoordinates = [
+    [-141, 60],
+    [-123.8, 60],
+    [-123.8, 69.7],
+    [-141, 69.7],
+    [-141, 60],
+  ];
 </script>
 
 <div class="records-panel">
@@ -22,7 +33,9 @@
       {/if}
     </div>
 
-    <div class="map">Map placeholder</div>
+    <div class="map">
+      <Map coordinates={testCoordinates} id={testUuid} dynamic={true} mapType="record" footer={false} />
+    </div>
   </div>
 </div>
 
