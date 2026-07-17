@@ -41,7 +41,7 @@
 
     <div class="map">
       <Map
-        coordinates={selectedRecord.geometry.coordinates}
+        coordinates={selectedRecord.geometry.coordinates[0]}
         id={selectedRecord.uuid}
         dynamic={true}
         mapType="record"
