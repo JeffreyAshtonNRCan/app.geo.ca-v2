@@ -41,14 +41,16 @@
 
     <div class="map">
       {#if $chatStore.records.length > 0}
-        <Map
-          coordinates={selectedRecord.geometry.coordinates[0]}
-          id={selectedRecord.uuid}
-          dynamic={true}
-          mapType="record"
-          footer={false}
-          mapFill={true}
-        />
+        {#key selectedRecord.uuid}
+          <Map
+            coordinates={selectedRecord.geometry.coordinates[0]}
+            id={selectedRecord.uuid}
+            dynamic={true}
+            mapType="record"
+            footer={false}
+            mapFill={true}
+          />
+        {/key}
       {/if}
     </div>
   </div>
