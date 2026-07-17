@@ -32,6 +32,11 @@ interface ChatRecord {
 
   geometry_type: string;
 
+  geometry: {
+    type: string;
+    coordinates: unknown; // refine later
+  };
+
   relevance_score: number;
 }
 
