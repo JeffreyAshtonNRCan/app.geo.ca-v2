@@ -2,15 +2,21 @@
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import Map from '$lib/components/map/map.svelte';
 
-  const testUuid = '175fc87a-acce-4f98-a03a-32846481efc8';
+  // const testUuid = '175fc87a-acce-4f98-a03a-32846481efc8';
+  //
+  // const testCoordinates = [
+  //   [-141, 60],
+  //   [-123.8, 60],
+  //   [-123.8, 69.7],
+  //   [-141, 69.7],
+  //   [-141, 60],
+  // ];
 
-  const testCoordinates = [
-    [-141, 60],
-    [-123.8, 60],
-    [-123.8, 69.7],
-    [-141, 69.7],
-    [-141, 60],
-  ];
+  const selectedRecord = $derived($chatStore.records[0]);
+
+  const coordinates = $derived(selectedRecord?.geometry.coordinates);
+
+  const uuid = $derived(selectedRecord?.uuid);
 </script>
 
 <div class="records-panel">
@@ -34,7 +40,14 @@
     </div>
 
     <div class="map">
-      <Map coordinates={testCoordinates} id={testUuid} dynamic={true} mapType="record" footer={false} mapFill={true} />
+      <Map
+        coordinates={selectedRecord.geometry.coordinates}
+        id={selectedRecord.uuid}
+        dynamic={true}
+        mapType="record"
+        footer={false}
+        mapFill={true}
+      />
     </div>
   </div>
 </div>
