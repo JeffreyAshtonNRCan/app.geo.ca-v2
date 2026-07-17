@@ -89,9 +89,14 @@
       minmax(0, 2fr)
       minmax(0, 2fr);
     gap: 1rem;
-    height: calc(100vh - 180px);
-    align-items: stretch;
 
+    /* Fallback for short viewports */
+    height: 600px;
+
+    /* Grow on larger viewports */
+    min-height: calc(100vh - 160px);
+
+    align-items: stretch;
     transition: grid-template-columns 250ms ease;
   }
 
