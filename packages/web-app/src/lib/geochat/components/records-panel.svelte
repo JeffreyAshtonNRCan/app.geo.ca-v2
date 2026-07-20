@@ -23,8 +23,8 @@
       console.table(
         $chatStore.records.map((r) => ({
           title: r.title_display,
-          type: r.geometry?.type,
-          hasGeometry: !!r.geometry,
+          geometry_type: r.geometry_type,
+          geometry: JSON.stringify(r.geometry),
         }))
       );
 
