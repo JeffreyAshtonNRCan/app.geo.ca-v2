@@ -45,7 +45,10 @@
   <div class="records-body">
     <div class="records-list">
       {#if $chatStore.records.length === 0}
-        <div class="empty">Supporting records will appear here.</div>
+        <div class="empty">
+          <p>No supporting records are available for this response.</p>
+          <p>Some responses are general conversation or guidance and don't reference specific GEO.ca datasets.</p>
+        </div>
       {:else}
         {#each $chatStore.records as record (record.uuid)}
           <button class="record" class:selected={selectedRecord?.uuid === record.uuid} onclick={() => (selectedRecord = record)}>
