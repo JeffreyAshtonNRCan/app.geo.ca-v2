@@ -16,8 +16,7 @@
   let selectedRecord = $state<ChatRecord | undefined>();
 
   $effect(() => {
-    // Select the first record only if nothing is selected
-    if (!selectedRecord && $chatStore.records.length > 0) {
+    if (!selectedRecord || !$chatStore.records.some((r) => r.uuid === selectedRecord.uuid)) {
       selectedRecord = $chatStore.records[0];
     }
   });
@@ -62,7 +61,7 @@
     </div>
 
     <div class="map">
-      {#if $chatStore.records.length > 0}
+      {#if selectedRecord}
         {#key uuid}
           <Map {coordinates} id={selectedRecord.uuid} dynamic={true} mapType="record" footer={false} mapFill={true} />
         {/key}
