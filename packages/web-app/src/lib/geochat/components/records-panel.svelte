@@ -48,19 +48,11 @@
       {#if $chatStore.isThinking}
         <div class="empty">
           <p>Searching for supporting records...</p>
-          <p>
-            thinking={$chatStore.isThinking.toString()}
-            records={$chatStore.records.length}
-          </p>
         </div>
       {:else if $chatStore.records.length === 0}
         <div class="empty">
-          <!--          <p>No supporting records are available for this response.</p>-->
-          <!--          <p>Some responses are general conversation or guidance and don't reference specific GEO.ca datasets.</p>-->
-          <p>
-            thinking={$chatStore.isThinking.toString()}
-            records={$chatStore.records.length}
-          </p>
+          <p>No supporting records are available for this response.</p>
+          <p>Some responses are general conversation or guidance and don't reference specific GEO.ca datasets.</p>
         </div>
       {:else}
         {#each $chatStore.records as record (record.uuid)}
