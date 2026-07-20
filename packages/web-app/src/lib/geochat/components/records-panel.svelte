@@ -57,6 +57,10 @@
         <div class="empty">
           <p>No supporting records are available for this response.</p>
           <p>Some responses are general conversation or guidance and don't reference specific GEO.ca datasets.</p>
+          <p>
+            thinking={$chatStore.isThinking.toString()}
+            records={$chatStore.records.length}
+          </p>
         </div>
       {:else}
         {#each $chatStore.records as record (record.uuid)}
