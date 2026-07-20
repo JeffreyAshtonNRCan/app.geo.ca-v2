@@ -240,6 +240,7 @@ function createChatStore() {
         return {
           ...state,
           messages: updatedMessages,
+          records: [], // Clear records
           isThinking: false,
         };
       });
