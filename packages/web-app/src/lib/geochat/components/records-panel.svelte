@@ -20,13 +20,15 @@
 
   $effect(() => {
     if ($chatStore.records.length) {
-      console.log(
+      console.table(
         $chatStore.records.map((r) => ({
           title: r.title_display,
-          type: r.geometry.type,
-          geometry: r.geometry,
+          type: r.geometry?.type,
+          hasGeometry: !!r.geometry,
         }))
       );
+
+      console.log($chatStore.records);
     }
   });
 </script>
