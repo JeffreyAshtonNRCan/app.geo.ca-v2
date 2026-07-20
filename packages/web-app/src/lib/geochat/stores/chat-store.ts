@@ -186,6 +186,7 @@ function createChatStore() {
               html: escapeHtml(trimmed),
             },
           ],
+      records: [], // clear previous records
       isThinking: true,
     }));
 
