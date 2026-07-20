@@ -164,6 +164,11 @@
     color: #666;
   }
 
+  .empty p {
+    display: block;
+    margin: 0 0 1rem 0;
+  }
+
   .map {
     width: 100%;
     height: 100%;
