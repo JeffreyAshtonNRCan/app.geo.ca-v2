@@ -12,7 +12,7 @@ import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 // Types
 // ==========================
 
-interface ChatRecord {
+export interface ChatRecord {
   uuid: string;
 
   rank: number;

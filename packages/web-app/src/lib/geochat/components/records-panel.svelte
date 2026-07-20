@@ -1,5 +1,6 @@
 <script lang="ts">
   import { chatStore } from '$lib/geochat/stores/chat-store';
+  import type { ChatRecord } from '$lib/geochat/stores/chat-store';
   import Map from '$lib/components/map/map.svelte';
 
   // const testUuid = '175fc87a-acce-4f98-a03a-32846481efc8';
@@ -12,19 +13,26 @@
   //   [-141, 60],
   // ];
 
-  const selectedRecord = $derived($chatStore.records[0]);
+  let selectedRecord = $state<ChatRecord | undefined>();
 
-  const coordinates = $derived(selectedRecord?.geometry.coordinates[0]);
+  $effect(() => {
+    // Select the first record only if nothing is selected
+    if (!selectedRecord && $chatStore.records.length > 0) {
+      selectedRecord = $chatStore.records[0];
+    }
+  });
 
   const uuid = $derived(selectedRecord?.uuid);
+
+  const coordinates = $derived(selectedRecord?.geometry.coordinates[0]);
 
   $effect(() => {
     if ($chatStore.records.length) {
       console.table(
         $chatStore.records.map((r) => ({
           title: r.title_display,
-          geometry_type: r.geometry_type,
-          geometry: JSON.stringify(r.geometry),
+          type: r.geometry.type,
+          rings: r.geometry.coordinates.length,
         }))
       );
 
@@ -40,7 +48,7 @@
         <div class="empty">Supporting records will appear here.</div>
       {:else}
         {#each $chatStore.records as record (record.uuid)}
-          <button class="record">
+          <button class="record" class:selected={selectedRecord?.uuid === record.uuid} onclick={() => (selectedRecord = record)}>
             <div class="record-title">
               {record.title_display}
             </div>
@@ -117,14 +125,21 @@
   }
 
   .record {
-    display: block;
     width: 100%;
-    padding: 0.75rem;
     text-align: left;
-    border: 0;
-    border-bottom: 1px solid #eee;
-    background: transparent;
+    padding: 0.75rem;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: white;
     cursor: pointer;
+  }
+
+  .record:hover {
+    background: #f8f8f8;
+  }
+
+  .record.selected {
+    background: #ececec;
   }
 
   .record-title {
