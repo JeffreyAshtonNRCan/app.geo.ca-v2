@@ -66,10 +66,18 @@
     </div>
 
     <div class="map">
-      {#if selectedRecord?.geometry}
+      {#if $chatStore.isThinking}
+        <div class="empty">
+          <p>Searching for supporting records...</p>
+        </div>
+      {:else if selectedRecord?.geometry}
         {#key uuid}
           <Map {coordinates} id={selectedRecord.uuid} dynamic={true} mapType="record" footer={false} mapFill={true} />
         {/key}
+      {:else}
+        <div class="empty">
+          <p>No map available.</p>
+        </div>
       {/if}
     </div>
   </div>
