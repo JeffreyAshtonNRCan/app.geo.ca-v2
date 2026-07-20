@@ -45,7 +45,11 @@
 <div class="records-panel">
   <div class="records-body">
     <div class="records-list">
-      {#if $chatStore.records.length === 0}
+      {#if $chatStore.isThinking}
+        <div class="empty">
+          <p>Searching for supporting records...</p>
+        </div>
+      {:else if $chatStore.records.length === 0}
         <div class="empty">
           <p>No supporting records are available for this response.</p>
           <p>Some responses are general conversation or guidance and don't reference specific GEO.ca datasets.</p>
