@@ -48,6 +48,10 @@
       {#if $chatStore.isThinking}
         <div class="empty">
           <p>Searching for supporting records...</p>
+          <p>
+            thinking={$chatStore.isThinking.toString()}
+            records={$chatStore.records.length}
+          </p>
         </div>
       {:else if $chatStore.records.length === 0}
         <div class="empty">
