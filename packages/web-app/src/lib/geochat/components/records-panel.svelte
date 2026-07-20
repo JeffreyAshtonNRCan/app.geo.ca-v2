@@ -26,17 +26,18 @@
   const coordinates = $derived(selectedRecord?.geometry.coordinates[0]);
 
   $effect(() => {
-    if ($chatStore.records.length) {
-      console.table(
-        $chatStore.records.map((r) => ({
-          title: r.title_display,
-          type: r.geometry.type,
-          rings: r.geometry.coordinates.length,
-        }))
-      );
+    if (!selectedRecord) return;
 
-      console.log($chatStore.records);
-    }
+    console.log('Selected:', selectedRecord);
+
+    console.table(
+      $chatStore.records.map((r) => ({
+        title: r.title_display,
+        type: r.geometry.type,
+        rings: r.geometry.coordinates.length,
+        selected: r.uuid === selectedRecord.uuid,
+      }))
+    );
   });
 </script>
 
