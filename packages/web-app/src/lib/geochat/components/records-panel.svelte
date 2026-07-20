@@ -23,7 +23,7 @@
 
   const uuid = $derived(selectedRecord?.uuid);
 
-  const coordinates = $derived(selectedRecord?.geometry.coordinates[0]);
+  const coordinates = $derived(selectedRecord?.geometry?.coordinates?.[0]);
 
   $effect(() => {
     if (!selectedRecord) return;
@@ -33,9 +33,10 @@
     console.table(
       $chatStore.records.map((r) => ({
         title: r.title_display,
-        type: r.geometry.type,
-        rings: r.geometry.coordinates.length,
-        selected: r.uuid === selectedRecord.uuid,
+        geometry: r.geometry,
+        type: r.geometry?.type,
+        rings: r.geometry?.coordinates?.length,
+        selected: r.uuid === selectedRecord?.uuid,
       }))
     );
   });
@@ -65,7 +66,7 @@
     </div>
 
     <div class="map">
-      {#if selectedRecord}
+      {#if selectedRecord?.geometry}
         {#key uuid}
           <Map {coordinates} id={selectedRecord.uuid} dynamic={true} mapType="record" footer={false} mapFill={true} />
         {/key}

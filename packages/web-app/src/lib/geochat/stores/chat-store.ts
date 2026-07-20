@@ -30,9 +30,9 @@ export interface ChatRecord {
     fr: string;
   };
 
-  geometry_type: string;
+  geometry_type?: string;
 
-  geometry: {
+  geometry?: {
     type: string;
     coordinates: number[][][];
   };
