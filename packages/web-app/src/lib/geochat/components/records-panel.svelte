@@ -14,9 +14,21 @@
 
   const selectedRecord = $derived($chatStore.records[0]);
 
-  const coordinates = $derived(selectedRecord?.geometry.coordinates);
+  const coordinates = $derived(selectedRecord?.geometry.coordinates[0]);
 
   const uuid = $derived(selectedRecord?.uuid);
+
+  $effect(() => {
+    if ($chatStore.records.length) {
+      console.log(
+        $chatStore.records.map((r) => ({
+          title: r.title_display,
+          type: r.geometry.type,
+          geometry: r.geometry,
+        }))
+      );
+    }
+  });
 </script>
 
 <div class="records-panel">
@@ -41,15 +53,8 @@
 
     <div class="map">
       {#if $chatStore.records.length > 0}
-        {#key selectedRecord.uuid}
-          <Map
-            coordinates={selectedRecord.geometry.coordinates[0]}
-            id={selectedRecord.uuid}
-            dynamic={true}
-            mapType="record"
-            footer={false}
-            mapFill={true}
-          />
+        {#key uuid}
+          <Map {coordinates} id={selectedRecord.uuid} dynamic={true} mapType="record" footer={false} mapFill={true} />
         {/key}
       {/if}
     </div>
