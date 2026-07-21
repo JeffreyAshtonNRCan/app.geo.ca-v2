@@ -72,7 +72,7 @@
     <div class="map">
       {#if $chatStore.isThinking}
         <div class="empty">
-          <p>Searching for supporting records...</p>
+          <p>Searching for supporting map...</p>
         </div>
       {:else if selectedRecord?.geometry}
         {#key uuid}
