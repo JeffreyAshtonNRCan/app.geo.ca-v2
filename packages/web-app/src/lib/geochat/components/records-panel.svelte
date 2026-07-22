@@ -1,6 +1,7 @@
 <script lang="ts">
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatRecord } from '$lib/geochat/stores/chat-store';
+  import Splitter from '$lib/geochat/components/splitter.svelte';
   import Map from '$lib/components/map/map.svelte';
 
   // const testUuid = '175fc87a-acce-4f98-a03a-32846481efc8';
@@ -12,6 +13,8 @@
   //   [-141, 69.7],
   //   [-141, 60],
   // ];
+
+  let recordsHeight = $state(45);
 
   let selectedRecord = $state<ChatRecord | undefined>();
 
@@ -43,7 +46,7 @@
 </script>
 
 <div class="records-panel">
-  <div class="records-body">
+  <div class="records-body" style={`grid-template-rows:${recordsHeight}% 12px 1fr;`}>
     <div class="records-list">
       {#if $chatStore.isThinking}
         <div class="empty">
@@ -68,6 +71,8 @@
         {/each}
       {/if}
     </div>
+
+    <Splitter bind:value={recordsHeight} direction="horizontal" min={20} max={80} />
 
     <div class="map">
       {#if $chatStore.isThinking}
@@ -103,9 +108,17 @@
 
   .records-body {
     display: grid;
-    grid-template-rows: 180px 1fr;
-    gap: 1rem;
-    height: 100%;
+    grid-template-rows: 45% 12px 1fr;
+
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+
+    overflow: hidden;
+  }
+  .records-body > * {
+    min-height: 0;
+    min-width: 0;
   }
 
   .records-list {
