@@ -60,7 +60,7 @@
     corePackages: [],
     appBar: {
       tabs: {
-        core: ['geolocator', 'legend', 'details', 'export'],
+        core: ['geolocator', 'legend'],
       },
     },
     ...(buildFooterBar() && { footerBar: buildFooterBar() }),
