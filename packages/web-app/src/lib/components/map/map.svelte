@@ -59,13 +59,21 @@
     },
     theme: 'geo.ca',
     components: mapVariant === 'geochat' ? ['north-arrow'] : ['north-arrow', 'overview-map'],
-    navBar: ['zoom'],
+    navBar: mapVariant === 'geochat' ? ['zoom'] : ['zoom', 'rotation', 'fullscreen', 'home', 'basemap-select'],
+
     corePackages: [],
-    appBar: {
-      tabs: {
-        core: ['geolocator', 'legend', 'details', 'export'],
-      },
-    },
+    appBar:
+      mapVariant === 'geochat'
+        ? {
+            tabs: {
+              core: ['geolocator', 'legend'],
+            },
+          }
+        : {
+            tabs: {
+              core: ['geolocator', 'legend', 'details', 'export'],
+            },
+          },
     ...(buildFooterBar() && { footerBar: buildFooterBar() }),
   }));
 
