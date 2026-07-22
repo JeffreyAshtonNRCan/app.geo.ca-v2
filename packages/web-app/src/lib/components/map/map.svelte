@@ -56,7 +56,8 @@
       },
     },
     theme: 'geo.ca',
-    components: ['north-arrow'],
+    components: ['north-arrow', 'overview-map'],
+    navBar: [],
     corePackages: [],
     appBar: {
       tabs: {
