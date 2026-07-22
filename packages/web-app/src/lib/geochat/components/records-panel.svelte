@@ -76,7 +76,7 @@
         </div>
       {:else if selectedRecord?.geometry}
         {#key uuid}
-          <Map {coordinates} id={selectedRecord.uuid} dynamic={true} mapType="record" footer={false} mapFill={true} />
+          <Map {coordinates} id={selectedRecord.uuid} dynamic={true} mapType="record" mapVariant="geochat" footer={false} mapFill={true} />
         {/key}
       {:else}
         <div class="empty">
