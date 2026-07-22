@@ -41,53 +41,6 @@
   let mapId = $derived(`map-${mapType}-${id}`);
   let mapLang = page.data.lang === 'fr-ca' ? 'fr' : 'en';
 
-  function getComponents(): string[] {
-    switch (mapType) {
-      case 'geochat':
-        return [];
-
-      default:
-        return ['north-arrow', 'overview-map'];
-    }
-  }
-
-  function getNavBar(): string[] {
-    switch (mapType) {
-      case 'geochat':
-        return ['zoom'];
-
-      default:
-        return ['zoom', 'home', 'fullscreen'];
-    }
-  }
-
-  function getAppBar(): GeoviewConfig['appBar'] {
-    switch (mapType) {
-      case 'geochat':
-        return {
-          tabs: {
-            core: ['geolocator', 'legend'],
-          },
-        };
-
-      default:
-        return {
-          tabs: {
-            core: ['geolocator', 'legend', 'details', 'export'],
-          },
-        };
-    }
-  }
-
-  function getFooterBar(): GeoviewConfig['footerBar'] | undefined {
-    // GeoChat never shows a footer
-    if (mapType === 'geochat') {
-      return undefined;
-    }
-
-    return buildFooterBar();
-  }
-
   // TODO: extract to use one config for this and favourites map.
   let config: GeoviewConfig = $derived.by(() => ({
     map: {
@@ -102,17 +55,15 @@
         labeled: true,
       },
     },
-
     theme: 'geo.ca',
-
-    components: getComponents(),
-    navBar: getNavBar(),
+    components: ['north-arrow', 'overview-map'],
     corePackages: [],
-    appBar: getAppBar(),
-
-    ...(getFooterBar() && {
-      footerBar: getFooterBar(),
-    }),
+    appBar: {
+      tabs: {
+        core: ['geolocator', 'legend', 'details', 'export'],
+      },
+    },
+    ...(buildFooterBar() && { footerBar: buildFooterBar() }),
   }));
 
   /**
@@ -282,6 +233,8 @@
       // Note: We can safely use document here since it is inside onMount.
       if (document.getElementById(mapId)) {
         // Build the map from the config
+        console.log('CONFIG');
+        console.log(JSON.stringify(config, null, 2));
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
         const viewer = cgpv.api.getMapViewer(mapId);
