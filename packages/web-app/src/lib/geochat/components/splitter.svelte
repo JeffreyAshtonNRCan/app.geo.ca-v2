@@ -46,6 +46,9 @@
       window.removeEventListener('pointerup', pointerUp);
     }
 
+    // Tell GeoView the layout changed.
+    window.dispatchEvent(new Event('resize'));
+
     window.addEventListener('pointermove', pointerMove);
     window.addEventListener('pointerup', pointerUp);
   }
