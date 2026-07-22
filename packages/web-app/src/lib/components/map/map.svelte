@@ -56,11 +56,11 @@
       },
     },
     theme: 'geo.ca',
-    components: ['north-arrow', 'overview-map'],
+    components: ['north-arrow'],
     corePackages: [],
     appBar: {
       tabs: {
-        core: ['geolocator', 'legend'],
+        core: ['geolocator', 'legend', 'details', 'export'],
       },
     },
     ...(buildFooterBar() && { footerBar: buildFooterBar() }),
