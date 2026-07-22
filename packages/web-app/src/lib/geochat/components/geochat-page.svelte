@@ -4,7 +4,10 @@
   import HistoryPanel from '$lib/geochat/components/history-panel.svelte';
   import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
   import RecordsPanel from '$lib/geochat/components/records-panel.svelte';
+  import Splitter from '$lib/geochat/components/splitter.svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
+
+  let chatWidth = $state(50);
 
   let {
     lang = 'en',
@@ -56,26 +59,30 @@
     </div>
   </div>
 
-  <section class="panel chat">
-    <div class="panel-header">
-      <h2>Chat</h2>
-    </div>
-
-    <div class="panel-body">
-      <div class="panel-content chat-layout">
-        <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} />
+  <div class="main-layout" style={`grid-template-columns:${chatWidth}% 12px 1fr;`}>
+    <section class="panel chat">
+      <div class="panel-header">
+        <h2>Chat</h2>
       </div>
-    </div>
-  </section>
 
-  <div class="panel records">
-    <div class="panel-header">
-      <h2>Records &amp; Map</h2>
-    </div>
+      <div class="panel-body">
+        <div class="panel-content chat-layout">
+          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} />
+        </div>
+      </div>
+    </section>
 
-    <div class="panel-body">
-      <div class="panel-content">
-        <RecordsPanel />
+    <Splitter bind:value={chatWidth} direction="vertical" min={25} max={75} />
+
+    <div class="panel records">
+      <div class="panel-header">
+        <h2>Records &amp; Map</h2>
+      </div>
+
+      <div class="panel-body">
+        <div class="panel-content">
+          <RecordsPanel />
+        </div>
       </div>
     </div>
   </div>
@@ -86,8 +93,8 @@
     display: grid;
     grid-template-columns:
       240px
-      minmax(0, 2fr)
-      minmax(0, 2fr);
+      minmax(0, 1fr);
+
     gap: 1rem;
 
     /* Fallback for short viewports */
@@ -103,14 +110,29 @@
   .geochat-page.history-collapsed {
     grid-template-columns:
       64px
-      minmax(0, 2fr)
-      minmax(0, 2fr);
+      minmax(0, 1fr);
   }
 
   .history,
   .chat,
   .records {
     min-width: 0;
+  }
+
+  .main-layout {
+    display: grid;
+    grid-template-columns: 50% 12px 1fr;
+
+    min-width: 0;
+    min-height: 0;
+
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .main-layout > * {
+    min-width: 0;
+    min-height: 0;
   }
 
   .history-header {
