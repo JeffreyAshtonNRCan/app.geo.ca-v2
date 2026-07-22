@@ -20,6 +20,7 @@
     height?: string;
     mapProjection?: number;
     mapType?: MapTypes;
+    mapVariant?: 'default' | 'geochat';
     footer?: boolean;
     timeSlider?: boolean;
     chart?: boolean;
@@ -32,6 +33,7 @@
     dynamic = false,
     mapProjection = 3978,
     mapType = null,
+    mapVariant = 'default',
     footer = false,
     timeSlider = false,
     chart = false,
@@ -56,7 +58,7 @@
       },
     },
     theme: 'geo.ca',
-    components: ['north-arrow', 'overview-map'],
+    components: mapVariant === 'geochat' ? ['north-arrow'] : ['north-arrow', 'overview-map'],
     navBar: ['zoom'],
     corePackages: [],
     appBar: {
