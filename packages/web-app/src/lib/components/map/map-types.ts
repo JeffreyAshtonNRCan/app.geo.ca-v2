@@ -1,5 +1,5 @@
 // Define the types of maps that can be used in different components
-export type MapTypes = 'record' | 'resultList' | null;
+export type MapTypes = 'record' | 'resultList' | 'geochat' | null;
 
 // TODO: Look into importing type from geoview weekly
 // Define the configuration structure for a Geoview map

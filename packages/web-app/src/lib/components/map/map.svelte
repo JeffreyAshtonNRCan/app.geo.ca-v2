@@ -41,6 +41,53 @@
   let mapId = $derived(`map-${mapType}-${id}`);
   let mapLang = page.data.lang === 'fr-ca' ? 'fr' : 'en';
 
+  function getComponents(): string[] {
+    switch (mapType) {
+      case 'geochat':
+        return [];
+
+      default:
+        return ['north-arrow', 'overview-map'];
+    }
+  }
+
+  function getNavBar(): string[] {
+    switch (mapType) {
+      case 'geochat':
+        return ['zoom'];
+
+      default:
+        return ['zoom', 'home', 'fullscreen'];
+    }
+  }
+
+  function getAppBar(): GeoviewConfig['appBar'] {
+    switch (mapType) {
+      case 'geochat':
+        return {
+          tabs: {
+            core: ['geolocator', 'legend'],
+          },
+        };
+
+      default:
+        return {
+          tabs: {
+            core: ['geolocator', 'legend', 'details', 'export'],
+          },
+        };
+    }
+  }
+
+  function getFooterBar(): GeoviewConfig['footerBar'] | undefined {
+    // GeoChat never shows a footer
+    if (mapType === 'geochat') {
+      return undefined;
+    }
+
+    return buildFooterBar();
+  }
+
   // TODO: extract to use one config for this and favourites map.
   let config: GeoviewConfig = $derived.by(() => ({
     map: {
@@ -55,15 +102,17 @@
         labeled: true,
       },
     },
+
     theme: 'geo.ca',
-    components: ['north-arrow', 'overview-map'],
+
+    components: getComponents(),
+    navBar: getNavBar(),
     corePackages: [],
-    appBar: {
-      tabs: {
-        core: ['geolocator', 'legend', 'details', 'export'],
-      },
-    },
-    ...(buildFooterBar() && { footerBar: buildFooterBar() }),
+    appBar: getAppBar(),
+
+    ...(getFooterBar() && {
+      footerBar: getFooterBar(),
+    }),
   }));
 
   /**
