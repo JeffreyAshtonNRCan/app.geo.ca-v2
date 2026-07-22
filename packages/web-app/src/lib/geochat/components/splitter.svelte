@@ -79,7 +79,7 @@
   }
 
   .vertical {
-    width: 6px;
+    width: 12px;
     cursor: col-resize;
   }
 
@@ -90,7 +90,7 @@
 
   .vertical .grip {
     width: 2px;
-    height: 32px;
+    height: 36px;
     border-radius: 1px;
     background: #9ca3af;
   }
