@@ -61,8 +61,10 @@
   class="splitter"
   class:vertical={direction === 'vertical'}
   class:horizontal={direction === 'horizontal'}
-  class:dragging
-  on:pointerdown={pointerDown}
+  role="separator"
+  aria-orientation={direction}
+  tabindex="0"
+  onpointerdown={pointerDown}
 >
   <div class="grip"></div>
 </div>
