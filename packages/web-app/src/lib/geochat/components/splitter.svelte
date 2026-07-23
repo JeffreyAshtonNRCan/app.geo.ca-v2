@@ -56,14 +56,15 @@
   }
 </script>
 
+<!--todo tabindex="0"-->
 <div
   bind:this={handle}
   class="splitter"
+  class:dragging
   class:vertical={direction === 'vertical'}
   class:horizontal={direction === 'horizontal'}
   role="separator"
   aria-orientation={direction}
-  tabindex="0"
   onpointerdown={pointerDown}
 >
   <div class="grip"></div>
