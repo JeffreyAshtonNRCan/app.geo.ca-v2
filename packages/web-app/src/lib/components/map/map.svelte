@@ -265,6 +265,13 @@
         console.log('viewer:', viewer);
         console.log('viewer.map:', viewer?.map);
 
+        const el = document.getElementById(mapId);
+
+        console.log(el?.className);
+        console.log(getComputedStyle(el!).height);
+        console.log(getComputedStyle(el!).display);
+        console.log(getComputedStyle(el!).position);
+
         setTimeout(() => {
           window.dispatchEvent(new Event('resize'));
         }, 500);
