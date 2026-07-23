@@ -57,11 +57,15 @@
         labeled: true,
       },
     },
+
     theme: 'geo.ca',
+
     components: mapVariant === 'geochat' ? ['north-arrow'] : ['north-arrow', 'overview-map'],
+
     navBar: mapVariant === 'geochat' ? ['zoom'] : ['zoom', 'rotation', 'fullscreen', 'home', 'basemap-select'],
 
     corePackages: [],
+
     appBar:
       mapVariant === 'geochat'
         ? {
@@ -74,7 +78,17 @@
               core: ['geolocator', 'legend', 'details', 'export'],
             },
           },
-    ...(buildFooterBar() && { footerBar: buildFooterBar() }),
+
+    // TEMPORARY TEST
+    ...(mapVariant === 'geochat'
+      ? {
+          footerBar: {
+            tabs: {
+              core: [],
+            },
+          },
+        }
+      : buildFooterBar() && { footerBar: buildFooterBar() }),
   }));
 
   /**
