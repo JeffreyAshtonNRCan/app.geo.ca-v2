@@ -79,7 +79,6 @@
             },
           },
 
-    // TEMPORARY TEST
     ...(mapVariant === 'geochat'
       ? {
           footerBar: {
