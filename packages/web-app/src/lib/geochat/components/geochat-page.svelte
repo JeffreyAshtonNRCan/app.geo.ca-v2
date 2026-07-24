@@ -231,12 +231,7 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
-    padding: 0.25rem; /* 4px */
-  }
-
-  .history .panel-body,
-  .records .panel-body {
-    background: #f5f5f5;
+    padding: 0;
   }
 
   .chat .panel-body {
@@ -266,7 +261,7 @@
     flex: 1;
     overflow-y: auto;
     margin: 0 0 8px;
-    border: 1px solid #ddd;
+    border: none;
     background: #fff;
   }
 
