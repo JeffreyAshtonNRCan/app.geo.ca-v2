@@ -12,10 +12,14 @@
   let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
 
   $effect(() => {
+    if (typeof localStorage === 'undefined') return;
+
     localStorage.setItem('geochat-chat-width', String(chatWidth));
   });
 
   $effect(() => {
+    if (typeof localStorage === 'undefined') return;
+
     localStorage.setItem('geochat-history-collapsed', String(historyCollapsed));
   });
 
