@@ -14,7 +14,11 @@
   //   [-141, 60],
   // ];
 
-  let recordsHeight = $state(45);
+  let recordsHeight = $state(Number(localStorage.getItem('geochat-records-height')) || 45);
+
+  $effect(() => {
+    localStorage.setItem('geochat-records-height', String(recordsHeight));
+  });
 
   let selectedRecord = $state<ChatRecord | undefined>();
 
