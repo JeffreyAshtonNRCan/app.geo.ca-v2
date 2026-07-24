@@ -80,28 +80,28 @@
     justify-content: center;
     user-select: none;
     touch-action: none;
-    background: #f3f4f6;
+    background: #f8f9fa;
     transition: background 0.15s ease;
   }
 
   .splitter:hover,
   .splitter.dragging {
-    background: #d1d5db;
+    background: #e5e7eb;
   }
 
   .vertical {
-    width: 12px;
+    width: 8px;
     cursor: col-resize;
   }
 
   .horizontal {
-    height: 6px;
+    height: 8px;
     cursor: row-resize;
   }
 
   .vertical .grip {
     width: 2px;
-    height: 36px;
+    height: 32px;
     border-radius: 1px;
     background: #9ca3af;
   }
