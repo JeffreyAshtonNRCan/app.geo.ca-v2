@@ -286,4 +286,9 @@
   .chat :global(#chat-log-wrapper) {
     margin-bottom: 8px;
   }
+
+  .chat :global(.chat-input) {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 8px;
+  }
 </style>
