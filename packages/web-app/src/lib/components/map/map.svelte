@@ -285,8 +285,20 @@
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
         const viewer = cgpv.api.getMapViewer(mapId);
-        console.log('viewer:', viewer);
-        console.log('viewer.map:', viewer?.map);
+        const host = document.getElementById(mapId);
+
+        console.log('viewer', viewer);
+        console.log('host', host);
+
+        if (viewer?.map && host) {
+          resizeObserver = new ResizeObserver(() => {
+            console.log('ResizeObserver fired');
+            viewer.map.updateSize();
+            viewer.map.renderSync();
+          });
+
+          resizeObserver.observe(host);
+        }
       }
 
       // Add bounding box when no map is available
