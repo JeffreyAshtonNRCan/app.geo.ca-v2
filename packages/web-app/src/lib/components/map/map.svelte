@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { page } from '$app/state';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { loadCGPVScript } from '$lib/components/map/loadCGPVScript';
   import { normalizeCoordinates } from '$lib/utils/normalize-coordinates';
   import type { GeoviewConfig, MapTypes } from '$lib/components/map/map-types';
@@ -42,6 +42,8 @@
 
   let mapId = $derived(`map-${mapType}-${id}`);
   let mapLang = page.data.lang === 'fr-ca' ? 'fr' : 'en';
+
+  let resizeObserver: ResizeObserver | undefined;
 
   // TODO: extract to use one config for this and favourites map.
   let config: GeoviewConfig = $derived.by(() => ({
@@ -261,20 +263,21 @@
         console.log(JSON.stringify(config, null, 2));
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
-        const viewer = cgpv.api.getMapViewer(mapId);
-        console.log('viewer:', viewer);
-        console.log('viewer.map:', viewer?.map);
+        // const viewer = cgpv.api.getMapViewer(mapId);
+        // console.log('viewer:', viewer);
+        // console.log('viewer.map:', viewer?.map);
+        const host = document.getElementById(mapId);
 
-        const el = document.getElementById(mapId);
+        cgpv.onMapInit((mapViewer: any) => {
+          if (mapViewer.mapId !== mapId || !host) return;
 
-        console.log(el?.className);
-        console.log(getComputedStyle(el!).height);
-        console.log(getComputedStyle(el!).display);
-        console.log(getComputedStyle(el!).position);
+          resizeObserver = new ResizeObserver(() => {
+            mapViewer.map.updateSize();
+            mapViewer.map.renderSync();
+          });
 
-        setTimeout(() => {
-          window.dispatchEvent(new Event('resize'));
-        }, 500);
+          resizeObserver.observe(host); // <-- inside
+        });
       }
 
       // Add bounding box when no map is available
@@ -303,6 +306,10 @@
     } catch (e) {
       console.error(e);
     }
+  });
+
+  onDestroy(() => {
+    resizeObserver?.disconnect();
   });
 </script>
 
