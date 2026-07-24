@@ -284,9 +284,9 @@
         console.log(JSON.stringify(config, null, 2));
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
-        // const viewer = cgpv.api.getMapViewer(mapId);
-        // console.log('viewer:', viewer);
-        // console.log('viewer.map:', viewer?.map);
+        const viewer = cgpv.api.getMapViewer(mapId);
+        console.log('viewer:', viewer);
+        console.log('viewer.map:', viewer?.map);
       }
 
       // Add bounding box when no map is available
