@@ -222,12 +222,33 @@
     // trying to use the geocore code, otherwise it sometimes fails
     await loadCGPVScript();
 
+    console.log('window.cgpv', window.cgpv);
+    console.log('onMapInit', (window.cgpv as any).onMapInit);
+
     try {
       // Destroy the old map if it exists. This ensures that when the map is toggled
       // on and off multiple time, it always has visible layers.
       if (cgpv.api.hasMapViewer(mapId)) {
         await cgpv.api.deleteMapViewer(mapId, false);
       }
+
+      // Register onMapInit here
+      console.log('Registering onMapInit');
+      const host = document.getElementById(mapId);
+
+      window.cgpv.onMapInit((mapViewer) => {
+        console.log('onMapInit', mapViewer.mapId);
+
+        if (mapViewer.mapId !== mapId || !host) return;
+
+        resizeObserver = new ResizeObserver(() => {
+          console.log('resize');
+          mapViewer.map.updateSize();
+          mapViewer.map.renderSync();
+        });
+
+        resizeObserver.observe(host);
+      });
 
       // Create the layer config to check if the geocore record has a map. It is undefined if no map exists.
       let geoviewLayerConfig;
@@ -266,24 +287,6 @@
         // const viewer = cgpv.api.getMapViewer(mapId);
         // console.log('viewer:', viewer);
         // console.log('viewer.map:', viewer?.map);
-        const host = document.getElementById(mapId);
-
-        cgpv.onMapInit((mapViewer: any) => {
-          console.log('onMapInit fired', mapViewer.mapId);
-
-          if (mapViewer.mapId !== mapId || !host) return;
-
-          console.log('Creating ResizeObserver');
-
-          resizeObserver = new ResizeObserver(() => {
-            console.log('ResizeObserver fired');
-
-            mapViewer.map.updateSize();
-            mapViewer.map.renderSync();
-          });
-
-          resizeObserver.observe(host);
-        });
       }
 
       // Add bounding box when no map is available
