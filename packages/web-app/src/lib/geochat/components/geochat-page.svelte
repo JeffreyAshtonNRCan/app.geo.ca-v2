@@ -260,9 +260,9 @@
   .chat-layout :global(#chat-log-wrapper) {
     flex: 1;
     overflow-y: auto;
-    margin: 0 0 8px;
-    border: none;
-    background: #fff;
+    margin: 0;
+    border: none !important;
+    background: transparent !important;
   }
 
   .chat-layout :global(#chat-log) {
