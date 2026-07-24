@@ -236,7 +236,7 @@
 
   .chat .panel-body {
     background: #fff;
-    padding: 0 1rem 0;
+    padding: 0;
   }
 
   .panel-content {
