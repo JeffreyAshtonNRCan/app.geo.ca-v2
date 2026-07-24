@@ -214,9 +214,13 @@
   }
 
   .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
     background: #fff;
-    padding: 1rem;
-    text-align: center;
   }
 
   .panel-header h2 {
