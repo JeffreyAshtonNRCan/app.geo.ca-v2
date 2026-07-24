@@ -279,4 +279,10 @@
   .chat-layout :global(#chat-log) {
     padding: 10px 10px 8px;
   }
+
+  .panel.chat :global(#chat-log-wrapper) {
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+  }
 </style>
