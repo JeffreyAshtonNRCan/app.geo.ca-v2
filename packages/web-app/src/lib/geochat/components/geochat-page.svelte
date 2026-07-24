@@ -217,7 +217,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    text-align: center;
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #e5e7eb;
     background: #fff;
