@@ -7,7 +7,11 @@
   import Splitter from '$lib/geochat/components/splitter.svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
 
-  let chatWidth = $state(50);
+  let chatWidth = $state(Number(localStorage.getItem('geochat-chat-width')) || 50);
+
+  $effect(() => {
+    localStorage.setItem('geochat-chat-width', String(chatWidth));
+  });
 
   let {
     lang = 'en',
