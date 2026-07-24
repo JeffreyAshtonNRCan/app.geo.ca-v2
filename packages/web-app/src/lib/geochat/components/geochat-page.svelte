@@ -282,4 +282,9 @@
   .chat-layout :global(#chat-log) {
     padding: 10px 10px 8px;
   }
+
+  .chat :global(.chat-input) {
+    margin-top: 8px;
+    border-top: 1px solid #e5e7eb;
+  }
 </style>
