@@ -231,7 +231,7 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0.25rem; /* 4px */
   }
 
   .history .panel-body,
