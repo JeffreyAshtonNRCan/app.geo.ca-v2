@@ -9,6 +9,13 @@
 
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
+  let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
+
+  $effect(() => {
+    localStorage.setItem('geochat-chat-width', String(chatWidth));
+    localStorage.setItem('geochat-history-collapsed', String(historyCollapsed));
+  });
+
   let {
     lang = 'en',
     alternateLanguageUrl = '',
@@ -16,8 +23,6 @@
     lang?: 'en' | 'fr';
     alternateLanguageUrl?: string;
   } = $props();
-
-  let historyCollapsed = $state(false);
 
   onMount(() => {
     chatStore.initializeChat(lang);
