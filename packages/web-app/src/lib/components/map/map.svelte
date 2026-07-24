@@ -291,10 +291,17 @@
         console.log('host', host);
 
         if (viewer?.map && host) {
+          let resizeTimer: ReturnType<typeof setTimeout>;
+
           resizeObserver = new ResizeObserver(() => {
-            console.log('ResizeObserver fired');
-            viewer.map.updateSize();
-            viewer.map.renderSync();
+            clearTimeout(resizeTimer);
+
+            resizeTimer = setTimeout(() => {
+              console.log('Updating map');
+
+              viewer.map.updateSize();
+              viewer.map.renderSync();
+            }, 100);
           });
 
           resizeObserver.observe(host);
