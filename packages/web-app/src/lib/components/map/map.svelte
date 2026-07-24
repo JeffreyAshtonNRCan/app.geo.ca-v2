@@ -269,14 +269,20 @@
         const host = document.getElementById(mapId);
 
         cgpv.onMapInit((mapViewer: any) => {
+          console.log('onMapInit fired', mapViewer.mapId);
+
           if (mapViewer.mapId !== mapId || !host) return;
 
+          console.log('Creating ResizeObserver');
+
           resizeObserver = new ResizeObserver(() => {
+            console.log('ResizeObserver fired');
+
             mapViewer.map.updateSize();
             mapViewer.map.renderSync();
           });
 
-          resizeObserver.observe(host); // <-- inside
+          resizeObserver.observe(host);
         });
       }
 
