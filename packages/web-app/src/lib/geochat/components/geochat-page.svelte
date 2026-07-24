@@ -13,6 +13,9 @@
 
   $effect(() => {
     localStorage.setItem('geochat-chat-width', String(chatWidth));
+  });
+
+  $effect(() => {
     localStorage.setItem('geochat-history-collapsed', String(historyCollapsed));
   });
 
