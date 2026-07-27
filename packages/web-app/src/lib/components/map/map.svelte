@@ -284,46 +284,46 @@
         console.log(JSON.stringify(config, null, 2));
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
-        // const viewer = cgpv.api.getMapViewer(mapId);
-        // const host = document.getElementById(mapId);
-        //
-        // console.log('viewer', viewer);
-        // console.log('host', host);
-        //
-        // if (viewer?.map && host) {
-        //   let resizeTimer: ReturnType<typeof setTimeout>;
-        //
-        //   resizeObserver = new ResizeObserver(() => {
-        //     console.log('host', host.clientWidth, host.clientHeight);
-        //     console.log('before', viewer.map.getSize());
-        //
-        //     viewer.map.updateSize();
-        //
-        //     console.log('after', viewer.map.getSize());
-        //
-        //     viewer.map.renderSync();
-        //   });
-        //
-        //   resizeObserver.observe(host);
-        // }
+        const viewer = cgpv.api.getMapViewer(mapId);
         const host = document.getElementById(mapId);
 
-        window.cgpv.onMapInit((mapViewer: any) => {
-          if (mapViewer.mapId !== mapId || !host) return;
+        console.log('viewer', viewer);
+        console.log('host', host);
+
+        if (viewer?.map && host) {
+          let resizeTimer: ReturnType<typeof setTimeout>;
 
           resizeObserver = new ResizeObserver(() => {
             console.log('host', host.clientWidth, host.clientHeight);
-            console.log('before', mapViewer.map.getSize());
+            console.log('before', viewer.map.getSize());
 
-            mapViewer.map.updateSize();
+            viewer.map.updateSize();
 
-            console.log('after', mapViewer.map.getSize());
+            console.log('after', viewer.map.getSize());
 
-            mapViewer.map.renderSync();
+            viewer.map.renderSync();
           });
 
           resizeObserver.observe(host);
-        });
+        }
+        // const host = document.getElementById(mapId);
+        //
+        // window.cgpv.onMapInit((mapViewer: any) => {
+        //   if (mapViewer.mapId !== mapId || !host) return;
+        //
+        //   resizeObserver = new ResizeObserver(() => {
+        //     console.log('host', host.clientWidth, host.clientHeight);
+        //     console.log('before', mapViewer.map.getSize());
+        //
+        //     mapViewer.map.updateSize();
+        //
+        //     console.log('after', mapViewer.map.getSize());
+        //
+        //     mapViewer.map.renderSync();
+        //   });
+        //
+        //   resizeObserver.observe(host);
+        // });
       }
 
       // Add bounding box when no map is available
