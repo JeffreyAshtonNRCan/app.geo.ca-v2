@@ -233,22 +233,22 @@
       }
 
       // Register onMapInit here
-      console.log('Registering onMapInit');
-      const host = document.getElementById(mapId);
-
-      window.cgpv.onMapInit((mapViewer) => {
-        console.log('onMapInit', mapViewer.mapId);
-
-        if (mapViewer.mapId !== mapId || !host) return;
-
-        resizeObserver = new ResizeObserver(() => {
-          console.log('resize');
-          mapViewer.map.updateSize();
-          mapViewer.map.renderSync();
-        });
-
-        resizeObserver.observe(host);
-      });
+      // console.log('Registering onMapInit');
+      // const host = document.getElementById(mapId);
+      //
+      // window.cgpv.onMapInit((mapViewer) => {
+      //   console.log('onMapInit', mapViewer.mapId);
+      //
+      //   if (mapViewer.mapId !== mapId || !host) return;
+      //
+      //   resizeObserver = new ResizeObserver(() => {
+      //     console.log('resize');
+      //     mapViewer.map.updateSize();
+      //     mapViewer.map.renderSync();
+      //   });
+      //
+      //   resizeObserver.observe(host);
+      // });
 
       // Create the layer config to check if the geocore record has a map. It is undefined if no map exists.
       let geoviewLayerConfig;
@@ -284,28 +284,46 @@
         console.log(JSON.stringify(config, null, 2));
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
-        const viewer = cgpv.api.getMapViewer(mapId);
+        // const viewer = cgpv.api.getMapViewer(mapId);
+        // const host = document.getElementById(mapId);
+        //
+        // console.log('viewer', viewer);
+        // console.log('host', host);
+        //
+        // if (viewer?.map && host) {
+        //   let resizeTimer: ReturnType<typeof setTimeout>;
+        //
+        //   resizeObserver = new ResizeObserver(() => {
+        //     console.log('host', host.clientWidth, host.clientHeight);
+        //     console.log('before', viewer.map.getSize());
+        //
+        //     viewer.map.updateSize();
+        //
+        //     console.log('after', viewer.map.getSize());
+        //
+        //     viewer.map.renderSync();
+        //   });
+        //
+        //   resizeObserver.observe(host);
+        // }
         const host = document.getElementById(mapId);
 
-        console.log('viewer', viewer);
-        console.log('host', host);
-
-        if (viewer?.map && host) {
-          let resizeTimer: ReturnType<typeof setTimeout>;
+        window.cgpv.onMapInit((mapViewer: any) => {
+          if (mapViewer.mapId !== mapId || !host) return;
 
           resizeObserver = new ResizeObserver(() => {
             console.log('host', host.clientWidth, host.clientHeight);
-            console.log('before', viewer.map.getSize());
+            console.log('before', mapViewer.map.getSize());
 
-            viewer.map.updateSize();
+            mapViewer.map.updateSize();
 
-            console.log('after', viewer.map.getSize());
+            console.log('after', mapViewer.map.getSize());
 
-            viewer.map.renderSync();
+            mapViewer.map.renderSync();
           });
 
           resizeObserver.observe(host);
-        }
+        });
       }
 
       // Add bounding box when no map is available
