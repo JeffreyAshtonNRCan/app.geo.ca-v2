@@ -286,8 +286,9 @@
         console.log('CONFIG');
         console.log(JSON.stringify(config, null, 2));
 
-        const host = document.getElementById(mapId)?.parentElement;
+        // const host = document.getElementById(mapId)?.parentElement;
 
+        const host = document.getElementById(mapId);
         window.cgpv.onMapInit((mapViewer) => {
           console.log('onMapInit fired', mapViewer.mapId, mapId);
 
