@@ -284,36 +284,52 @@
         console.log(JSON.stringify(config, null, 2));
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
-        const viewer = cgpv.api.getMapViewer(mapId);
-        // const host = document.getElementById(mapId);
         const host = document.getElementById(mapId)?.parentElement;
-        console.log('viewer', viewer);
-        console.log('host', host);
 
-        if (host) {
-          const testObserver = new ResizeObserver(() => {
+        window.cgpv.onMapInit((mapViewer) => {
+          if (mapViewer.mapId !== mapId || !host) return;
+
+          const ro = new ResizeObserver(() => {
             console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
+
+            // Force OpenLayers to recompute its viewport
+            mapViewer.map.updateSize();
+            mapViewer.map.renderSync();
           });
 
-          testObserver.observe(host);
-        }
+          ro.observe(host);
+        });
 
-        if (viewer?.map && host) {
-          let resizeTimer: ReturnType<typeof setTimeout>;
-
-          resizeObserver = new ResizeObserver(() => {
-            console.log('host', host.clientWidth, host.clientHeight);
-            console.log('before', viewer.map.getSize());
-
-            viewer.map.updateSize();
-
-            console.log('after', viewer.map.getSize());
-
-            viewer.map.renderSync();
-          });
-
-          resizeObserver.observe(host);
-        }
+        // const viewer = cgpv.api.getMapViewer(mapId);
+        // // const host = document.getElementById(mapId);
+        // const host = document.getElementById(mapId)?.parentElement;
+        // console.log('viewer', viewer);
+        // console.log('host', host);
+        //
+        // if (host) {
+        //   const testObserver = new ResizeObserver(() => {
+        //     console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
+        //   });
+        //
+        //   testObserver.observe(host);
+        // }
+        //
+        // if (viewer?.map && host) {
+        //   let resizeTimer: ReturnType<typeof setTimeout>;
+        //
+        //   resizeObserver = new ResizeObserver(() => {
+        //     console.log('host', host.clientWidth, host.clientHeight);
+        //     console.log('before', viewer.map.getSize());
+        //
+        //     viewer.map.updateSize();
+        //
+        //     console.log('after', viewer.map.getSize());
+        //
+        //     viewer.map.renderSync();
+        //   });
+        //
+        //   resizeObserver.observe(host);
+        // }
         // const host = document.getElementById(mapId);
         //
         // window.cgpv.onMapInit((mapViewer: any) => {
