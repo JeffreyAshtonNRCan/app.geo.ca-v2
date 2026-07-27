@@ -286,20 +286,22 @@
         const host = document.getElementById(mapId)?.parentElement;
 
         window.cgpv.onMapInit((mapViewer) => {
-          if (mapViewer.mapId !== mapId || !host) return;
+          console.log('onMapInit fired', mapViewer.mapId, mapId);
 
-          const ro = new ResizeObserver(() => {
-            console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
+          if (mapViewer.mapId !== mapId || !host) {
+            console.log('ignoring', mapViewer.mapId);
+            return;
+          }
 
-            console.log('before', mapViewer.map.getSize());
+          console.log('attaching ResizeObserver');
 
+          resizeObserver = new ResizeObserver(() => {
+            console.log('ResizeObserver');
             mapViewer.map.updateSize();
             mapViewer.map.renderSync();
-
-            console.log('after', mapViewer.map.getSize());
           });
 
-          ro.observe(host);
+          resizeObserver.observe(host);
         });
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
