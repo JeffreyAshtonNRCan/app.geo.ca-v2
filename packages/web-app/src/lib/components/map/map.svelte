@@ -292,9 +292,12 @@
           const ro = new ResizeObserver(() => {
             console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
 
-            // Force OpenLayers to recompute its viewport
+            console.log('before', mapViewer.map.getSize());
+
             mapViewer.map.updateSize();
             mapViewer.map.renderSync();
+
+            console.log('after', mapViewer.map.getSize());
           });
 
           ro.observe(host);
