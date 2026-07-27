@@ -280,6 +280,9 @@
       // Note: We can safely use document here since it is inside onMount.
       if (document.getElementById(mapId)) {
         // Build the map from the config
+
+        await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
+
         console.log('CONFIG');
         console.log(JSON.stringify(config, null, 2));
 
@@ -303,7 +306,6 @@
 
           resizeObserver.observe(host);
         });
-        await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
         // const viewer = cgpv.api.getMapViewer(mapId);
         // // const host = document.getElementById(mapId);
