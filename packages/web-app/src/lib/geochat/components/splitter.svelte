@@ -47,12 +47,12 @@
     }
 
     // Tell GeoView the layout changed.
-    if (direction === 'horizontal') {
-      setTimeout(() => {
-        console.log('dispatch event');
-        window.dispatchEvent(new Event('resize'));
-      }, 500);
-    }
+    // if (direction === 'horizontal') {
+    //   setTimeout(() => {
+    //     console.log('dispatch event');
+    //     window.dispatchEvent(new Event('resize'));
+    //   }, 500);
+    // }
 
     window.addEventListener('pointermove', pointerMove);
     window.addEventListener('pointerup', pointerUp);
