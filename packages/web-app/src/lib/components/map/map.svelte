@@ -285,8 +285,8 @@
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
         const viewer = cgpv.api.getMapViewer(mapId);
-        const host = document.getElementById(mapId);
-
+        // const host = document.getElementById(mapId);
+        const host = document.getElementById(mapId)?.parentElement;
         console.log('viewer', viewer);
         console.log('host', host);
 
