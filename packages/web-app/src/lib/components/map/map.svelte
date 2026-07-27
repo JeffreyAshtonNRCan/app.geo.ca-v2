@@ -288,56 +288,54 @@
 
         // const host = document.getElementById(mapId)?.parentElement;
 
-        const host = document.getElementById(mapId);
-        window.cgpv.onMapInit((mapViewer) => {
-          console.log('onMapInit fired', mapViewer.mapId, mapId);
-
-          if (mapViewer.mapId !== mapId || !host) {
-            console.log('ignoring', mapViewer.mapId);
-            return;
-          }
-
-          console.log('attaching ResizeObserver');
-
-          resizeObserver = new ResizeObserver(() => {
-            console.log('ResizeObserver');
-            mapViewer.map.updateSize();
-            mapViewer.map.renderSync();
-          });
-
-          resizeObserver.observe(host);
-        });
-
-        // const viewer = cgpv.api.getMapViewer(mapId);
-        // // const host = document.getElementById(mapId);
-        // const host = document.getElementById(mapId)?.parentElement;
-        // console.log('viewer', viewer);
-        // console.log('host', host);
+        // const host = document.getElementById(mapId);
+        // window.cgpv.onMapInit((mapViewer) => {
+        //   console.log('onMapInit fired', mapViewer.mapId, mapId);
         //
-        // if (host) {
-        //   const testObserver = new ResizeObserver(() => {
-        //     console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
-        //   });
+        //   if (mapViewer.mapId !== mapId || !host) {
+        //     console.log('ignoring', mapViewer.mapId);
+        //     return;
+        //   }
         //
-        //   testObserver.observe(host);
-        // }
-        //
-        // if (viewer?.map && host) {
-        //   let resizeTimer: ReturnType<typeof setTimeout>;
+        //   console.log('attaching ResizeObserver');
         //
         //   resizeObserver = new ResizeObserver(() => {
-        //     console.log('host', host.clientWidth, host.clientHeight);
-        //     console.log('before', viewer.map.getSize());
-        //
-        //     viewer.map.updateSize();
-        //
-        //     console.log('after', viewer.map.getSize());
-        //
-        //     viewer.map.renderSync();
+        //     console.log('ResizeObserver');
+        //     mapViewer.map.updateSize();
+        //     mapViewer.map.renderSync();
         //   });
         //
         //   resizeObserver.observe(host);
-        // }
+        // });
+
+        const viewer = cgpv.api.getMapViewer(mapId);
+        // const host = document.getElementById(mapId);
+        const host = document.getElementById(mapId)?.parentElement;
+        console.log('viewer', viewer);
+        console.log('host', host);
+
+        if (host) {
+          const testObserver = new ResizeObserver(() => {
+            console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
+          });
+
+          testObserver.observe(host);
+        }
+
+        if (viewer?.map && host) {
+          resizeObserver = new ResizeObserver(() => {
+            console.log('host', host.clientWidth, host.clientHeight);
+            console.log('before', viewer.map.getSize());
+
+            viewer.map.updateSize();
+
+            console.log('after', viewer.map.getSize());
+
+            viewer.map.renderSync();
+          });
+
+          resizeObserver.observe(host);
+        }
         // const host = document.getElementById(mapId);
         //
         // window.cgpv.onMapInit((mapViewer: any) => {
