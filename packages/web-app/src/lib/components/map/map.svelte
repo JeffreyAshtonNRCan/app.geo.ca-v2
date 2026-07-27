@@ -290,6 +290,14 @@
         console.log('viewer', viewer);
         console.log('host', host);
 
+        if (host) {
+          const testObserver = new ResizeObserver(() => {
+            console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
+          });
+
+          testObserver.observe(host);
+        }
+
         if (viewer?.map && host) {
           let resizeTimer: ReturnType<typeof setTimeout>;
 
