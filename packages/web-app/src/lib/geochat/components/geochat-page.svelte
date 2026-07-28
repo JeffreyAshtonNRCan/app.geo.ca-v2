@@ -194,7 +194,7 @@
   }
 
   .history-toggle {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1;
     transition: transform 200ms ease;
   }
