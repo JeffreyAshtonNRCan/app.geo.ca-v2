@@ -130,6 +130,8 @@
   }
 
   .history {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     transition:
       opacity 120ms ease 80ms,
@@ -172,12 +174,6 @@
     line-height: 1.2;
   }
 
-  .history {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
   .history-content {
     flex: 1;
     overflow: hidden;
@@ -205,18 +201,6 @@
 
   .history-toggle:active {
     transform: scale(0.96);
-  }
-
-  .history.collapsed .history-toggle {
-    margin: 0;
-  }
-
-  .history.collapsed .history-header {
-    justify-content: center;
-  }
-
-  .history.collapsed .history-toggle {
-    margin: 0;
   }
 
   .panel {
@@ -281,10 +265,6 @@
     margin: 0;
     border: none !important;
     background: transparent !important;
-  }
-
-  .chat-layout :global(#chat-log) {
-    padding: 0 10px;
   }
 
   /*.chat-layout :global(.chat-input) {*/
