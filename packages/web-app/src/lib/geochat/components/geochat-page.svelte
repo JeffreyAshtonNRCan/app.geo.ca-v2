@@ -215,7 +215,6 @@
   .panel-header {
     display: flex;
     justify-content: center;
-    height: 60px;
     align-items: center;
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #e5e7eb;
