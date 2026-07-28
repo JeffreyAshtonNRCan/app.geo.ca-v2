@@ -36,21 +36,18 @@
 
 <p class="mb-8 mt-3 font-open-sans px-5 md:px-0">Ask questions about GEO.ca datasets in natural language.</p>
 
-<div class="geochat-page px-5 md:px-0">
-  {#if !historyCollapsed}
-    <div class="panel history">
-      <div class="panel-header history-header">
-        <h2>Chat History</h2>
-      </div>
+<div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
+  <div class="panel history" class:collapsed={historyCollapsed}>
+    <div class="panel-header history-header">
+      <h2>Chat History</h2>
+    </div>
 
-      <div class="panel-body">
-        <div class="panel-content history-content">
-          <HistoryPanel />
-        </div>
+    <div class="panel-body">
+      <div class="panel-content history-content">
+        <HistoryPanel />
       </div>
     </div>
-  {/if}
-
+  </div>
   <div class="main-layout" style={`grid-template-columns:${chatWidth}% 12px 1fr;`}>
     <section class="panel chat">
       <div class="panel-header chat-header">
@@ -99,14 +96,21 @@
 <style>
   .geochat-page {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: 240px minmax(0, 1fr);
 
     gap: 1rem;
-
     height: 600px;
     min-height: calc(100vh - 160px);
-
     align-items: stretch;
+
+    transition:
+      grid-template-columns 200ms ease,
+      gap 200ms ease;
+  }
+
+  .geochat-page.history-collapsed {
+    grid-template-columns: 0 minmax(0, 1fr);
+    gap: 0;
   }
 
   .chat-header {
@@ -119,6 +123,19 @@
   .chat,
   .records {
     min-width: 0;
+  }
+
+  .history {
+    overflow: hidden;
+    transition:
+      opacity 120ms ease 80ms,
+      visibility 0s linear 200ms;
+  }
+
+  .history.collapsed {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .main-layout {
