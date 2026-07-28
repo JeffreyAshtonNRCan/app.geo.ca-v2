@@ -283,8 +283,8 @@
 
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
 
-        console.log('CONFIG');
-        console.log(JSON.stringify(config, null, 2));
+        // console.log('CONFIG');
+        // console.log(JSON.stringify(config, null, 2));
 
         // const host = document.getElementById(mapId)?.parentElement;
 
@@ -308,34 +308,34 @@
         //   resizeObserver.observe(host);
         // });
 
-        const viewer = cgpv.api.getMapViewer(mapId);
-        // const host = document.getElementById(mapId);
-        const host = document.getElementById(mapId)?.parentElement;
-        console.log('viewer', viewer);
-        console.log('host', host);
-
-        if (host) {
-          const testObserver = new ResizeObserver(() => {
-            console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
-          });
-
-          testObserver.observe(host);
-        }
-
-        if (viewer?.map && host) {
-          resizeObserver = new ResizeObserver(() => {
-            console.log('host', host.clientWidth, host.clientHeight);
-            console.log('before', viewer.map.getSize());
-
-            viewer.map.updateSize();
-
-            console.log('after', viewer.map.getSize());
-
-            viewer.map.renderSync();
-          });
-
-          resizeObserver.observe(host);
-        }
+        // const viewer = cgpv.api.getMapViewer(mapId);
+        // // const host = document.getElementById(mapId);
+        // const host = document.getElementById(mapId)?.parentElement;
+        // console.log('viewer', viewer);
+        // console.log('host', host);
+        //
+        // if (host) {
+        //   const testObserver = new ResizeObserver(() => {
+        //     console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
+        //   });
+        //
+        //   testObserver.observe(host);
+        // }
+        //
+        // if (viewer?.map && host) {
+        //   resizeObserver = new ResizeObserver(() => {
+        //     console.log('host', host.clientWidth, host.clientHeight);
+        //     console.log('before', viewer.map.getSize());
+        //
+        //     viewer.map.updateSize();
+        //
+        //     console.log('after', viewer.map.getSize());
+        //
+        //     viewer.map.renderSync();
+        //   });
+        //
+        //   resizeObserver.observe(host);
+        // }
         // const host = document.getElementById(mapId);
         //
         // window.cgpv.onMapInit((mapViewer: any) => {
@@ -384,9 +384,9 @@
     }
   });
 
-  onDestroy(() => {
-    resizeObserver?.disconnect();
-  });
+  // onDestroy(() => {
+  //   resizeObserver?.disconnect();
+  // });
 </script>
 
 <div
