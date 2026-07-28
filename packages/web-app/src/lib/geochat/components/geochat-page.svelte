@@ -54,7 +54,7 @@
         <button
           type="button"
           class="history-toggle
-                  h-[34px] w-[34px]
+                  h-[28px] w-[28px]
                   rounded-[0.3125rem]
                   bg-custom-16 hover:bg-custom-23
                   text-white
