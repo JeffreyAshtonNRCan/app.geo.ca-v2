@@ -114,19 +114,12 @@
   }
 
   .chat-header {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-  }
-
-  .history-toggle {
-    position: absolute;
-    left: 1rem;
+    justify-content: flex-start;
   }
 
   .chat-header h2 {
+    flex: 1;
+    text-align: center;
     margin: 0;
   }
 
