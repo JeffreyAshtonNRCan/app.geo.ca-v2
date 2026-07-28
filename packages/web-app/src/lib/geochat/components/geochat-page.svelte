@@ -114,9 +114,20 @@
   }
 
   .chat-header {
+    position: relative;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .history-toggle {
+    position: absolute;
+    left: 1rem;
+  }
+
+  .chat-header h2 {
+    margin: 0;
   }
 
   .history,
