@@ -36,40 +36,40 @@
 
 <p class="mb-8 mt-3 font-open-sans px-5 md:px-0">Ask questions about GEO.ca datasets in natural language.</p>
 
-<div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
-  <div class="panel history" class:collapsed={historyCollapsed}>
-    <div class="panel-header history-header">
-      <button
-        type="button"
-        class="history-toggle
-           h-[34px] w-[34px]
-           rounded-[0.3125rem]
-           bg-custom-16 hover:bg-custom-23
-           text-white
-           inline-flex items-center justify-center
-           cursor-pointer
-           transition-colors"
-        onclick={() => (historyCollapsed = !historyCollapsed)}
-        aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
-      >
-        {historyCollapsed ? '❯' : '❮'}
-      </button>
-
-      {#if !historyCollapsed}
+<div class="geochat-page px-5 md:px-0">
+  {#if !historyCollapsed}
+    <div class="panel history">
+      <div class="panel-header history-header">
         <h2>Chat History</h2>
-      {/if}
-    </div>
+      </div>
 
-    <div class="panel-body">
-      <div class="panel-content history-content">
-        <HistoryPanel />
+      <div class="panel-body">
+        <div class="panel-content history-content">
+          <HistoryPanel />
+        </div>
       </div>
     </div>
-  </div>
+  {/if}
 
   <div class="main-layout" style={`grid-template-columns:${chatWidth}% 12px 1fr;`}>
     <section class="panel chat">
-      <div class="panel-header">
+      <div class="panel-header chat-header">
+        <button
+          type="button"
+          class="history-toggle
+                  h-[34px] w-[34px]
+                  rounded-[0.3125rem]
+                  bg-custom-16 hover:bg-custom-23
+                  text-white
+                  inline-flex items-center justify-center
+                  cursor-pointer
+                  transition-colors"
+          onclick={() => (historyCollapsed = !historyCollapsed)}
+          aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
+        >
+          ☰
+        </button>
+
         <h2>Chat</h2>
       </div>
 
@@ -99,26 +99,20 @@
 <style>
   .geochat-page {
     display: grid;
-    grid-template-columns:
-      240px
-      minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr);
 
     gap: 1rem;
 
-    /* Fallback for short viewports */
     height: 600px;
-
-    /* Grow on larger viewports */
     min-height: calc(100vh - 160px);
 
     align-items: stretch;
-    transition: grid-template-columns 250ms ease;
   }
 
-  .geochat-page.history-collapsed {
-    grid-template-columns:
-      64px
-      minmax(0, 1fr);
+  .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .history,
