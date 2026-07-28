@@ -114,7 +114,23 @@
   }
 
   .chat-header {
-    justify-content: flex-start;
+    position: relative;
+    justify-content: center;
+  }
+
+  .chat-header .history-toggle {
+    position: absolute;
+    left: 1rem;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    line-height: 1;
   }
 
   .chat-header h2 {
