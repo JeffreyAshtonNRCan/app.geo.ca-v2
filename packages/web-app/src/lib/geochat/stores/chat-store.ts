@@ -85,6 +85,7 @@ function createChatStore() {
   const initialState: ChatState = {
     messages: [],
     records: [],
+    history: [],
     isThinking: false,
     initialized: false,
   };
