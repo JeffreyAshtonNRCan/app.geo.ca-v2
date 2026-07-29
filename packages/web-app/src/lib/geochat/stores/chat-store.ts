@@ -52,9 +52,17 @@ export interface ChatMessage {
   isCurrent?: boolean;
 }
 
+interface ChatHistory {
+  sessionId: string;
+  title: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 interface ChatState {
   messages: ChatMessage[];
   records: ChatRecord[];
+  history: ChatHistory[];
 
   isThinking: boolean;
   initialized: boolean;
@@ -216,10 +224,25 @@ function createChatStore() {
           isCurrent: true,
         });
 
+        // Add this session to history if it isn't already there
+        const history = [...state.history];
+
+        const title = trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed;
+
+        if (!history.some((h) => h.sessionId === SESSION_ID)) {
+          history.push({
+            sessionId: SESSION_ID,
+            title,
+          });
+        }
+
+        console.log('history=', history);
+
         return {
           ...state,
           messages: updatedMessages,
           records: data.records ?? [],
+          history,
           isThinking: false,
         };
       });
