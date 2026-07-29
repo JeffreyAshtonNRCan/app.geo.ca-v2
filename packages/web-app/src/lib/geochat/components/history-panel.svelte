@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { chatStore } from '$lib/geochat/stores/chat-store';
   import PlusIcon from '$lib/components/icons/plus.svelte';
 </script>
 
@@ -18,10 +19,13 @@
     New Chat
   </button>
 
-  <ul>
-    <li>Chat #1</li>
-    <li>Chat #2</li>
-  </ul>
+  <div class="history-list">
+    {#each $chatStore.history as chat (chat.sessionId)}
+      <button class="history-item">
+        {chat.title}
+      </button>
+    {/each}
+  </div>
 </div>
 
 <style>
