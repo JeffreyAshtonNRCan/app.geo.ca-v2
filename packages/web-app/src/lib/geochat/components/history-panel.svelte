@@ -11,7 +11,7 @@
   <button
     class="text-nowrap
            h-[34px] px-3
-           mb-3
+           mb-4
            rounded-[0.3125rem]
            font-custom-style-button-3
            shadow-[0rem_0.1875rem_0.375rem_#00000029]
