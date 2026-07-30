@@ -380,6 +380,11 @@ function createChatStore() {
   function newChat(): ChatHistory[] {
     const history = [...get(store).history];
 
+    // Already started a new chat
+    if (history[0]?.title === 'New Chat') {
+      return history;
+    }
+
     history.unshift({
       title: 'New Chat',
     });
