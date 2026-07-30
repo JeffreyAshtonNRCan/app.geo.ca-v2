@@ -41,8 +41,6 @@
       New Chat
     </button>
 
-    <p>History count: {$chatStore.history.length}</p>
-
     {#each $chatStore.history as chat (chat.sessionId)}
       <button class="history-item">
         {chat.title}
