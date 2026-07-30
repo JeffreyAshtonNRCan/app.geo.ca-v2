@@ -34,8 +34,8 @@
   // });
 
   setGeoChatConfig({
-    chatApiUrl: 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chat',
-    chatHistoryUrl: 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chathistory',
+    chatApiUrl: 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/chat',
+    chatHistoryUrl: 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging',
   });
 </script>
 

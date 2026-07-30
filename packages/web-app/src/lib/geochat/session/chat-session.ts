@@ -3,6 +3,37 @@ const browser = typeof window !== 'undefined';
 const SESSION_ID_KEY = 'geochat_session_id';
 const SESSION_STARTED_KEY = 'geochat_session_started';
 
+const HISTORY_KEY = 'geochat-history';
+
+export interface ChatHistory {
+  sessionId?: string;
+  title: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export function loadHistory(): ChatHistory[] {
+  const json = localStorage.getItem(HISTORY_KEY);
+
+  if (!json) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(json) as ChatHistory[];
+  } catch (err) {
+    console.error('Unable to load chat history', err);
+
+    localStorage.removeItem(HISTORY_KEY);
+
+    return [];
+  }
+}
+
+export function saveHistory(history: ChatHistory[]): void {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+}
+
 export function getSessionId(): string {
   if (!browser) {
     return '';
