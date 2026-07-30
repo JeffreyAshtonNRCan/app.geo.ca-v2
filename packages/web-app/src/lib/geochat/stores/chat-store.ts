@@ -4,7 +4,7 @@ import { writable, get } from 'svelte/store';
 
 import { sendChatMessage, loadChatSession } from '$lib/geochat/api/chat-api';
 
-import { type ChatHistory, loadHistory, saveHistory } from '$lib/geochat/session/chat-session';
+import { type ChatHistory, generateSessionId, loadHistory, saveHistory } from '$lib/geochat/session/chat-session';
 
 import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 
@@ -192,8 +192,21 @@ function createChatStore() {
     }));
 
     try {
-      const activeChat = get(store).history[0];
-      const data = await sendChatMessage(activeChat!.sessionId!, trimmed, lang);
+      const state = get(store);
+      const history = [...state.history];
+      const activeChat = history[0];
+
+      if (!activeChat.sessionId) {
+        activeChat.sessionId = generateSessionId();
+
+        saveHistory(history);
+
+        update((state) => ({
+          ...state,
+          history,
+        }));
+      }
+      const data = await sendChatMessage(activeChat.sessionId!, trimmed, lang);
 
       console.log('data=', data);
 
