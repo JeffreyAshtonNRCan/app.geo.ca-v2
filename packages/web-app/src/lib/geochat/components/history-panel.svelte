@@ -1,6 +1,10 @@
 <script lang="ts">
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import PlusIcon from '$lib/components/icons/plus.svelte';
+
+  function handleNewChat() {
+    chatStore.newChat();
+  }
 </script>
 
 <div class="history-list">
@@ -14,6 +18,7 @@
          bg-custom-16 hover:bg-custom-23
          text-white cursor-pointer
          inline-flex items-center"
+    on:click={handleNewChat}
   >
     <PlusIcon classes="inline h-4 w-4 mr-2" />
     New Chat
