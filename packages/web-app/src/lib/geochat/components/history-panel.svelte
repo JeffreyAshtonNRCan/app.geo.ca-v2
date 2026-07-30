@@ -10,23 +10,6 @@
 <div class="history-list">
   <button
     class="text-nowrap
-         h-[34px] px-3
-         mb-3
-         rounded-[0.3125rem]
-         font-custom-style-button-3
-         shadow-[0rem_0.1875rem_0.375rem_#00000029]
-         bg-custom-16 hover:bg-custom-23
-         text-white cursor-pointer
-         inline-flex items-center"
-    on:click={handleNewChat}
-  >
-    <PlusIcon classes="inline h-4 w-4 mr-2" />
-    New Chat
-  </button>
-
-  <div class="history-list">
-    <button
-      class="text-nowrap
            h-[34px] px-3
            mb-3
            rounded-[0.3125rem]
@@ -35,18 +18,17 @@
            bg-custom-16 hover:bg-custom-23
            text-white cursor-pointer
            inline-flex items-center"
-      on:click={handleNewChat}
-    >
-      <PlusIcon classes="inline h-4 w-4 mr-2" />
-      New Chat
-    </button>
+    on:click={handleNewChat}
+  >
+    <PlusIcon classes="inline h-4 w-4 mr-2" />
+    New Chat
+  </button>
 
-    {#each $chatStore.history as chat (chat.sessionId)}
-      <button class="history-item">
-        {chat.title}
-      </button>
-    {/each}
-  </div>
+  {#each $chatStore.history as chat (chat.sessionId)}
+    <button class="history-item">
+      {chat.title}
+    </button>
+  {/each}
 </div>
 
 <style>
