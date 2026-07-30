@@ -61,8 +61,8 @@
   .history-item {
     display: block;
     width: 100%;
-    margin: 0 0 0.25rem;
-    padding: 0.5rem 0.75rem;
+    margin: 0 0 0.125rem;
+    padding: 0.375rem 0.75rem; /* was 0.5rem */
 
     text-align: left;
     font: inherit;
