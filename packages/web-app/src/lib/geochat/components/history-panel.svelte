@@ -44,15 +44,7 @@
     <p>History count: {$chatStore.history.length}</p>
 
     {#each $chatStore.history as chat (chat.sessionId)}
-      <button
-        class="history-item
-         block w-full
-         mb-2
-         px-3 py-2
-         text-left
-         rounded
-         hover:bg-gray-100"
-      >
+      <button class="history-item">
         {chat.title}
       </button>
     {/each}
@@ -66,12 +58,32 @@
     overflow-y: auto;
   }
 
-  ul {
-    margin: 0;
-    padding-left: 1.25rem;
+  .history-item {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0.625rem 0.75rem;
+
+    text-align: left;
+    font: inherit;
+    color: inherit;
+
+    background: transparent;
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
   }
 
-  li {
-    margin-bottom: 0.5rem;
+  .history-item:hover {
+    background: #f3f4f6;
+  }
+
+  .history-item:focus-visible {
+    outline: 2px solid #005ea5;
+    outline-offset: 2px;
   }
 </style>
