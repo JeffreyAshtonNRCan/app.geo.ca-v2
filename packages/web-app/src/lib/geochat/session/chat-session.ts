@@ -34,21 +34,21 @@ export function saveHistory(history: ChatHistory[]): void {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
 }
 
-export function getSessionId(): string {
-  if (!browser) {
-    return '';
-  }
-
-  let sessionId: string | null = localStorage.getItem(SESSION_ID_KEY);
-
-  if (!sessionId) {
-    sessionId = generateSessionId();
-
-    localStorage.setItem(SESSION_ID_KEY, sessionId);
-  }
-
-  return sessionId;
-}
+// export function getSessionId(): string {
+//   if (!browser) {
+//     return '';
+//   }
+//
+//   let sessionId: string | null = localStorage.getItem(SESSION_ID_KEY);
+//
+//   if (!sessionId) {
+//     sessionId = generateSessionId();
+//
+//     localStorage.setItem(SESSION_ID_KEY, sessionId);
+//   }
+//
+//   return sessionId;
+// }
 
 function generateSessionId(): string {
   if (browser && window.crypto && crypto.randomUUID) {
@@ -64,13 +64,13 @@ function generateSessionId(): string {
   });
 }
 
-export function checkSession(): boolean {
-  if (!browser) {
-    return false;
-  }
-
-  return !!localStorage.getItem(SESSION_ID_KEY);
-}
+// export function checkSession(): boolean {
+//   if (!browser) {
+//     return false;
+//   }
+//
+//   return !!localStorage.getItem(SESSION_ID_KEY);
+// }
 
 export function isNewSession(): boolean {
   if (!browser) {
