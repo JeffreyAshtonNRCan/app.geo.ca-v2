@@ -50,7 +50,7 @@ export function saveHistory(history: ChatHistory[]): void {
 //   return sessionId;
 // }
 
-function generateSessionId(): string {
+export function generateSessionId(): string {
   if (browser && window.crypto && crypto.randomUUID) {
     return crypto.randomUUID();
   }
