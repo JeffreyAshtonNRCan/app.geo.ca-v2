@@ -288,6 +288,10 @@ function createChatStore() {
 
     const history = loadHistory();
 
+    if (history.length === 0) {
+      newChat();
+    }
+
     update((state) => ({
       ...state,
       history,
@@ -373,11 +377,29 @@ function createChatStore() {
     }
   }
 
+  function newChat() {
+    const history = [...get(store).history];
+
+    history.unshift({
+      title: 'New Chat',
+    });
+
+    saveHistory(history);
+
+    update((state) => ({
+      ...state,
+      history,
+      messages: [],
+      records: [],
+    }));
+  }
+
   return {
     subscribe,
     sendMessage,
     initializeChat,
     toggleMessage,
+    newChat,
     set,
   };
 }
