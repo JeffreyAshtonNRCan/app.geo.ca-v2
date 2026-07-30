@@ -29,7 +29,7 @@ export async function sendChatMessage(sessionId: string, message: string, lang: 
   return await response.json();
 }
 
-export async function loadChatHistory(sessionId: string, limit = 25) {
+export async function loadChatSession(sessionId: string, limit = 25) {
   const params = new URLSearchParams({
     session_id: sessionId,
     limit: String(limit),

@@ -2,9 +2,9 @@
 
 import { writable, get } from 'svelte/store';
 
-import { sendChatMessage, loadChatHistory } from '$lib/geochat/api/chat-api';
+import { sendChatMessage, loadChatSession } from '$lib/geochat/api/chat-api';
 
-import { getSessionId, checkSession } from '$lib/geochat/session/chat-session';
+import { getSessionId, checkSession, type ChatHistory, loadHistory } from '$lib/geochat/session/chat-session';
 
 import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 
@@ -50,13 +50,6 @@ export interface ChatMessage {
   collapsed?: boolean;
   expandable?: boolean;
   isCurrent?: boolean;
-}
-
-interface ChatHistory {
-  sessionId: string;
-  title: string;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 interface ChatState {
@@ -279,16 +272,22 @@ function createChatStore() {
     if (get(store).initialized) {
       return;
     }
+
+    const history = loadHistory();
+
     update((state) => ({
       ...state,
+      history,
       isThinking: true,
     }));
 
-    try {
-      if (checkSession()) {
-        const data = await loadChatHistory(SESSION_ID);
+    const activeChat = history[0];
 
-        console.log('history data=', data);
+    try {
+      if (activeChat?.sessionId) {
+        const data = await loadChatSession(activeChat.sessionId);
+
+        console.log('active session data=', data);
 
         const historyMessages: ChatMessage[] = [];
 
