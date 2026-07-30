@@ -4,7 +4,7 @@ import { writable, get } from 'svelte/store';
 
 import { sendChatMessage, loadChatSession } from '$lib/geochat/api/chat-api';
 
-import { getSessionId, checkSession, type ChatHistory, loadHistory } from '$lib/geochat/session/chat-session';
+import { type ChatHistory, loadHistory, saveHistory } from '$lib/geochat/session/chat-session';
 
 import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 
@@ -93,7 +93,7 @@ function createChatStore() {
     fr: 'Désolé, une erreur est survenue.',
   };
 
-  const SESSION_ID = getSessionId();
+  //const SESSION_ID = getSessionId();
 
   // ==========================
   // Collapse Previous Bot Message
@@ -192,7 +192,8 @@ function createChatStore() {
     }));
 
     try {
-      const data = await sendChatMessage(SESSION_ID, trimmed, lang);
+      const activeChat = get(store).history[0];
+      const data = await sendChatMessage(activeChat!.sessionId!, trimmed, lang);
 
       console.log('data=', data);
 
@@ -221,14 +222,13 @@ function createChatStore() {
         // Add this session to history if it isn't already there
         const history = [...state.history];
 
-        const title = trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed;
+        const activeChat = history[0];
 
-        if (!history.some((h) => h.sessionId === SESSION_ID)) {
-          history.push({
-            sessionId: SESSION_ID,
-            title,
-          });
+        if (activeChat) {
+          activeChat.title = trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed;
         }
+
+        saveHistory(history);
 
         console.log('history=', history);
 
