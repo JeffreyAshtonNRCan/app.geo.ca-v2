@@ -286,10 +286,10 @@ function createChatStore() {
       return;
     }
 
-    const history = loadHistory();
+    let history = loadHistory();
 
     if (history.length === 0) {
-      newChat();
+      history = newChat();
     }
 
     update((state) => ({
@@ -377,7 +377,7 @@ function createChatStore() {
     }
   }
 
-  function newChat() {
+  function newChat(): ChatHistory[] {
     const history = [...get(store).history];
 
     history.unshift({
@@ -392,6 +392,8 @@ function createChatStore() {
       messages: [],
       records: [],
     }));
+
+    return history;
   }
 
   return {
