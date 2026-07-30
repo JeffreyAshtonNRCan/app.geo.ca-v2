@@ -25,8 +25,34 @@
   </button>
 
   <div class="history-list">
+    <button
+      class="text-nowrap
+           h-[34px] px-3
+           mb-3
+           rounded-[0.3125rem]
+           font-custom-style-button-3
+           shadow-[0rem_0.1875rem_0.375rem_#00000029]
+           bg-custom-16 hover:bg-custom-23
+           text-white cursor-pointer
+           inline-flex items-center"
+      on:click={handleNewChat}
+    >
+      <PlusIcon classes="inline h-4 w-4 mr-2" />
+      New Chat
+    </button>
+
+    <p>History count: {$chatStore.history.length}</p>
+
     {#each $chatStore.history as chat (chat.sessionId)}
-      <button class="history-item">
+      <button
+        class="history-item
+         block w-full
+         mb-2
+         px-3 py-2
+         text-left
+         rounded
+         hover:bg-gray-100"
+      >
         {chat.title}
       </button>
     {/each}
