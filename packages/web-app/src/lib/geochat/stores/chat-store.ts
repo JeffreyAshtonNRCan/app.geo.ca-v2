@@ -237,11 +237,11 @@ function createChatStore() {
 
         const activeChat = history[0];
 
-        if (activeChat) {
+        if (activeChat && activeChat.title === 'New Chat') {
           activeChat.title = trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed;
-        }
 
-        saveHistory(history);
+          saveHistory(history);
+        }
 
         console.log('history=', history);
 
