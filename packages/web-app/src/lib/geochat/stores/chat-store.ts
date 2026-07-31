@@ -342,16 +342,11 @@ function createChatStore() {
 
         // no history -> welcome message
         if (historyMessages.length === 0) {
-          update((state) => ({
-            ...state,
-            isThinking: false,
-            initialized: true,
-          }));
-
-          await sendMessage(WELCOME_MESSAGE, lang);
-
+          showWelcomeMessage();
           return;
         }
+
+        //await sendMessage(WELCOME_MESSAGE, lang);
 
         const currentBot = historyMessages.find((m) => m.isCurrent);
 
@@ -404,6 +399,28 @@ function createChatStore() {
     }));
 
     return history;
+  }
+
+  function showWelcomeMessage() {
+    update((state) => {
+      const messages = [...state.messages];
+
+      messages.push({
+        role: 'bot',
+        html: formatMarkdown(WELCOME_MESSAGE),
+        records: [],
+        expandable: false,
+        collapsed: false,
+        isCurrent: true,
+      });
+
+      return {
+        ...state,
+        messages,
+        isThinking: false,
+        initialized: true,
+      };
+    });
   }
 
   return {
