@@ -182,7 +182,7 @@ Je suis là pour vous aider !`,
   // Send Message
   // ==========================
 
-  async function sendMessage(message: string, lang: string) {
+  async function sendMessage(message: string, lang: 'en' | 'fr') {
     const trimmed = message.trim();
 
     if (!trimmed) return;
@@ -277,7 +277,7 @@ Je suis là pour vous aider !`,
 
         updatedMessages.push({
           role: 'bot',
-          html: ERROR_MESSAGE[lang as 'en' | 'fr'] ?? ERROR_MESSAGE.en,
+          html: ERROR_MESSAGE[lang],
           collapsed: false,
         });
 
@@ -295,7 +295,7 @@ Je suis là pour vous aider !`,
   // Load History
   // ==========================
 
-  async function initializeChat(lang: string) {
+  async function initializeChat(lang: 'en' | 'fr') {
     if (get(store).initialized) {
       return;
     }
@@ -355,7 +355,7 @@ Je suis là pour vous aider !`,
 
         // no history -> welcome message
         if (historyMessages.length === 0) {
-          showWelcomeMessage(lang as 'en' | 'fr');
+          showWelcomeMessage(lang);
           return;
         }
 
@@ -372,7 +372,7 @@ Je suis là pour vous aider !`,
         }));
       } else {
         // Brand new chat
-        showWelcomeMessage(lang as 'en' | 'fr');
+        showWelcomeMessage(lang);
       }
     } catch (err) {
       console.error(err);
