@@ -358,13 +358,8 @@ function createChatStore() {
           initialized: true,
         }));
       } else {
-        update((state) => ({
-          ...state,
-          isThinking: false,
-          initialized: true,
-        }));
-
-        await sendMessage(WELCOME_MESSAGE, lang);
+        // Brand new chat
+        showWelcomeMessage();
       }
     } catch (err) {
       console.error(err);
