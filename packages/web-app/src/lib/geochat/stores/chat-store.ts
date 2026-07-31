@@ -88,11 +88,20 @@ function createChatStore() {
 
   const { subscribe, update, set } = store;
 
-  const WELCOME_MESSAGE = `## Hello!
+  const WELCOME_MESSAGE = {
+    en: `## Hello!
 
 I'm excited to help you explore the world of geospatial information.
-What would you like to know or discover today?
-`;
+What would you like to know or discover today?`,
+
+    fr: `## Bonjour !
+
+Bienvenue sur GEO.ca ! Je suis ravi de vous accueillir.
+
+Si vous cherchez des informations géospatiales ou des données pour un projet, n'hésitez pas à me poser des questions ou à explorer nos ressources.
+Je suis là pour vous aider !`,
+  };
+
   const ERROR_MESSAGE = {
     en: 'Sorry, something went wrong.',
     fr: 'Désolé, une erreur est survenue.',
@@ -346,7 +355,7 @@ What would you like to know or discover today?
 
         // no history -> welcome message
         if (historyMessages.length === 0) {
-          showWelcomeMessage();
+          showWelcomeMessage(lang as 'en' | 'fr');
           return;
         }
 
@@ -363,7 +372,7 @@ What would you like to know or discover today?
         }));
       } else {
         // Brand new chat
-        showWelcomeMessage();
+        showWelcomeMessage(lang as 'en' | 'fr');
       }
     } catch (err) {
       console.error(err);
@@ -400,13 +409,13 @@ What would you like to know or discover today?
     return history;
   }
 
-  function showWelcomeMessage() {
+  function showWelcomeMessage(lang: 'en' | 'fr') {
     update((state) => {
       const messages = [...state.messages];
 
       messages.push({
         role: 'bot',
-        html: formatMarkdown(WELCOME_MESSAGE),
+        html: formatMarkdown(WELCOME_MESSAGE[lang]),
         records: [],
         expandable: false,
         collapsed: false,
