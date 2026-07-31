@@ -88,7 +88,11 @@ function createChatStore() {
 
   const { subscribe, update, set } = store;
 
-  const WELCOME_MESSAGE = 'welcome message';
+  const WELCOME_MESSAGE = `## Hello!
+
+I'm excited to help you explore the world of geospatial information.
+What would you like to know or discover today?
+`;
   const ERROR_MESSAGE = {
     en: 'Sorry, something went wrong.',
     fr: 'Désolé, une erreur est survenue.',
