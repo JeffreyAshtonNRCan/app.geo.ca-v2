@@ -187,7 +187,7 @@ Je suis là pour vous aider !`,
 
     if (!trimmed) return;
 
-    const isWelcomeMessage = trimmed === WELCOME_MESSAGE;
+    const isWelcomeMessage = trimmed === WELCOME_MESSAGE[lang];
 
     // add user message
     update((state) => ({
@@ -330,7 +330,7 @@ Je suis là pour vous aider !`,
               if (!msg?.text) return;
 
               // user
-              if (msg.role === 'user' && msg.text !== WELCOME_MESSAGE) {
+              if (msg.role === 'user') {
                 historyMessages.push({
                   role: 'user',
                   html: escapeHtml(msg.text),
