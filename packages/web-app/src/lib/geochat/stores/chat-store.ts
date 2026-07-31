@@ -64,6 +64,7 @@ interface ChatState {
 interface HistoryMessage {
   role: string;
   text: string;
+  records?: ChatRecord[];
 }
 
 interface HistorySession {
@@ -328,6 +329,7 @@ function createChatStore() {
                 historyMessages.push({
                   role: 'bot',
                   html: formatMarkdown(msg.text),
+                  records: msg.records,
                   expandable: msg.text.length > 400,
                   collapsed: msg.text.length > 400,
                 });
@@ -351,9 +353,12 @@ function createChatStore() {
           return;
         }
 
+        const currentBot = historyMessages.find((m) => m.isCurrent);
+
         update((state) => ({
           ...state,
           messages: historyMessages,
+          records: currentBot?.records ?? [],
           isThinking: false,
           initialized: true,
         }));
