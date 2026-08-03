@@ -25,9 +25,11 @@
   </button>
 
   {#each $chatStore.history as chat (chat.sessionId)}
-    <button class="history-item">
-      {chat.title}
-    </button>
+    {#if chat.title !== 'New Chat'}
+      <button class="history-item">
+        {chat.title}
+      </button>
+    {/if}
   {/each}
 </div>
 
