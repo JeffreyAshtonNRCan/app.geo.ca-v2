@@ -334,6 +334,9 @@ function createChatStore() {
 
         collapseHistoryMessages(historyMessages);
 
+        console.log('activeChat.title =', activeChat?.title);
+        console.log('historyMessages.length =', historyMessages.length);
+
         if (historyMessages.length === 0) {
           if (activeChat?.title === 'New Chat') {
             showMessage(lang, NEW_CHAT_MESSAGE);
