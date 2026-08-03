@@ -2,8 +2,14 @@
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import PlusIcon from '$lib/components/icons/plus.svelte';
 
+  let {
+    lang,
+  }: {
+    lang: 'en' | 'fr';
+  } = $props();
+
   function handleNewChat() {
-    chatStore.newChat();
+    chatStore.newChat(lang);
   }
 </script>
 

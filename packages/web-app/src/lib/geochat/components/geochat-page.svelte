@@ -34,7 +34,7 @@
 
 <h1 class="font-custom-style-h1 mt-8 px-5 md:px-0 leading-tight">GeoChat</h1>
 
-<p class="mb-8 mt-3 font-open-sans px-5 md:px-0">Ask questions about GEO.ca datasets in natural language.</p>
+<p class="mb-8 mt-3 font-open-sans px-5 md:px-0">Dive deeper into this topic by asking follow-up questions in natural language.</p>
 
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
   <div class="panel history" class:collapsed={historyCollapsed}>
@@ -44,7 +44,7 @@
 
     <div class="panel-body">
       <div class="panel-content history-content">
-        <HistoryPanel />
+        <HistoryPanel {lang} />
       </div>
     </div>
   </div>

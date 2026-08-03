@@ -88,25 +88,6 @@ function createChatStore() {
 
   const { subscribe, update, set } = store;
 
-  const WELCOME_MESSAGE = {
-    en: `## Hello!
-
-I'm excited to help you explore the world of geospatial information.
-What would you like to know or discover today?`,
-
-    fr: `## Bonjour !
-
-Bienvenue sur GEO.ca ! Je suis ravi de vous accueillir.
-
-Si vous cherchez des informations géospatiales ou des données pour un projet, n'hésitez pas à me poser des questions ou à explorer nos ressources.
-Je suis là pour vous aider !`,
-  };
-
-  const ERROR_MESSAGE = {
-    en: 'Sorry, something went wrong.',
-    fr: 'Désolé, une erreur est survenue.',
-  };
-
   //const SESSION_ID = getSessionId();
 
   // ==========================
@@ -303,7 +284,7 @@ Je suis là pour vous aider !`,
     let history = loadHistory();
 
     if (history.length === 0) {
-      history = newChat();
+      history = newChat(lang);
     }
 
     update((state) => ({
@@ -355,7 +336,7 @@ Je suis là pour vous aider !`,
 
         // no history -> welcome message
         if (historyMessages.length === 0) {
-          showWelcomeMessage(lang);
+          showNewChatMessage(lang, WELCOME_MESSAGE);
           return;
         }
 
@@ -372,7 +353,7 @@ Je suis là pour vous aider !`,
         }));
       } else {
         // Brand new chat
-        showWelcomeMessage(lang);
+        showNewChatMessage(lang, WELCOME_MESSAGE);
       }
     } catch (err) {
       console.error(err);
@@ -385,7 +366,7 @@ Je suis là pour vous aider !`,
     }
   }
 
-  function newChat(): ChatHistory[] {
+  function newChat(lang: 'en' | 'fr'): ChatHistory[] {
     const history = [...get(store).history];
 
     // Already started a new chat
@@ -406,29 +387,28 @@ Je suis là pour vous aider !`,
       records: [],
     }));
 
+    showNewChatMessage(lang, NEW_CHAT_MESSAGE);
+
     return history;
   }
 
-  function showWelcomeMessage(lang: 'en' | 'fr') {
-    update((state) => {
-      const messages = [...state.messages];
-
-      messages.push({
-        role: 'bot',
-        html: formatMarkdown(WELCOME_MESSAGE[lang]),
-        records: [],
-        expandable: false,
-        collapsed: false,
-        isCurrent: true,
-      });
-
-      return {
-        ...state,
-        messages,
-        isThinking: false,
-        initialized: true,
-      };
-    });
+  function showNewChatMessage(lang: 'en' | 'fr', message: { en: string; fr: string }) {
+    update((state) => ({
+      ...state,
+      messages: [
+        {
+          role: 'bot',
+          html: formatMarkdown(message[lang]),
+          records: [],
+          expandable: false,
+          collapsed: false,
+          isCurrent: true,
+        },
+      ],
+      records: [],
+      isThinking: false,
+      initialized: true,
+    }));
   }
 
   return {
@@ -440,6 +420,39 @@ Je suis là pour vous aider !`,
     set,
   };
 }
+
+// ==========================
+// Message Constants
+// ==========================
+
+const WELCOME_MESSAGE = {
+  en: `## Hello!
+
+I'm excited to help you explore the world of geospatial information.
+What would you like to know or discover today?`,
+
+  fr: `## Bonjour !
+
+Bienvenue sur GEO.ca ! Je suis ravi de vous accueillir.
+
+Si vous cherchez des informations géospatiales ou des données pour un projet, n'hésitez pas à me poser des questions ou à explorer nos ressources.
+Je suis là pour vous aider !`,
+};
+
+const NEW_CHAT_MESSAGE = {
+  en: `## New Chat
+
+What would you like to explore?`,
+
+  fr: `## Nouvelle conversation
+
+Que souhaitez-vous explorer ?`,
+};
+
+const ERROR_MESSAGE = {
+  en: 'Sorry, something went wrong.',
+  fr: 'Désolé, une erreur est survenue.',
+};
 
 // ==========================
 // Export Store
