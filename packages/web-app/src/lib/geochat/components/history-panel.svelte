@@ -26,7 +26,6 @@
            inline-flex items-center"
     onclick={handleNewChat}
   >
-    >
     <PlusIcon classes="inline h-4 w-4 mr-2" />
     New Chat
   </button>
