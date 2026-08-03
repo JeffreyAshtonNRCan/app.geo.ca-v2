@@ -24,8 +24,9 @@
            bg-custom-16 hover:bg-custom-23
            text-white cursor-pointer
            inline-flex items-center"
-    on:click={handleNewChat}
+    onclick={handleNewChat}
   >
+    >
     <PlusIcon classes="inline h-4 w-4 mr-2" />
     New Chat
   </button>

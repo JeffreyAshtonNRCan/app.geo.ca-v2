@@ -295,6 +295,17 @@ function createChatStore() {
 
     const activeChat = history[0];
 
+    // No session yet (new chat placeholder)
+    if (!activeChat?.sessionId) {
+      if (activeChat?.title === 'New Chat') {
+        showMessage(lang, NEW_CHAT_MESSAGE);
+      } else {
+        showMessage(lang, WELCOME_MESSAGE);
+      }
+
+      return;
+    }
+
     try {
       if (activeChat?.sessionId) {
         const data = await loadChatSession(activeChat.sessionId);
@@ -334,15 +345,8 @@ function createChatStore() {
 
         collapseHistoryMessages(historyMessages);
 
-        console.log('activeChat.title =', activeChat?.title);
-        console.log('historyMessages.length =', historyMessages.length);
-
         if (historyMessages.length === 0) {
-          if (activeChat?.title === 'New Chat') {
-            showMessage(lang, NEW_CHAT_MESSAGE);
-          } else {
-            showMessage(lang, WELCOME_MESSAGE);
-          }
+          showMessage(lang, WELCOME_MESSAGE);
           return;
         }
 
