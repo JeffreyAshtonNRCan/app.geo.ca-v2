@@ -334,9 +334,12 @@ function createChatStore() {
 
         collapseHistoryMessages(historyMessages);
 
-        // no history -> welcome message
         if (historyMessages.length === 0) {
-          showNewChatMessage(lang, WELCOME_MESSAGE);
+          if (activeChat?.title === 'New Chat') {
+            showMessage(lang, NEW_CHAT_MESSAGE);
+          } else {
+            showMessage(lang, WELCOME_MESSAGE);
+          }
           return;
         }
 
@@ -353,7 +356,7 @@ function createChatStore() {
         }));
       } else {
         // Brand new chat
-        showNewChatMessage(lang, WELCOME_MESSAGE);
+        showMessage(lang, WELCOME_MESSAGE);
       }
     } catch (err) {
       console.error(err);
@@ -387,12 +390,12 @@ function createChatStore() {
       records: [],
     }));
 
-    showNewChatMessage(lang, NEW_CHAT_MESSAGE);
+    showMessage(lang, NEW_CHAT_MESSAGE);
 
     return history;
   }
 
-  function showNewChatMessage(lang: 'en' | 'fr', message: { en: string; fr: string }) {
+  function showMessage(lang: 'en' | 'fr', message: { en: string; fr: string }) {
     update((state) => ({
       ...state,
       messages: [
