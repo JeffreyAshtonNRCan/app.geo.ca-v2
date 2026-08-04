@@ -283,9 +283,9 @@ function createChatStore() {
 
     let history = loadHistory();
 
-    if (history.length === 0) {
-      history = newChat(lang);
-    }
+    // if (history.length === 0) {
+    //   history = newChat(lang);
+    // }
 
     update((state) => ({
       ...state,
