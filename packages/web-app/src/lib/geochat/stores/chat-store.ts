@@ -283,7 +283,9 @@ function createChatStore() {
 
     let history = loadHistory();
 
-    if (history.length === 0) {
+    const firstVisit = history.length === 0;
+
+    if (firstVisit) {
       history = newChat(lang);
     }
 
@@ -295,14 +297,8 @@ function createChatStore() {
 
     const activeChat = history[0];
 
-    // No session yet (new chat placeholder)
     if (!activeChat?.sessionId) {
-      if (activeChat?.title === 'New Chat') {
-        showMessage(lang, NEW_CHAT_MESSAGE);
-      } else {
-        showMessage(lang, WELCOME_MESSAGE);
-      }
-
+      showMessage(lang, firstVisit ? WELCOME_MESSAGE : NEW_CHAT_MESSAGE);
       return;
     }
 
