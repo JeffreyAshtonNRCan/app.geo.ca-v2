@@ -35,9 +35,9 @@
     New Chat
   </button>
 
-  {#each $chatStore.history as chat (chat.sessionId)}
+  {#each $chatStore.history as chat, i (chat.sessionId)}
     {#if chat.title !== 'New Chat'}
-      <button class="history-item" onclick={() => handleSelectChat(chat)}>
+      <button class="history-item" class:active={i === 0} onclick={() => handleSelectChat(chat)}>
         {chat.title}
       </button>
     {/if}
@@ -78,5 +78,10 @@
   .history-item:focus-visible {
     outline: 2px solid #005ea5;
     outline-offset: 2px;
+  }
+
+  .history-item.active {
+    background: #e8f1fb;
+    font-weight: 600;
   }
 </style>
