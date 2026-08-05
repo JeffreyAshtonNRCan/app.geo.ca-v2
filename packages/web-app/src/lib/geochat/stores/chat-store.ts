@@ -201,6 +201,7 @@ function createChatStore() {
           history,
         }));
       }
+
       const data = await sendChatMessage(activeChat.sessionId!, trimmed, lang);
 
       console.log('data=', data);
@@ -307,8 +308,10 @@ function createChatStore() {
       history,
     }));
 
+    // The first history item is always the active chat.
     const activeChat = history[0];
 
+    // New chat placeholder (no session created yet)
     if (!activeChat?.sessionId) {
       showMessage(lang, firstVisit ? WELCOME_MESSAGE : NEW_CHAT_MESSAGE);
       return;
@@ -406,6 +409,10 @@ function createChatStore() {
     return history;
   }
 
+  // ==========================
+  // Display Bot Message
+  // ==========================
+
   function showMessage(lang: 'en' | 'fr', message: { en: string; fr: string }) {
     update((state) => ({
       ...state,
@@ -424,12 +431,17 @@ function createChatStore() {
     }));
   }
 
+  // ==========================
+  // Select and load chat
+  // ==========================
+
   async function selectChat(chat: ChatHistory, lang: 'en' | 'fr') {
     // Already the active chat
     if (get(store).history[0]?.sessionId === chat.sessionId) {
       return;
     }
-    // Move selected chat to the top
+
+    // Move selected chat to the top (active chat is always first)
     const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId);
 
     history.unshift(chat);
@@ -441,7 +453,6 @@ function createChatStore() {
       history,
       messages: [],
       records: [],
-      initialized: false,
     }));
 
     await loadChat(lang);
