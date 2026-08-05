@@ -425,6 +425,10 @@ function createChatStore() {
   }
 
   async function selectChat(chat: ChatHistory, lang: 'en' | 'fr') {
+    // Already the active chat
+    if (get(store).history[0]?.sessionId === chat.sessionId) {
+      return;
+    }
     // Move selected chat to the top
     const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId);
 
