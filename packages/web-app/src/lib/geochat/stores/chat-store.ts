@@ -292,7 +292,6 @@ function createChatStore() {
     update((state) => ({
       ...state,
       history,
-      isThinking: true,
     }));
 
     const activeChat = history[0];
@@ -302,65 +301,59 @@ function createChatStore() {
       return;
     }
 
+    update((state) => ({
+      ...state,
+      isThinking: true,
+    }));
+
     try {
-      if (activeChat?.sessionId) {
-        const data = await loadChatSession(activeChat.sessionId);
+      const data = await loadChatSession(activeChat.sessionId);
 
-        console.log('active session data=', data);
+      console.log('active session data=', data);
 
-        const historyMessages: ChatMessage[] = [];
+      const historyMessages: ChatMessage[] = [];
 
-        if (data.sessions && Array.isArray(data.sessions)) {
-          data.sessions.forEach((session: HistorySession) => {
-            if (!Array.isArray(session.history)) return;
+      if (data.sessions && Array.isArray(data.sessions)) {
+        data.sessions.forEach((session: HistorySession) => {
+          if (!Array.isArray(session.history)) return;
 
-            session.history.forEach((msg: HistoryMessage) => {
-              if (!msg?.text) return;
+          session.history.forEach((msg: HistoryMessage) => {
+            if (!msg?.text) return;
 
-              // user
-              if (msg.role === 'user') {
-                historyMessages.push({
-                  role: 'user',
-                  html: escapeHtml(msg.text),
-                });
-              }
-
-              // assistant
-              else if (msg.role === 'assistant') {
-                historyMessages.push({
-                  role: 'bot',
-                  html: formatMarkdown(msg.text),
-                  records: msg.records,
-                  expandable: msg.text.length > 400,
-                  collapsed: msg.text.length > 400,
-                });
-              }
-            });
+            if (msg.role === 'user') {
+              historyMessages.push({
+                role: 'user',
+                html: escapeHtml(msg.text),
+              });
+            } else if (msg.role === 'assistant') {
+              historyMessages.push({
+                role: 'bot',
+                html: formatMarkdown(msg.text),
+                records: msg.records,
+                expandable: msg.text.length > 400,
+                collapsed: msg.text.length > 400,
+              });
+            }
           });
-        }
-
-        collapseHistoryMessages(historyMessages);
-
-        if (historyMessages.length === 0) {
-          showMessage(lang, WELCOME_MESSAGE);
-          return;
-        }
-
-        //await sendMessage(WELCOME_MESSAGE, lang);
-
-        const currentBot = historyMessages.find((m) => m.isCurrent);
-
-        update((state) => ({
-          ...state,
-          messages: historyMessages,
-          records: currentBot?.records ?? [],
-          isThinking: false,
-          initialized: true,
-        }));
-      } else {
-        // Brand new chat
-        showMessage(lang, WELCOME_MESSAGE);
+        });
       }
+
+      collapseHistoryMessages(historyMessages);
+
+      if (historyMessages.length === 0) {
+        showMessage(lang, WELCOME_MESSAGE);
+        return;
+      }
+
+      const currentBot = historyMessages.find((m) => m.isCurrent);
+
+      update((state) => ({
+        ...state,
+        messages: historyMessages,
+        records: currentBot?.records ?? [],
+        isThinking: false,
+        initialized: true,
+      }));
     } catch (err) {
       console.error(err);
 
