@@ -282,6 +282,11 @@ function createChatStore() {
     }
 
     await loadChat(lang);
+
+    update((state) => ({
+      ...state,
+      initialized: true,
+    }));
   }
 
   async function loadChat(lang: 'en' | 'fr') {
@@ -356,7 +361,6 @@ function createChatStore() {
         messages: historyMessages,
         records: currentBot?.records ?? [],
         isThinking: false,
-        initialized: true,
       }));
     } catch (err) {
       console.error(err);
@@ -364,7 +368,6 @@ function createChatStore() {
       update((state) => ({
         ...state,
         isThinking: false,
-        initialized: true,
       }));
     }
   }
@@ -410,7 +413,6 @@ function createChatStore() {
       ],
       records: [],
       isThinking: false,
-      initialized: true,
     }));
   }
 
