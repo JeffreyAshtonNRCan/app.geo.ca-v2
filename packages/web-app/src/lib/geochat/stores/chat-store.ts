@@ -281,6 +281,10 @@ function createChatStore() {
       return;
     }
 
+    await loadChat(lang);
+  }
+
+  async function loadChat(lang: 'en' | 'fr') {
     let history = loadHistory();
 
     const firstVisit = history.length === 0;
