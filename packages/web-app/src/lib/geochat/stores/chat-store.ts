@@ -273,7 +273,7 @@ function createChatStore() {
   }
 
   // ==========================
-  // Load History
+  // Initialize Chat
   // ==========================
 
   async function initializeChat(lang: 'en' | 'fr') {
@@ -288,6 +288,10 @@ function createChatStore() {
       initialized: true,
     }));
   }
+
+  // ==========================
+  // Load Active Chat
+  // ==========================
 
   async function loadChat(lang: 'en' | 'fr') {
     let history = loadHistory();
@@ -372,6 +376,10 @@ function createChatStore() {
     }
   }
 
+  // ==========================
+  // Start New Chat
+  // ==========================
+
   function newChat(lang: 'en' | 'fr'): ChatHistory[] {
     const history = [...get(store).history];
 
@@ -416,12 +424,32 @@ function createChatStore() {
     }));
   }
 
+  async function selectChat(chat: ChatHistory, lang: 'en' | 'fr') {
+    // Move selected chat to the top
+    const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId);
+
+    history.unshift(chat);
+
+    saveHistory(history);
+
+    update((state) => ({
+      ...state,
+      history,
+      messages: [],
+      records: [],
+      initialized: false,
+    }));
+
+    await loadChat(lang);
+  }
+
   return {
     subscribe,
     sendMessage,
     initializeChat,
     toggleMessage,
     newChat,
+    selectChat,
     set,
   };
 }

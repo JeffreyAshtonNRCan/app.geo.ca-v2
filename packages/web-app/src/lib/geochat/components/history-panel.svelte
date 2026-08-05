@@ -1,5 +1,6 @@
 <script lang="ts">
   import { chatStore } from '$lib/geochat/stores/chat-store';
+  import type { ChatHistory } from '$lib/geochat/session/chat-session';
   import PlusIcon from '$lib/components/icons/plus.svelte';
 
   let {
@@ -10,6 +11,10 @@
 
   function handleNewChat() {
     chatStore.newChat(lang);
+  }
+
+  function handleSelectChat(chat: ChatHistory) {
+    chatStore.selectChat(chat, lang);
   }
 </script>
 
@@ -32,7 +37,7 @@
 
   {#each $chatStore.history as chat (chat.sessionId)}
     {#if chat.title !== 'New Chat'}
-      <button class="history-item">
+      <button class="history-item" onclick={() => handleSelectChat(chat)}>
         {chat.title}
       </button>
     {/if}
