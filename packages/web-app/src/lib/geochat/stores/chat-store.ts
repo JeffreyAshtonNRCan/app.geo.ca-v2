@@ -468,7 +468,8 @@ function createChatStore() {
   async function deleteChat(chat: ChatHistory, lang: 'en' | 'fr') {
     const activeChat = get(store).history[0];
 
-    const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId);
+    // Remove the deleted chat and discard any temporary "New Chat" placeholder.
+    const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId && h.title !== 'New Chat');
 
     console.log('history after delete =', history);
 
