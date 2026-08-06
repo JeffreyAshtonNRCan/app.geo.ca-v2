@@ -10,6 +10,8 @@
     lang: 'en' | 'fr';
   } = $props();
 
+  let deleteSessionId: string | undefined;
+
   function handleNewChat() {
     chatStore.newChat(lang);
   }
@@ -18,12 +20,17 @@
     chatStore.selectChat(chat, lang);
   }
 
-  function handleDeleteChat(chat: ChatHistory) {
-    if (!confirm('Delete this chat?')) {
-      return;
-    }
+  function handleDeleteClick(chat: ChatHistory) {
+    deleteSessionId = chat.sessionId;
+  }
 
+  function handleConfirmDelete(chat: ChatHistory) {
     chatStore.deleteChat(chat, lang);
+    deleteSessionId = undefined;
+  }
+
+  function handleCancelDelete() {
+    deleteSessionId = undefined;
   }
 </script>
 
@@ -51,16 +58,20 @@
           {chat.title}
         </button>
 
-        <button
-          class="history-delete"
-          onclick={(e) => {
-            e.stopPropagation();
-            handleDeleteChat(chat);
-          }}
-          aria-label="Delete chat"
-        >
-          <GarbageCanIcon classes="w-4 h-4" />
-        </button>
+        {#if deleteSessionId === chat.sessionId}
+          <button onclick={() => handleConfirmDelete(chat)}>✓</button>
+          <button onclick={handleCancelDelete}>✕</button>
+        {:else}
+          <button
+            class="history-delete"
+            onclick={(e) => {
+              e.stopPropagation();
+              handleDeleteClick(chat);
+            }}
+          >
+            <GarbageCanIcon classes="w-4 h-4" />
+          </button>
+        {/if}
       </div>
     {/if}
   {/each}
