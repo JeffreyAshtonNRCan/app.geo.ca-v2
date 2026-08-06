@@ -62,9 +62,12 @@
         </button>
 
         {#if deleteSessionId === chat.sessionId}
-          <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>
+          <!-- svelte-ignore a11y_no_static_element_interactions -->
+          <div class="history-confirm-group" onmouseleave={handleCancelDelete}>
+            <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>
 
-          <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>
+            <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>
+          </div>
         {:else}
           <button
             class="history-delete"
