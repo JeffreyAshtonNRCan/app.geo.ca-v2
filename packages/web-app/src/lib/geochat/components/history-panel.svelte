@@ -10,7 +10,7 @@
     lang: 'en' | 'fr';
   } = $props();
 
-  let deleteSessionId: string | undefined;
+  let deleteSessionId = $state<string | undefined>();
 
   function handleNewChat() {
     chatStore.newChat(lang);
@@ -62,10 +62,9 @@
         </button>
 
         {#if deleteSessionId === chat.sessionId}
-          <!--          <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>-->
+          <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>
 
-          <!--          <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>-->
-          <span style="color:red;font-weight:bold;">DELETE?</span>
+          <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>
         {:else}
           <button
             class="history-delete"
