@@ -2,6 +2,7 @@
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatHistory } from '$lib/geochat/session/chat-session';
   import PlusIcon from '$lib/components/icons/plus.svelte';
+  import GarbageCanIcon from '$lib/components/icons/garbage-can.svelte';
 
   let {
     lang,
@@ -15,6 +16,14 @@
 
   function handleSelectChat(chat: ChatHistory) {
     chatStore.selectChat(chat, lang);
+  }
+
+  function handleDeleteChat(chat: ChatHistory) {
+    if (!confirm('Delete this chat?')) {
+      return;
+    }
+
+    chatStore.deleteChat(chat, lang);
   }
 </script>
 
@@ -37,9 +46,22 @@
 
   {#each $chatStore.history as chat, i (chat.sessionId)}
     {#if chat.title !== 'New Chat'}
-      <button class="history-item" class:active={i === 0} onclick={() => handleSelectChat(chat)}>
-        {chat.title}
-      </button>
+      <div class="history-item" class:active={i === 0}>
+        <button class="history-select" onclick={() => handleSelectChat(chat)}>
+          {chat.title}
+        </button>
+
+        <button
+          class="history-delete"
+          onclick={(e) => {
+            e.stopPropagation();
+            handleDeleteChat(chat);
+          }}
+          aria-label="Delete chat"
+        >
+          <GarbageCanIcon classes="w-4 h-4" />
+        </button>
+      </div>
     {/if}
   {/each}
 </div>
@@ -52,10 +74,26 @@
   }
 
   .history-item {
-    display: block;
-    width: 100%;
-    margin: 0 0 0.125rem;
-    padding: 0.375rem 0.75rem; /* was 0.5rem */
+    display: flex;
+    align-items: center;
+    border-radius: 0.3125rem;
+
+    transition: background-color 0.15s ease;
+  }
+
+  .history-item:hover {
+    background: #f3f4f6;
+  }
+
+  .history-item.active {
+    background: #e8f1fb;
+  }
+
+  .history-select {
+    flex: 1;
+
+    margin: 0;
+    padding: 0.375rem 0.75rem;
 
     text-align: left;
     font: inherit;
@@ -63,25 +101,57 @@
 
     background: transparent;
     border: none;
-    border-radius: 0.3125rem;
     cursor: pointer;
-
-    transition:
-      background-color 0.15s ease,
-      color 0.15s ease;
   }
 
-  .history-item:hover {
-    background: #f3f4f6;
-  }
-
-  .history-item:focus-visible {
+  .history-select:focus-visible {
     outline: 2px solid #005ea5;
     outline-offset: 2px;
   }
 
-  .history-item.active {
-    background: #e8f1fb;
+  .history-item.active .history-select {
     font-weight: 600;
+  }
+
+  .history-select {
+    flex: 1;
+
+    margin: 0;
+    padding: 0.375rem 0.75rem;
+
+    text-align: left;
+    font: inherit;
+    color: inherit;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .history-select:focus-visible {
+    outline: 2px solid #005ea5;
+    outline-offset: 2px;
+  }
+
+  .history-item.active .history-select {
+    font-weight: 600;
+  }
+
+  .history-delete {
+    opacity: 0;
+    pointer-events: none;
+
+    margin-right: 0.5rem;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    transition: opacity 0.15s ease;
+  }
+
+  .history-item:hover .history-delete {
+    opacity: 1;
+    pointer-events: auto;
   }
 </style>

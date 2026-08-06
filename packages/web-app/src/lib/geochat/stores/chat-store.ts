@@ -458,6 +458,35 @@ function createChatStore() {
     await loadChat(lang);
   }
 
+  async function deleteChat(chat: ChatHistory, lang: 'en' | 'fr') {
+    const activeChat = get(store).history[0];
+
+    const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId);
+
+    saveHistory(history);
+
+    update((state) => ({
+      ...state,
+      history,
+      messages: [],
+      records: [],
+    }));
+
+    // Deleted an inactive chat
+    if (activeChat?.sessionId !== chat.sessionId) {
+      return;
+    }
+
+    // No chats left
+    if (history.length === 0) {
+      newChat(lang);
+      return;
+    }
+
+    // Load the next active chat
+    await loadChat(lang);
+  }
+
   return {
     subscribe,
     sendMessage,
@@ -465,6 +494,7 @@ function createChatStore() {
     toggleMessage,
     newChat,
     selectChat,
+    deleteChat,
     set,
   };
 }
