@@ -296,6 +296,7 @@ function createChatStore() {
 
   async function loadChat(lang: 'en' | 'fr') {
     let history = loadHistory();
+    console.log('history loaded =', history);
 
     const firstVisit = history.length === 0;
 
@@ -310,6 +311,7 @@ function createChatStore() {
 
     // The first history item is always the active chat.
     const activeChat = history[0];
+    console.log('activeChat =', activeChat);
 
     // New chat placeholder (no session created yet)
     if (!activeChat?.sessionId) {
@@ -462,6 +464,8 @@ function createChatStore() {
     const activeChat = get(store).history[0];
 
     const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId);
+
+    console.log('history after delete =', history);
 
     saveHistory(history);
 
