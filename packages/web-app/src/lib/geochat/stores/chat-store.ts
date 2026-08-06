@@ -461,6 +461,10 @@ function createChatStore() {
     await loadChat(lang);
   }
 
+  // ==========================
+  // Delete chat
+  // ==========================
+
   async function deleteChat(chat: ChatHistory, lang: 'en' | 'fr') {
     const activeChat = get(store).history[0];
 
