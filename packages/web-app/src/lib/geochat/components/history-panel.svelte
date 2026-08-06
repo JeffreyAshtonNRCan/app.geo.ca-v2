@@ -62,9 +62,10 @@
         </button>
 
         {#if deleteSessionId === chat.sessionId}
-          <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>
+          <!--          <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>-->
 
-          <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>
+          <!--          <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>-->
+          <span>DELETE?</span>
         {:else}
           <button
             class="history-delete"
