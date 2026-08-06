@@ -21,15 +21,18 @@
   }
 
   function handleDeleteClick(chat: ChatHistory) {
+    console.log('deleteSessionId=', deleteSessionId);
     deleteSessionId = chat.sessionId;
   }
 
   function handleConfirmDelete(chat: ChatHistory) {
+    console.log('confirm delete');
     chatStore.deleteChat(chat, lang);
     deleteSessionId = undefined;
   }
 
   function handleCancelDelete() {
+    console.log('cancel delete');
     deleteSessionId = undefined;
   }
 </script>
