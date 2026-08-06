@@ -21,8 +21,8 @@
   }
 
   function handleDeleteClick(chat: ChatHistory) {
-    console.log('deleteSessionId=', deleteSessionId);
     deleteSessionId = chat.sessionId;
+    console.log('deleteSessionId=', deleteSessionId);
   }
 
   function handleConfirmDelete(chat: ChatHistory) {
@@ -62,8 +62,9 @@
         </button>
 
         {#if deleteSessionId === chat.sessionId}
-          <button onclick={() => handleConfirmDelete(chat)}>✓</button>
-          <button onclick={handleCancelDelete}>✕</button>
+          <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>
+
+          <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>
         {:else}
           <button
             class="history-delete"
@@ -167,5 +168,12 @@
   .history-item:hover .history-delete {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  .history-confirm {
+    margin-right: 0.25rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
   }
 </style>
