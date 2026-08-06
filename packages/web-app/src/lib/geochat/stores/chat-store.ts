@@ -444,7 +444,8 @@ function createChatStore() {
     }
 
     // Move selected chat to the top (active chat is always first)
-    const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId);
+    // discard any temporary "New Chat" placeholder.
+    const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId && h.title !== 'New Chat');
 
     history.unshift(chat);
 
@@ -472,8 +473,6 @@ function createChatStore() {
     update((state) => ({
       ...state,
       history,
-      messages: [],
-      records: [],
     }));
 
     // Deleted an inactive chat
