@@ -65,7 +65,7 @@
           <!--          <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>-->
 
           <!--          <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>-->
-          <span>DELETE?</span>
+          <span style="color:red;font-weight:bold;">DELETE?</span>
         {:else}
           <button
             class="history-delete"
@@ -107,6 +107,7 @@
 
   .history-select {
     flex: 1;
+    min-width: 0;
 
     margin: 0;
     padding: 0.375rem 0.75rem;
