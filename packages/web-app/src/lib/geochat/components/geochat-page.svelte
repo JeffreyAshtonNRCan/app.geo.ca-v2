@@ -43,7 +43,7 @@
 
 <button class="history-info" onclick={() => (showHistoryInfo = !showHistoryInfo)}>
   <Info classes="w-5 h-5" />
-
+  <span>About chat history</span>
   {#if showHistoryInfo}
     <ChevronUp classes="w-4 h-4" />
   {:else}
