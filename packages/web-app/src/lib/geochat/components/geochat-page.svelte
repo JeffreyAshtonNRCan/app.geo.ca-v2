@@ -34,7 +34,12 @@
 
 <h1 class="font-custom-style-h1 mt-8 px-5 md:px-0 leading-tight">GeoChat</h1>
 
-<p class="mb-8 mt-3 font-open-sans px-5 md:px-0">Dive deeper into this topic by asking follow-up questions in natural language.</p>
+<p class="mt-3 px-5 md:px-0 font-open-sans">Dive deeper into this topic by asking follow-up questions in natural language.</p>
+
+<p class="mb-8 mt-2 px-5 md:px-0 text-sm text-gray-600">
+  <strong>Note:</strong> Recent chats are stored on this device for your convenience. They may not always be available until account sign-in and
+  persistent history are introduced in a future release.
+</p>
 
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
   <div class="panel history" class:collapsed={historyCollapsed}>
