@@ -105,6 +105,9 @@
 
   .history-item.active {
     background: #f3f4f6;
+  }
+
+  .history-item.active .history-select {
     font-weight: 600;
   }
 
