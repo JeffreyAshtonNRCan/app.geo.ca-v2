@@ -159,24 +159,20 @@
 
   .history-delete {
     opacity: 0;
-    visibility: hidden;
-    transform: translateX(2px);
+    pointer-events: none;
 
-    color: #6b7280;
+    margin-right: 0.5rem;
 
-    transition:
-      opacity 0.15s ease,
-      transform 0.15s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    transition: opacity 0.15s ease;
   }
 
   .history-item:hover .history-delete {
     opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-  }
-
-  .history-delete:hover {
-    color: #374151;
+    pointer-events: auto;
   }
 
   .history-confirm {
