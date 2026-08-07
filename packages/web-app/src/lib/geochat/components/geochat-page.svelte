@@ -6,11 +6,15 @@
   import RecordsPanel from '$lib/geochat/components/records-panel.svelte';
   import Splitter from '$lib/geochat/components/splitter.svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
-  import Accordion from '$lib/components/accordion/accordion.svelte';
+  import Info from '$lib/components/icons/info.svelte';
+  import ChevronDown from '$lib/components/icons/chevrondown.svelte';
+  import ChevronUp from '$lib/components/icons/chevronup.svelte';
 
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
   let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
+
+  let showHistoryInfo = $state(false);
 
   $effect(() => {
     localStorage.setItem('geochat-chat-width', String(chatWidth));
@@ -37,18 +41,23 @@
 
 <p class="mt-3 px-5 md:px-0 font-open-sans">Dive deeper into this topic by asking follow-up questions in natural language.</p>
 
-{#snippet accordionTitle()}
-  <span class="text-sm font-medium text-gray-700"> About chat history </span>
-{/snippet}
+<button class="history-info" onclick={() => (showHistoryInfo = !showHistoryInfo)}>
+  <Info classes="w-4 h-4 mr-1" />
+  <span>About chat history</span>
 
-{#snippet accordionContent()}
-  <p class="text-sm text-gray-600">
+  {#if showHistoryInfo}
+    <ChevronUp classes="w-4 h-4 ml-1" />
+  {:else}
+    <ChevronDown classes="w-4 h-4 ml-1" />
+  {/if}
+</button>
+
+{#if showHistoryInfo}
+  <p class="history-note">
     Recent chats are stored on this device for your convenience. They may not always be available until account sign-in and persistent
     history are introduced in a future release.
   </p>
-{/snippet}
-
-<Accordion {accordionTitle} {accordionContent} />
+{/if}
 
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
   <div class="panel history" class:collapsed={historyCollapsed}>
@@ -315,5 +324,29 @@
   .chat :global(.chat-input) {
     border-top: 1px solid #e5e7eb;
     padding-top: 8px;
+  }
+
+  .history-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    margin-top: 0.5rem;
+
+    background: none;
+    border: none;
+    padding: 0;
+
+    color: #4b5563;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .history-note {
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    max-width: 60rem;
+    color: #4b5563;
+    font-size: 0.9rem;
   }
 </style>

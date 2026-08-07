@@ -58,7 +58,7 @@
     {#if chat.title !== 'New Chat'}
       <div class="history-item" class:active={i === 0}>
         <button class="history-select" onclick={() => handleSelectChat(chat)}>
-          <span class="history-title">{chat.title}</span>
+          <span class="history-title" title={chat.title}>{chat.title}</span>
         </button>
 
         {#if deleteSessionId === chat.sessionId}
