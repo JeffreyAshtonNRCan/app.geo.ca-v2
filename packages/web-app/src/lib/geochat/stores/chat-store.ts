@@ -170,7 +170,7 @@ function createChatStore() {
 
     const isWelcomeMessage = trimmed === WELCOME_MESSAGE[lang];
 
-    // add user message
+    // Add user message
     update((state) => ({
       ...state,
       messages: isWelcomeMessage
@@ -182,7 +182,7 @@ function createChatStore() {
               html: escapeHtml(trimmed),
             },
           ],
-      records: [], // clear previous records
+      records: [],
       isThinking: true,
     }));
 
@@ -191,25 +191,25 @@ function createChatStore() {
       const history = [...state.history];
       const activeChat = history[0];
 
-      if (!activeChat.sessionId) {
+      const isNewChat = !activeChat.sessionId;
+
+      if (isNewChat) {
         activeChat.sessionId = generateSessionId();
-
-        saveHistory(history);
-
-        update((state) => ({
-          ...state,
-          history,
-        }));
       }
 
       const data = await sendChatMessage(activeChat.sessionId!, trimmed, lang);
 
       console.log('data=', data);
 
-      // prefer markdown response, fall back to plain text
-      // const responseText = data.answer_markdown ?? data.answer ?? '';
       const responseText = data.answer;
       const formatted = formatMarkdown(responseText);
+
+      // First successful message - promote placeholder to a real chat
+      if (isNewChat) {
+        activeChat.title = trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed;
+
+        saveHistory(history);
+      }
 
       update((state) => {
         const updatedMessages = [...state.messages];
@@ -227,19 +227,6 @@ function createChatStore() {
           expandable: isLongMessage,
           isCurrent: true,
         });
-
-        // Add this session to history if it isn't already there
-        const history = [...state.history];
-
-        const activeChat = history[0];
-
-        if (activeChat && activeChat.title === 'New Chat') {
-          activeChat.title = trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed;
-
-          saveHistory(history);
-        }
-
-        console.log('history=', history);
 
         return {
           ...state,
@@ -266,7 +253,7 @@ function createChatStore() {
         return {
           ...state,
           messages: updatedMessages,
-          records: [], // Clear records
+          records: [],
           isThinking: false,
         };
       });
