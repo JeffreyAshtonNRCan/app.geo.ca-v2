@@ -89,9 +89,9 @@
           aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
         >
           {#if historyCollapsed}
-            <ChevronRight classes="w-4 h-4" />
+            <ChevronRight classes="w-5 h-5" />
           {:else}
-            <ChevronLeft classes="w-4 h-4" />
+            <ChevronLeft classes="w-5 h-5" />
           {/if}
         </button>
 
