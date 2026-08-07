@@ -208,6 +208,8 @@ function createChatStore() {
       if (isNewChat) {
         activeChat.title = trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed;
 
+        console.log('Saving history:', history);
+
         saveHistory(history);
       }
 
