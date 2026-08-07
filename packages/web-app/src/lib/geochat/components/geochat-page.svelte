@@ -6,6 +6,7 @@
   import RecordsPanel from '$lib/geochat/components/records-panel.svelte';
   import Splitter from '$lib/geochat/components/splitter.svelte';
   import { chatStore } from '$lib/geochat/stores/chat-store';
+  import Accordion from '$lib/components/accordion/accordion.svelte';
 
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
@@ -36,10 +37,18 @@
 
 <p class="mt-3 px-5 md:px-0 font-open-sans">Dive deeper into this topic by asking follow-up questions in natural language.</p>
 
-<p class="mb-8 mt-2 px-5 md:px-0 text-sm text-gray-600">
-  <strong>Note:</strong> Recent chats are stored on this device for your convenience. They may not always be available until account sign-in and
-  persistent history are introduced in a future release.
-</p>
+{#snippet accordionTitle()}
+  <span class="text-sm font-medium text-gray-700"> About chat history </span>
+{/snippet}
+
+{#snippet accordionContent()}
+  <p class="text-sm text-gray-600">
+    Recent chats are stored on this device for your convenience. They may not always be available until account sign-in and persistent
+    history are introduced in a future release.
+  </p>
+{/snippet}
+
+<Accordion {accordionTitle} {accordionContent} />
 
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
   <div class="panel history" class:collapsed={historyCollapsed}>
