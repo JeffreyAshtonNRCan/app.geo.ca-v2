@@ -330,7 +330,7 @@
     align-items: center;
     gap: 0.35rem;
 
-    margin: 0.75rem 0 0.5rem;
+    margin: 0.25rem 0 1.5rem;
 
     padding: 0;
 
@@ -347,7 +347,7 @@
 
   .history-note {
     margin: 0 0 1.25rem 0;
-    max-width: 60rem;
+    max-width: 68ch;
 
     color: #374151;
     font-size: 0.95rem;
