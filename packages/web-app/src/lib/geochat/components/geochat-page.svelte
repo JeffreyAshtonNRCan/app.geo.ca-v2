@@ -9,6 +9,8 @@
   import Info from '$lib/components/icons/info.svelte';
   import ChevronDown from '$lib/components/icons/chevrondown.svelte';
   import ChevronUp from '$lib/components/icons/chevronup.svelte';
+  import ChevronLeft from '$lib/components/icons/chevronleft.svelte';
+  import ChevronRight from '$lib/components/icons/chevronright.svelte';
 
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
@@ -86,7 +88,11 @@
           onclick={() => (historyCollapsed = !historyCollapsed)}
           aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
         >
-          ☰
+          {#if historyCollapsed}
+            <ChevronRight classes="w-4 h-4" />
+          {:else}
+            <ChevronLeft classes="w-4 h-4" />
+          {/if}
         </button>
 
         <h2>Chat</h2>
