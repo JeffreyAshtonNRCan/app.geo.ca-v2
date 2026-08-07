@@ -58,7 +58,7 @@
     {#if chat.title !== 'New Chat'}
       <div class="history-item" class:active={i === 0}>
         <button class="history-select" onclick={() => handleSelectChat(chat)}>
-          {chat.title}
+          <span class="history-title">{chat.title}</span>
         </button>
 
         {#if deleteSessionId === chat.sessionId}
@@ -112,6 +112,9 @@
   }
 
   .history-select {
+    display: flex;
+    align-items: center;
+
     flex: 1;
     min-width: 0;
 
@@ -128,32 +131,8 @@
   }
 
   .history-select:focus-visible {
-    outline: 2px solid #005ea5;
-    outline-offset: 2px;
-  }
-
-  .history-item.active .history-select {
-    font-weight: 600;
-  }
-
-  .history-select {
-    flex: 1;
-
-    margin: 0;
-    padding: 0.375rem 0.75rem;
-
-    text-align: left;
-    font: inherit;
-    color: inherit;
-
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
-
-  .history-select:focus-visible {
-    outline: 2px solid #005ea5;
-    outline-offset: 2px;
+    outline: 2px solid #26374a;
+    outline-offset: 1px;
   }
 
   .history-item.active .history-select {
