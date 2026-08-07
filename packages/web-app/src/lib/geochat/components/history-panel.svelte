@@ -138,6 +138,14 @@
   .history-item.active .history-select {
     font-weight: 600;
   }
+  .history-title {
+    flex: 1;
+    min-width: 0;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
   .history-delete {
     opacity: 0;
