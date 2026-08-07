@@ -42,13 +42,12 @@
 <p class="mt-3 px-5 md:px-0 font-open-sans">Dive deeper into this topic by asking follow-up questions in natural language.</p>
 
 <button class="history-info" onclick={() => (showHistoryInfo = !showHistoryInfo)}>
-  <Info classes="w-4 h-4 mr-1" />
-  <span>About chat history</span>
+  <Info classes="w-5 h-5" />
 
   {#if showHistoryInfo}
-    <ChevronUp classes="w-4 h-4 ml-1" />
+    <ChevronUp classes="w-4 h-4" />
   {:else}
-    <ChevronDown classes="w-4 h-4 ml-1" />
+    <ChevronDown classes="w-4 h-4" />
   {/if}
 </button>
 
@@ -329,24 +328,29 @@
   .history-info {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.35rem;
 
-    margin-top: 0.5rem;
+    margin: 0.75rem 0 0.5rem;
+
+    padding: 0;
 
     background: none;
     border: none;
-    padding: 0;
 
-    color: #4b5563;
-    font-size: 0.9rem;
+    color: #374151;
+    font-size: 1rem; /* same as the "Dive deeper..." text */
+    font-weight: 400;
+    line-height: 1.5;
+
     cursor: pointer;
   }
 
   .history-note {
-    margin-top: 0.25rem;
-    margin-bottom: 1rem;
+    margin: 0 0 1.25rem 0;
     max-width: 60rem;
-    color: #4b5563;
-    font-size: 0.9rem;
+
+    color: #374151;
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 </style>
