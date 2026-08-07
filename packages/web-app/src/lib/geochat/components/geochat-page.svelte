@@ -42,7 +42,7 @@
 <p class="mt-3 px-5 md:px-0 font-open-sans">Dive deeper into this topic by asking follow-up questions in natural language.</p>
 
 <button class="history-info" onclick={() => (showHistoryInfo = !showHistoryInfo)}>
-  <Info classes="w-5 h-5" />
+  <Info classes="w-5 h-5 mr-1" />
   <span>About chat history</span>
   {#if showHistoryInfo}
     <ChevronUp classes="w-4 h-4" />
@@ -328,9 +328,8 @@
   .history-info {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
 
-    margin: 0.25rem 0 1.5rem;
+    margin: 1rem 0 0.4rem;
 
     padding: 0;
 
@@ -346,7 +345,8 @@
   }
 
   .history-note {
-    margin: 0 0 1.25rem 0;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
     max-width: 68ch;
 
     color: #374151;
