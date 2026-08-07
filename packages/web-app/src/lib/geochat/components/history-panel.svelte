@@ -106,7 +106,6 @@
   .history-item.active {
     background: #f3f4f6;
     font-weight: 600;
-    border-left: 3px solid #005ea5;
   }
 
   .history-select {
