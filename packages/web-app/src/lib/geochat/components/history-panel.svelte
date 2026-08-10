@@ -105,8 +105,17 @@
     transition: background-color 0.15s ease;
   }
 
-  .history-item:hover {
-    background: #f3f4f6;
+  /* Enable hover effects only on devices with a true mouse/hover pointer.
+   This prevents sticky :hover states on touch devices such as iPad. */
+  @media (hover: hover) and (pointer: fine) {
+    .history-item:hover {
+      background: #f3f4f6;
+    }
+
+    .history-item:hover .history-delete {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 
   .history-item.active {
@@ -164,11 +173,6 @@
     cursor: pointer;
 
     transition: opacity 0.15s ease;
-  }
-
-  .history-item:hover .history-delete {
-    opacity: 1;
-    pointer-events: auto;
   }
 
   .history-confirm {
