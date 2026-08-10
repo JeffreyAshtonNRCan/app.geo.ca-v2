@@ -55,6 +55,7 @@
 <div id="chatbot-widget">
   <!-- launcher -->
   <button id="chatbot-toggle" class="font-custom-style-button-1" onpointerenter={warmUpChat} ontouchstart={warmUpChat} onclick={toggleChat}>
+    <ChatBubbleIcon classes="h-5 w-5" />
     <span class="label">
       {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
     </span>
