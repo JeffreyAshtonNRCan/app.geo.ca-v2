@@ -105,24 +105,8 @@
     transition: background-color 0.15s ease;
   }
 
-  /* Hover effects for devices with a mouse */
-  @media (hover: hover) and (pointer: fine) {
-    .history-item:hover {
-      background: #f3f4f6;
-    }
-
-    .history-item:hover .history-delete {
-      opacity: 1;
-      pointer-events: auto;
-    }
-  }
-
-  /* Show delete button on touch devices */
-  @media (hover: none) {
-    .history-delete {
-      opacity: 1;
-      pointer-events: auto;
-    }
+  .history-item:hover {
+    background: #f3f4f6;
   }
 
   .history-item.active {
@@ -180,6 +164,11 @@
     cursor: pointer;
 
     transition: opacity 0.15s ease;
+  }
+
+  .history-item:hover .history-delete {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .history-confirm {
