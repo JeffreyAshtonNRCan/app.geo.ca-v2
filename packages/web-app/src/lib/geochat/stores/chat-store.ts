@@ -188,27 +188,29 @@ function createChatStore() {
 
     try {
       const state = get(store);
-      const history = [...state.history];
-      const activeChat = history[0];
+      const activeChat = state.history[0];
 
       const isNewChat = !activeChat.sessionId;
+      const sessionId = activeChat.sessionId ?? generateSessionId();
 
-      if (isNewChat) {
-        activeChat.sessionId = generateSessionId();
-      }
-
-      const data = await sendChatMessage(activeChat.sessionId!, trimmed, lang);
+      const data = await sendChatMessage(sessionId, trimmed, lang);
 
       console.log('data=', data);
 
       const responseText = data.answer;
       const formatted = formatMarkdown(responseText);
 
+      let history = state.history;
+
       // First successful message - promote placeholder to a real chat
       if (isNewChat) {
-        activeChat.title = trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed;
+        const updatedChat = {
+          ...activeChat,
+          sessionId,
+          title: trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed,
+        };
 
-        console.log('Saving history:', history);
+        history = [updatedChat, ...state.history.slice(1)];
 
         saveHistory(history);
       }
