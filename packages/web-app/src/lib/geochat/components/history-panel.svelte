@@ -105,14 +105,21 @@
     transition: background-color 0.15s ease;
   }
 
-  /* Enable hover effects only on devices with a true mouse/hover pointer.
-   This prevents sticky :hover states on touch devices such as iPad. */
+  /* Hover effects for devices with a mouse */
   @media (hover: hover) and (pointer: fine) {
     .history-item:hover {
       background: #f3f4f6;
     }
 
     .history-item:hover .history-delete {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  /* Show delete button on touch devices */
+  @media (hover: none) {
+    .history-delete {
       opacity: 1;
       pointer-events: auto;
     }
