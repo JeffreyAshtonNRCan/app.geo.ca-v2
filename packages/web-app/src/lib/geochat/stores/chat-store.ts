@@ -406,16 +406,14 @@ function createChatStore() {
   function newChat(lang: 'en' | 'fr'): ChatHistory[] {
     const history = [...get(store).history];
 
-    // Already started a new chat
-    if (history[0]?.title === 'New Chat') {
-      return history;
+    // Add New Chat placeholder if it doesn't already exist
+    if (history[0]?.title !== 'New Chat') {
+      history.unshift({
+        title: 'New Chat',
+      });
+
+      saveHistory(history);
     }
-
-    history.unshift({
-      title: 'New Chat',
-    });
-
-    saveHistory(history);
 
     update((state) => ({
       ...state,
