@@ -472,10 +472,7 @@ function createChatStore() {
   async function deleteChat(chat: ChatHistory, lang: 'en' | 'fr') {
     const activeChat = get(store).history[0];
 
-    // Remove the deleted chat and discard any temporary "New Chat" placeholder.
     const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId && h.title !== 'New Chat');
-
-    console.log('history after delete =', history);
 
     saveHistory(history);
 
@@ -490,28 +487,20 @@ function createChatStore() {
     }
 
     // No chats left
-    // No chats left
-    // No chats left
     if (history.length === 0) {
-      const newHistory: ChatHistory[] = [
-        {
-          title: 'New Chat',
-        },
-      ];
-
       update((state) => ({
         ...state,
-        history: newHistory,
+        history: [],
         activeSessionId: undefined,
         messages: [],
         records: [],
+        isThinking: false,
       }));
 
       showMessage(lang, NEW_CHAT_MESSAGE);
       return;
     }
 
-    // Load the next active chat
     await loadChat(lang);
   }
 
