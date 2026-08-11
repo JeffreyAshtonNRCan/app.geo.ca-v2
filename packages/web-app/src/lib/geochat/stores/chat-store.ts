@@ -227,7 +227,7 @@ function createChatStore() {
           title: trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed,
         };
 
-        history = [updatedChat, ...state.history.slice(1)];
+        history = [updatedChat, ...state.history.filter((chat) => chat.title !== 'New Chat')];
 
         saveHistory(history);
       } else {
