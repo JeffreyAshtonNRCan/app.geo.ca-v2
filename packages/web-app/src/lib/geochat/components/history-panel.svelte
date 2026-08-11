@@ -56,7 +56,7 @@
 
   {#each $chatStore.history as chat, i (chat.sessionId)}
     {#if chat.title !== 'New Chat'}
-      <div class="history-item" class:active={i === 0}>
+      <div class="history-item" class:active={$chatStore.activeSessionId === chat.sessionId}>
         <button
           class="history-select"
           onclick={(e) => {
