@@ -57,6 +57,8 @@ interface ChatState {
   records: ChatRecord[];
   history: ChatHistory[];
 
+  activeSessionId: string | undefined;
+
   isThinking: boolean;
   initialized: boolean;
 }
@@ -80,6 +82,7 @@ function createChatStore() {
     messages: [],
     records: [],
     history: [],
+    activeSessionId: undefined,
     isThinking: false,
     initialized: false,
   };
@@ -188,7 +191,21 @@ function createChatStore() {
 
     try {
       const state = get(store);
-      const activeChat = state.history[0];
+
+      const activeChat = state.activeSessionId
+        ? state.history.find((chat: ChatHistory) => chat.sessionId === state.activeSessionId)
+        : state.history[0];
+
+      if (!activeChat) {
+        console.error('No active chat available');
+
+        update((state) => ({
+          ...state,
+          isThinking: false,
+        }));
+
+        return;
+      }
 
       const isNewChat = !activeChat.sessionId;
       const sessionId = activeChat.sessionId ?? generateSessionId();
@@ -211,6 +228,13 @@ function createChatStore() {
         };
 
         history = [updatedChat, ...state.history.slice(1)];
+
+        saveHistory(history);
+      } else {
+        // Existing chat - move it to the top
+        history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId);
+
+        history.unshift(activeChat);
 
         saveHistory(history);
       }
@@ -237,6 +261,7 @@ function createChatStore() {
           messages: updatedMessages,
           records: data.records ?? [],
           history,
+          activeSessionId: sessionId,
           isThinking: false,
         };
       });
@@ -285,7 +310,7 @@ function createChatStore() {
   // Load Active Chat
   // ==========================
 
-  async function loadChat(lang: 'en' | 'fr') {
+  async function loadChat(lang: 'en' | 'fr', activeChat?: ChatHistory) {
     let history = loadHistory();
     console.log('history loaded =', history);
 
@@ -300,23 +325,25 @@ function createChatStore() {
       history,
     }));
 
-    // The first history item is always the active chat.
-    const activeChat = history[0];
-    console.log('activeChat =', activeChat);
+    // Use the supplied chat, otherwise use the first history item.
+    const chatToLoad = activeChat ?? history[0];
+
+    console.log('chatToLoad =', chatToLoad);
 
     // New chat placeholder (no session created yet)
-    if (!activeChat?.sessionId) {
+    if (!chatToLoad?.sessionId) {
       showMessage(lang, firstVisit ? WELCOME_MESSAGE : NEW_CHAT_MESSAGE);
       return;
     }
 
     update((state) => ({
       ...state,
+      activeSessionId: chatToLoad.sessionId,
       isThinking: true,
     }));
 
     try {
-      const data = await loadChatSession(activeChat.sessionId);
+      const data = await loadChatSession(chatToLoad.sessionId);
 
       console.log('active session data=', data);
 
@@ -429,27 +456,14 @@ function createChatStore() {
   // ==========================
 
   async function selectChat(chat: ChatHistory, lang: 'en' | 'fr') {
-    // Already the active chat
-    if (get(store).history[0]?.sessionId === chat.sessionId) {
-      return;
-    }
-
-    // Move selected chat to the top (active chat is always first)
-    // discard any temporary "New Chat" placeholder.
-    const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId && h.title !== 'New Chat');
-
-    history.unshift(chat);
-
-    saveHistory(history);
-
     update((state) => ({
       ...state,
-      history,
+      activeSessionId: chat.sessionId,
       messages: [],
       records: [],
     }));
 
-    await loadChat(lang);
+    await loadChat(lang, chat);
   }
 
   // ==========================
