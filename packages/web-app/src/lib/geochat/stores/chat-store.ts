@@ -491,10 +491,17 @@ function createChatStore() {
 
     // No chats left
     // No chats left
+    // No chats left
     if (history.length === 0) {
+      const newHistory: ChatHistory[] = [
+        {
+          title: 'New Chat',
+        },
+      ];
+
       update((state) => ({
         ...state,
-        history: [],
+        history: newHistory,
         activeSessionId: undefined,
         messages: [],
         records: [],
