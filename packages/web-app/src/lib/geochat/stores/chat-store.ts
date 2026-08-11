@@ -420,6 +420,7 @@ function createChatStore() {
     update((state) => ({
       ...state,
       history,
+      activeSessionId: undefined,
       messages: [],
       records: [],
     }));
