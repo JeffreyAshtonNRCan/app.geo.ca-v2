@@ -490,8 +490,17 @@ function createChatStore() {
     }
 
     // No chats left
+    // No chats left
     if (history.length === 0) {
-      newChat(lang);
+      update((state) => ({
+        ...state,
+        history: [],
+        activeSessionId: undefined,
+        messages: [],
+        records: [],
+      }));
+
+      showMessage(lang, NEW_CHAT_MESSAGE);
       return;
     }
 
