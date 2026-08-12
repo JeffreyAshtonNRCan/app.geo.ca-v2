@@ -3,6 +3,8 @@
   import { page } from '$app/state';
 
   const lang: 'en' | 'fr' = page.params.lang?.startsWith('fr') ? 'fr' : 'en';
+
+  const alternateLanguageUrl = lang === 'fr' ? '/en-ca/geochat' : '/fr-ca/geochat';
 </script>
 
-<GeoChatPage {lang} />
+<GeoChatPage {lang} {alternateLanguageUrl} />
