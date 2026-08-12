@@ -192,19 +192,14 @@ function createChatStore() {
     try {
       const state = get(store);
 
-      const activeChat = state.activeSessionId
+      let activeChat = state.activeSessionId
         ? state.history.find((chat: ChatHistory) => chat.sessionId === state.activeSessionId)
         : state.history[0];
 
       if (!activeChat) {
-        console.error('No active chat available');
-
-        update((state) => ({
-          ...state,
-          isThinking: false,
-        }));
-
-        return;
+        activeChat = {
+          title: 'New Chat',
+        };
       }
 
       const isNewChat = !activeChat.sessionId;
@@ -311,19 +306,15 @@ function createChatStore() {
   // ==========================
 
   async function loadChat(lang: 'en' | 'fr', activeChat?: ChatHistory) {
-    let history = loadHistory();
+    const history = loadHistory();
     console.log('history loaded =', history);
 
     const firstVisit = history.length === 0;
 
     if (firstVisit) {
-      history = newChat(lang);
+      showMessage(lang, WELCOME_MESSAGE);
+      return;
     }
-
-    update((state) => ({
-      ...state,
-      history,
-    }));
 
     // Use the supplied chat, otherwise use the first history item.
     const chatToLoad = activeChat ?? history[0];
@@ -332,7 +323,7 @@ function createChatStore() {
 
     // New chat placeholder (no session created yet)
     if (!chatToLoad?.sessionId) {
-      showMessage(lang, firstVisit ? WELCOME_MESSAGE : NEW_CHAT_MESSAGE);
+      showMessage(lang, NEW_CHAT_MESSAGE);
       return;
     }
 
@@ -470,19 +461,20 @@ function createChatStore() {
   // ==========================
 
   async function deleteChat(chat: ChatHistory, lang: 'en' | 'fr') {
-    const activeChat = get(store).history[0];
+    const state = get(store);
 
-    const history = get(store).history.filter((h) => h.sessionId !== chat.sessionId && h.title !== 'New Chat');
+    const isActiveChat = state.activeSessionId === chat.sessionId;
+
+    const history = state.history.filter((h) => h.sessionId !== chat.sessionId && h.title !== 'New Chat');
 
     saveHistory(history);
 
-    update((state) => ({
-      ...state,
-      history,
-    }));
-
     // Deleted an inactive chat
-    if (activeChat?.sessionId !== chat.sessionId) {
+    if (!isActiveChat) {
+      update((state) => ({
+        ...state,
+        history,
+      }));
       return;
     }
 
@@ -490,7 +482,7 @@ function createChatStore() {
     if (history.length === 0) {
       update((state) => ({
         ...state,
-        history: [],
+        history,
         activeSessionId: undefined,
         messages: [],
         records: [],
@@ -500,6 +492,12 @@ function createChatStore() {
       showMessage(lang, NEW_CHAT_MESSAGE);
       return;
     }
+
+    // Deleted active chat - load the next chat
+    update((state) => ({
+      ...state,
+      history,
+    }));
 
     await loadChat(lang);
   }
