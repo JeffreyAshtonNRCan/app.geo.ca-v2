@@ -128,6 +128,7 @@
               href={alternateLanguageUrl}
               onclick={(e) => {
                 e.preventDefault();
+                console.log('CLICK alternateLanguageUrl =', alternateLanguageUrl);
                 window.location.assign(alternateLanguageUrl);
               }}
             >
