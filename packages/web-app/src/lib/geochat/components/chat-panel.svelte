@@ -126,18 +126,11 @@
         {#if msg.role === 'bot' && msg.languageMismatch}
           <div class="bubble bot-text">
             {lang.startsWith('fr')
-              ? 'Cette question a été posée dans une langue différente de la page actuelle.'
-              : 'This question was asked in French.  You are currently using the English GeoChat.'}
+              ? 'Cette question a été posée en anglais. Vous utilisez actuellement le GéoChat français.'
+              : 'This question was asked in French. You are currently using the English GeoChat.'}
 
-            <a
-              href={alternateLanguageUrl}
-              onclick={(e) => {
-                e.preventDefault();
-                console.log('CLICK alternateLanguageUrl =', alternateLanguageUrl);
-                window.location.assign(alternateLanguageUrl);
-              }}
-            >
-              {lang.startsWith('fr') ? 'Click here for the English version' : 'Cliquez ici pour la version française'}
+            <a href={alternateLanguageUrl}>
+              {lang.startsWith('fr') ? 'Cliquez ici pour la version anglaise' : 'Cliquez ici pour la version française'}
             </a>
           </div>
         {:else if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
