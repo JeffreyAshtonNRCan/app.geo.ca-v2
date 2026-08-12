@@ -34,6 +34,11 @@
     alternateLanguageUrl?: string;
   } = $props();
 
+  console.log('=== GeoChatPage props ===');
+  console.log('lang =', lang);
+  console.log('alternateLanguageUrl =', alternateLanguageUrl);
+  console.log('==========================');
+
   onMount(() => {
     chatStore.initializeChat(lang);
   });

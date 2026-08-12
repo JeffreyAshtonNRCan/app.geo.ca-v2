@@ -17,6 +17,11 @@
     onDiveDeeper?: () => void;
   } = $props();
 
+  console.log('ChatPanel props:', {
+    lang,
+    alternateLanguageUrl,
+  });
+
   let message = $state('');
   let chatLogWrapper: HTMLDivElement;
 
