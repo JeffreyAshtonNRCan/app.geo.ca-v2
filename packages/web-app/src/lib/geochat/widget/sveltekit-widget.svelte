@@ -7,19 +7,16 @@
   const locale = $derived(page.params.lang ?? 'en-ca');
 
   const lang = $derived(locale.startsWith('fr') ? 'fr' : 'en');
+  console.log('lang=', lang);
+  console.log('page.params.lang=', page.params.lang);
+
   const alternateLanguageUrl = $derived.by(() => {
-    const pathname = page.url.pathname;
+    const alternateLocale = page.params.lang === 'fr-ca' ? 'en-ca' : 'fr-ca';
 
-    if (pathname.startsWith('/en-ca/')) {
-      return pathname.replace('/en-ca/', '/fr-ca/');
-    }
-
-    if (pathname.startsWith('/fr-ca/')) {
-      return pathname.replace('/fr-ca/', '/en-ca/');
-    }
-
-    return pathname;
+    return `${page.url.pathname.replace(`/${page.params.lang}`, `/${alternateLocale}`)}${page.url.search}${page.url.hash}`;
   });
+
+  console.log('alternateLanguageUrl=', alternateLanguageUrl);
 
   function handleDiveDeeper() {
     console.log('page.params.lang =', page.params.lang);
