@@ -8,9 +8,17 @@
 
   const lang = $derived(locale.startsWith('fr') ? 'fr' : 'en');
   const alternateLanguageUrl = $derived.by(() => {
-    const alternateLocale = page.params.lang === 'fr-ca' ? 'en-ca' : 'fr-ca';
+    const pathname = page.url.pathname;
 
-    return `${page.url.pathname.replace(`/${page.params.lang}`, `/${alternateLocale}`)}${page.url.search}${page.url.hash}`;
+    if (pathname.startsWith('/en-ca/')) {
+      return pathname.replace('/en-ca/', '/fr-ca/');
+    }
+
+    if (pathname.startsWith('/fr-ca/')) {
+      return pathname.replace('/fr-ca/', '/en-ca/');
+    }
+
+    return pathname;
   });
 
   function handleDiveDeeper() {
