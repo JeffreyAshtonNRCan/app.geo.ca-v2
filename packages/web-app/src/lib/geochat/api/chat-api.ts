@@ -4,7 +4,8 @@ import { getGeoChatConfig } from '$lib/geochat/geochat-config';
 
 // const CHAT_API_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chat';
 //
-// const CHAT_HISTORY_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chathistory';
+// const CHAT_HISTORY_URL = '
+// ';
 
 // const { chatApiUrl: CHAT_API_URL, chatHistoryUrl: CHAT_HISTORY_URL } = getGeoChatConfig();
 

@@ -316,6 +316,12 @@ function createChatStore() {
       return;
     }
 
+    // Restore history into the store
+    update((state) => ({
+      ...state,
+      history,
+    }));
+
     // Use the supplied chat, otherwise use the first history item.
     const chatToLoad = activeChat ?? history[0];
 
