@@ -2,9 +2,9 @@
   import GeoChatPage from '$lib/geochat/components/geochat-page.svelte';
   import { page } from '$app/state';
 
-  const lang: 'en' | 'fr' = page.params.lang?.startsWith('fr') ? 'fr' : 'en';
+  let lang: 'en' | 'fr' = $derived(page.params.lang?.startsWith('fr') ? 'fr' : 'en');
 
-  const alternateLanguageUrl = lang === 'fr' ? '/en-ca/geochat' : '/fr-ca/geochat';
+  let alternateLanguageUrl = $derived(lang === 'fr' ? '/en-ca/geochat' : '/fr-ca/geochat');
 </script>
 
 <GeoChatPage {lang} {alternateLanguageUrl} />
