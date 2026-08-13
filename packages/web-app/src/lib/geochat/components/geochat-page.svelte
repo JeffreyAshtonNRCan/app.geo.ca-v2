@@ -35,6 +35,8 @@
     : 'Recent chats are stored on this device for your convenience. ' +
       'They may not always be available until account sign-in and persistent history are introduced in a future release.';
 
+  const newChat = translations?.newChat ? translations['newChat'] : 'New Chat';
+
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
   let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
@@ -95,7 +97,7 @@
 
     <div class="panel-body">
       <div class="panel-content history-content">
-        <HistoryPanel {lang} />
+        <HistoryPanel {lang} {newChat} />
       </div>
     </div>
   </div>
