@@ -6,8 +6,10 @@
 
   let {
     lang,
+    newChat,
   }: {
     lang: 'en' | 'fr';
+    newChat: string;
   } = $props();
 
   let deleteSessionId = $state<string | undefined>();
@@ -51,7 +53,7 @@
     onclick={handleNewChat}
   >
     <PlusIcon classes="inline h-4 w-4 mr-2" />
-    New Chat
+    {newChat}
   </button>
 
   {#each $chatStore.history as chat, i (chat.sessionId)}
