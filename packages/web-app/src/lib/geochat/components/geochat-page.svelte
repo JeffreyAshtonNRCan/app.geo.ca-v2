@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { page } from '$app/state';
 
   import HistoryPanel from '$lib/geochat/components/history-panel.svelte';
   import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
@@ -11,6 +12,11 @@
   import ChevronUp from '$lib/components/icons/chevronup.svelte';
   import ChevronLeft from '$lib/components/icons/chevronleft.svelte';
   import ChevronRight from '$lib/components/icons/chevronright.svelte';
+
+  /************* Translations ***************/
+  const translations = page.data.t;
+
+  const chatHistory = translations?.chatHistory ? translations['chatHistory'] : 'Chat History';
 
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
@@ -68,7 +74,7 @@
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
   <div class="panel history" class:collapsed={historyCollapsed}>
     <div class="panel-header history-header">
-      <h2>Chat History</h2>
+      <h2>{chatHistory}</h2>
     </div>
 
     <div class="panel-body">
