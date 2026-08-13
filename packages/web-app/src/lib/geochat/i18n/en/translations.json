@@ -1,0 +1,12 @@
+{
+  "title": "GeoChat",
+  "description": "Dive deeper into this topic by asking follow-up questions in natural language.",
+  "chatHistory": "Chat History",
+  "newChat": "New Chat",
+  "chat": "Chat",
+  "recordsAndMap": "Records & Map",
+  "aboutChatHistory": "About chat history",
+  "diveDeeper": "Dive deeper with GeoChat",
+  "languageMessage": "This question was asked in French. You are currently using the English GeoChat.",
+  "switchToFrench": "Click here for the French version"
+}
