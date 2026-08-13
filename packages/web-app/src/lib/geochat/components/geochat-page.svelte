@@ -24,6 +24,11 @@
 
   const aboutChatHistory = translations?.aboutChatHistory ? translations['aboutChatHistory'] : 'About Chat History';
 
+  const aboutChatHistoryText = translations?.aboutChatHistoryText
+    ? translations['aboutChatHistoryText']
+    : 'Recent chats are stored on this device for your convenience. ' +
+      'They may not always be available until account sign-in and persistent history are introduced in a future release.';
+
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
   let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
@@ -72,8 +77,7 @@
 
 {#if showHistoryInfo}
   <p class="history-note">
-    Recent chats are stored on this device for your convenience. They may not always be available until account sign-in and persistent
-    history are introduced in a future release.
+    {aboutChatHistoryText}
   </p>
 {/if}
 
