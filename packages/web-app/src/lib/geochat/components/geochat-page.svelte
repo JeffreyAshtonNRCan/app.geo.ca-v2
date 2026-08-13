@@ -18,6 +18,10 @@
 
   const chatHistory = translations?.chatHistory ? translations['chatHistory'] : 'Chat History';
 
+  const chat = translations?.chat ? translations['chat'] : 'Chat';
+
+  const recordsMap = translations?.recordsMap ? translations['recordsMap'] : 'Records & Map';
+
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
   let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
@@ -106,7 +110,7 @@
           {/if}
         </button>
 
-        <h2>Chat</h2>
+        <h2>{chat}</h2>
       </div>
 
       <div class="panel-body">
@@ -120,7 +124,7 @@
 
     <div class="panel records">
       <div class="panel-header">
-        <h2>Records &amp; Map</h2>
+        <h2>{recordsMap}</h2>
       </div>
 
       <div class="panel-body">
