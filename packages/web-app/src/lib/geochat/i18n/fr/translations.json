@@ -1,7 +1,7 @@
 {
   "title": "GéoChat",
   "description": "Approfondissez ce sujet en posant des questions de suivi en langage naturel.",
-  "chatHistory": "Historique des conversations",
+  "chatHistory": "Historique",
   "newChat": "Nouvelle conversation",
   "chat": "Conversation",
   "recordsAndMap": "Données et carte",
