@@ -6,15 +6,15 @@
 
   const alternateLanguageUrl = page.data.alternateLanguageUrl;
 
-  $effect(() => {
-    console.log('=== GeoChat +page ===');
-    console.log('page.params.lang =', page.params.lang);
-    console.log('page.data.lang =', page.data.lang);
-    console.log('lang =', lang);
-    console.log('page.data.alternateLanguageUrl =', page.data.alternateLanguageUrl);
-    console.log('alternateLanguageUrl =', alternateLanguageUrl);
-    console.log('======================');
-  });
+  // $effect(() => {
+  //   console.log('=== GeoChat +page ===');
+  //   console.log('page.params.lang =', page.params.lang);
+  //   console.log('page.data.lang =', page.data.lang);
+  //   console.log('lang =', lang);
+  //   console.log('page.data.alternateLanguageUrl =', page.data.alternateLanguageUrl);
+  //   console.log('alternateLanguageUrl =', alternateLanguageUrl);
+  //   console.log('======================');
+  // });
 </script>
 
 <GeoChatPage {lang} {alternateLanguageUrl} />
