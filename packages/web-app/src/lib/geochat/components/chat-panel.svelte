@@ -4,26 +4,27 @@
   import type { ChatMessage } from '$lib/geochat/stores/chat-store';
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
   import { DOWNLOAD_ICON_URI } from '$lib/geochat/utils/download-icon';
+  import enTranslations from '$lib/geochat/i18n/en/translations.json';
+  import frTranslations from '$lib/geochat/i18n/fr/translations.json';
+
+  const translations = {
+    en: enTranslations,
+    fr: frTranslations,
+  };
 
   let {
     lang = 'en',
     alternateLanguageUrl = '',
     showDiveDeeper = false,
-    diveDeeper,
-    typeMessage,
-    languageMessage,
-    switchLanguage,
     onDiveDeeper,
   }: {
     lang?: 'en' | 'fr';
     alternateLanguageUrl?: string;
     showDiveDeeper?: boolean;
-    diveDeeper?: string;
-    typeMessage: string;
-    languageMessage: string;
-    switchLanguage: string;
     onDiveDeeper?: () => void;
   } = $props();
+
+  const t = $derived(translations[lang]);
 
   console.log('ChatPanel props:', {
     lang,
@@ -124,9 +125,9 @@
       <div class="chat-row {msg.role}">
         {#if msg.role === 'bot' && msg.languageMismatch}
           <div class="bubble bot-text">
-            {languageMessage}
+            {t.languageMessage}
             <a href={alternateLanguageUrl}>
-              {switchLanguage}
+              {lang.startsWith('fr') ? t.switchToEnglish : t.switchToFrench}
             </a>
           </div>
         {:else if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
@@ -173,14 +174,14 @@
   <div id="chat-actions">
     <button class="dive-deeper-button" onclick={onDiveDeeper}>
       <ChatBubbleIcon classes="h-4 w-4 md:h-5 md:w-5" />
-      {diveDeeper}
+      {t.diveDeeper}
     </button>
   </div>
 {/if}
 
 <!-- input -->
 <div class="chat-input">
-  <textarea id="chat-input" bind:value={message} maxlength="100" placeholder={typeMessage} onkeydown={handleKeydown}></textarea>
+  <textarea id="chat-input" bind:value={message} maxlength="100" placeholder={t.typeMessage} onkeydown={handleKeydown}></textarea>
 
   <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤</button>
 </div>
