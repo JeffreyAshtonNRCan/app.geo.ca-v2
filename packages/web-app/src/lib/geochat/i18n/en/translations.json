@@ -12,5 +12,12 @@
   "switchToFrench": "Click here for the French version",
   "welcomeMessage": "## Hello!\n\nI'm excited to help you explore the world of geospatial information.\nWhat would you like to know or discover today?",
   "newChatMessage": "## New Chat\n\nWhat would you like to explore?",
-  "errorMessage": "Sorry, something went wrong."
+  "errorMessage": "Sorry, something went wrong.",
+  "askGeoChat": "Ask GeoChat",
+  "switchToSmallChat": "Switch to small chat",
+  "switchToLargeChat": "Switch to large chat",
+  "smallChat": "Small Chat",
+  "largeChat": "Large Chat",
+  "closeChat": "Close chat",
+  "close": "Close"
 }

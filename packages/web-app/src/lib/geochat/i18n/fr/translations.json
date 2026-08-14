@@ -12,5 +12,12 @@
   "switchToEnglish": "Cliquez ici pour la version anglaise",
   "welcomeMessage": "## Bonjour !\n\nBienvenue sur GEO.ca ! Je suis ravi de vous accueillir.\n\nSi vous cherchez des informations géospatiales ou des données pour un projet, n'hésitez pas à me poser des questions ou à explorer nos ressources.\nJe suis là pour vous aider !",
   "newChatMessage": "## Nouveau chat\n\nQue souhaitez-vous explorer ?",
-  "errorMessage": "Désolé, une erreur est survenue."
+  "errorMessage": "Désolé, une erreur est survenue.",
+  "askGeoChat": "Demandez au GéoChat",
+  "switchToSmallChat": "Réduire le clavardage",
+  "switchToLargeChat": "Agrandir le clavardage",
+  "smallChat": "Petit clavardage",
+  "largeChat": "Grand clavardage",
+  "closeChat": "Fermer le clavardage",
+  "close": "Fermer"
 }

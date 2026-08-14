@@ -8,6 +8,13 @@
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import { warmUpChat } from '$lib/geochat/api/chat-api';
   import { tick } from 'svelte';
+  import enTranslations from '$lib/geochat/i18n/en/translations.json';
+  import frTranslations from '$lib/geochat/i18n/fr/translations.json';
+
+  const translations = {
+    en: enTranslations,
+    fr: frTranslations,
+  };
 
   let {
     lang = 'en',
@@ -18,6 +25,8 @@
     alternateLanguageUrl?: string;
     onDiveDeeper?: () => void;
   } = $props();
+
+  const t = $derived(translations[lang]);
 
   let chatbotPanel = $state<HTMLDivElement | undefined>(undefined);
 
@@ -57,7 +66,7 @@
   <button id="chatbot-toggle" class="font-custom-style-button-1" onpointerenter={warmUpChat} ontouchstart={warmUpChat} onclick={toggleChat}>
     <ChatBubbleIcon classes="h-5 w-5" />
     <span class="label">
-      {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
+      {t.askGeoChat}
     </span>
   </button>
 </div>
@@ -69,31 +78,20 @@
     <div class="chat-header">
       <div class="drag-handle" use:draggable>
         <span id="chatbot-title">
-          {lang === 'fr' ? 'Demandez au GéoChat' : 'Ask GeoChat'}
+          {t.askGeoChat}
         </span>
       </div>
       <div class="icons">
         <button
           class="chat-expand"
-          aria-label={lang === 'fr'
-            ? isExpanded
-              ? 'Réduire le clavardage'
-              : 'Agrandir le clavardage'
-            : isExpanded
-              ? 'Switch to small chat'
-              : 'Switch to large chat'}
-          title={lang === 'fr' ? (isExpanded ? 'Petit clavardage' : 'Grand clavardage') : isExpanded ? 'Small Chat' : 'Large Chat'}
+          aria-label={isExpanded ? t.switchToSmallChat : t.switchToLargeChat}
+          title={isExpanded ? t.smallChat : t.largeChat}
           onclick={toggleExpanded}
         >
           <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
         </button>
 
-        <button
-          class="chat-close"
-          aria-label={lang === 'fr' ? 'Fermer le clavardage' : 'Close chat'}
-          title={lang === 'fr' ? 'Fermer' : 'Close'}
-          onclick={() => (isOpen = false)}
-        >
+        <button class="chat-close" aria-label={t.closeChat} title={t.close} onclick={() => (isOpen = false)}>
           <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
         </button>
       </div>
