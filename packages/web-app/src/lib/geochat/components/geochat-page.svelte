@@ -144,7 +144,7 @@
 
       <div class="panel-body">
         <div class="panel-content chat-layout">
-          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} {typeMessage} {languageMessage} {switchLanguage} />
+          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} />
         </div>
       </div>
     </section>

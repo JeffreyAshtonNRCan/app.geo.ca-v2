@@ -27,10 +27,6 @@
   } = $props();
 
   const t = $derived(translations[lang]);
-  const diveDeeper = $derived(t.diveDeeper);
-  const typeMessage = $derived(t.typeMessage);
-  const languageMessage = $derived(t.languageMessage);
-  const switchLanguage = $derived(lang.startsWith('fr') ? t.switchToEnglish : t.switchToFrench);
 
   let chatbotPanel = $state<HTMLDivElement | undefined>(undefined);
 
@@ -100,16 +96,7 @@
         </button>
       </div>
     </div>
-    <ChatPanel
-      {lang}
-      {alternateLanguageUrl}
-      showDiveDeeper={true}
-      {diveDeeper}
-      {typeMessage}
-      {languageMessage}
-      {switchLanguage}
-      {onDiveDeeper}
-    />
+    <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={true} {onDiveDeeper} />
   </div>
 {/if}
 
