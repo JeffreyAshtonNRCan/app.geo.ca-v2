@@ -13,6 +13,14 @@
   import ChevronLeft from '$lib/components/icons/chevronleft.svelte';
   import ChevronRight from '$lib/components/icons/chevronright.svelte';
 
+  let {
+    lang = 'en',
+    alternateLanguageUrl = '',
+  }: {
+    lang?: 'en' | 'fr';
+    alternateLanguageUrl?: string;
+  } = $props();
+
   /************* Translations ***************/
   const translations = page.data.t;
 
@@ -39,6 +47,19 @@
 
   const typeMessage = translations?.typeMessage ? translations['typeMessage'] : 'Type a message...';
 
+  const languageMessage = translations?.languageMessage ? translations['languageMessage'] : '';
+
+  const switchLanguage =
+    lang === 'fr'
+      ? translations?.switchToEnglish
+        ? translations['switchToEnglish']
+        : 'Click here for the English version'
+      : translations?.switchToFrench
+        ? translations['switchToFrench']
+        : 'Click here for the French version';
+
+  /************* End Translations ***************/
+
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
   let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
@@ -52,14 +73,6 @@
   $effect(() => {
     localStorage.setItem('geochat-history-collapsed', String(historyCollapsed));
   });
-
-  let {
-    lang = 'en',
-    alternateLanguageUrl = '',
-  }: {
-    lang?: 'en' | 'fr';
-    alternateLanguageUrl?: string;
-  } = $props();
 
   console.log('=== GeoChatPage props ===');
   console.log('lang =', lang);
@@ -131,7 +144,7 @@
 
       <div class="panel-body">
         <div class="panel-content chat-layout">
-          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} {typeMessage} />
+          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} {typeMessage} {languageMessage} {switchLanguage} />
         </div>
       </div>
     </section>

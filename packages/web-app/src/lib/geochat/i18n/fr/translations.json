@@ -20,5 +20,7 @@
   "largeChat": "Grand clavardage",
   "closeChat": "Fermer le clavardage",
   "close": "Fermer",
-  "typeMessage": "Écrivez un message..."
+  "typeMessage": "Écrivez un message...",
+  "switchToEnglish": "Cliquez ici pour la version anglaise",
+  "switchToFrench": "Cliquez ici pour la version française"
 }

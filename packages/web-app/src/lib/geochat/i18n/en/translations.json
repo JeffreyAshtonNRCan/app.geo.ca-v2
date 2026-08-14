@@ -20,5 +20,7 @@
   "largeChat": "Large Chat",
   "closeChat": "Close chat",
   "close": "Close",
-  "typeMessage": "Type a message..."
+  "typeMessage": "Type a message...",
+  "switchToEnglish": "Click here for the English version",
+  "switchToFrench": "Click here for the French version"
 }
