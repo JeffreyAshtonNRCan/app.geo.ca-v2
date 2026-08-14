@@ -11,6 +11,8 @@
     showDiveDeeper = false,
     diveDeeper,
     typeMessage,
+    languageMessage,
+    switchLanguage,
     onDiveDeeper,
   }: {
     lang?: 'en' | 'fr';
@@ -18,6 +20,8 @@
     showDiveDeeper?: boolean;
     diveDeeper?: string;
     typeMessage: string;
+    languageMessage: string;
+    switchLanguage: string;
     onDiveDeeper?: () => void;
   } = $props();
 
@@ -28,15 +32,6 @@
 
   let message = $state('');
   let chatLogWrapper: HTMLDivElement;
-
-  const UI_TEXT = {
-    en: {
-      diveDeeper: 'Dive deeper with GeoChat',
-    },
-    fr: {
-      diveDeeper: 'Approfondissez avec GéoChat',
-    },
-  } as const;
 
   async function handleSend() {
     const text = message;
@@ -129,12 +124,9 @@
       <div class="chat-row {msg.role}">
         {#if msg.role === 'bot' && msg.languageMismatch}
           <div class="bubble bot-text">
-            {lang.startsWith('fr')
-              ? 'Cette question a été posée en anglais. Vous utilisez actuellement le GéoChat français.'
-              : 'This question was asked in French. You are currently using the English GeoChat.'}
-
+            {languageMessage}
             <a href={alternateLanguageUrl}>
-              {lang.startsWith('fr') ? 'Cliquez ici pour la version anglaise' : 'Cliquez ici pour la version française'}
+              {switchLanguage}
             </a>
           </div>
         {:else if msg.role === 'bot' && msg.expandable && !msg.isCurrent}
