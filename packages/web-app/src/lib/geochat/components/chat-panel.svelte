@@ -9,11 +9,15 @@
     lang = 'en',
     alternateLanguageUrl = '',
     showDiveDeeper = false,
+    diveDeeper,
+    typeMessage,
     onDiveDeeper,
   }: {
     lang?: 'en' | 'fr';
     alternateLanguageUrl?: string;
     showDiveDeeper?: boolean;
+    diveDeeper?: string;
+    typeMessage: string;
     onDiveDeeper?: () => void;
   } = $props();
 
@@ -177,14 +181,14 @@
   <div id="chat-actions">
     <button class="dive-deeper-button" onclick={onDiveDeeper}>
       <ChatBubbleIcon classes="h-4 w-4 md:h-5 md:w-5" />
-      {UI_TEXT[lang].diveDeeper}
+      {diveDeeper}
     </button>
   </div>
 {/if}
 
 <!-- input -->
 <div class="chat-input">
-  <textarea id="chat-input" bind:value={message} maxlength="100" placeholder="Type a message..." onkeydown={handleKeydown}></textarea>
+  <textarea id="chat-input" bind:value={message} maxlength="100" placeholder={typeMessage} onkeydown={handleKeydown}></textarea>
 
   <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤</button>
 </div>

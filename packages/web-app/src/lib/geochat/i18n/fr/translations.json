@@ -19,5 +19,6 @@
   "smallChat": "Petit clavardage",
   "largeChat": "Grand clavardage",
   "closeChat": "Fermer le clavardage",
-  "close": "Fermer"
+  "close": "Fermer",
+  "typeMessage": "Écrivez un message..."
 }
