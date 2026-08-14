@@ -2,12 +2,15 @@
   "title": "GéoChat",
   "description": "Approfondissez ce sujet en posant des questions de suivi en langage naturel.",
   "chatHistory": "Historique",
-  "newChat": "Nouvelle chat",
+  "newChat": "Nouveau chat",
   "chat": "Chat",
   "recordsMap": "Données et carte",
   "aboutChatHistory": "À propos de l’historique des chats",
   "aboutChatHistoryText": "Les conversations récentes sont enregistrées sur cet appareil pour votre commodité. Elles pourraient ne pas toujours être disponibles tant que la connexion à un compte et l’historique permanent ne seront pas offerts dans une prochaine version.",
   "diveDeeper": "Approfondir avec GéoChat",
   "languageMessage": "Cette question a été posée en anglais. Vous utilisez actuellement GéoChat en français.",
-  "switchToEnglish": "Cliquez ici pour la version anglaise"
+  "switchToEnglish": "Cliquez ici pour la version anglaise",
+  "welcomeMessage": "## Bonjour !\n\nBienvenue sur GEO.ca ! Je suis ravi de vous accueillir.\n\nSi vous cherchez des informations géospatiales ou des données pour un projet, n'hésitez pas à me poser des questions ou à explorer nos ressources.\nJe suis là pour vous aider !",
+  "newChatMessage": "## Nouveau chat\n\nQue souhaitez-vous explorer ?",
+  "errorMessage": "Désolé, une erreur est survenue."
 }

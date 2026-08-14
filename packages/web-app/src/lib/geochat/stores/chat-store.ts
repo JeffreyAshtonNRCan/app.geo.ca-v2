@@ -1,12 +1,17 @@
 // src/lib/geochat/stores/chat-stores.ts
 
 import { writable, get } from 'svelte/store';
-
 import { sendChatMessage, loadChatSession } from '$lib/geochat/api/chat-api';
-
 import { type ChatHistory, generateSessionId, loadHistory, saveHistory } from '$lib/geochat/session/chat-session';
-
 import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
+
+import enTranslations from '$lib/geochat/i18n/en/translations.json';
+import frTranslations from '$lib/geochat/i18n/fr/translations.json';
+
+const translations = {
+  en: enTranslations,
+  fr: frTranslations,
+};
 
 // ==========================
 // Types
@@ -168,23 +173,18 @@ function createChatStore() {
 
   async function sendMessage(message: string, lang: 'en' | 'fr') {
     const trimmed = message.trim();
-
     if (!trimmed) return;
 
-    const isWelcomeMessage = trimmed === WELCOME_MESSAGE[lang];
-
-    // Add user message
+    // add user message
     update((state) => ({
       ...state,
-      messages: isWelcomeMessage
-        ? state.messages
-        : [
-            ...state.messages,
-            {
-              role: 'user',
-              html: escapeHtml(trimmed),
-            },
-          ],
+      messages: [
+        ...state.messages,
+        {
+          role: 'user',
+          html: escapeHtml(trimmed),
+        },
+      ],
       records: [],
       isThinking: true,
     }));
@@ -262,25 +262,7 @@ function createChatStore() {
       });
     } catch (err) {
       console.error(err);
-
-      update((state) => {
-        const updatedMessages = [...state.messages];
-
-        collapseLastBotMessage(updatedMessages);
-
-        updatedMessages.push({
-          role: 'bot',
-          html: ERROR_MESSAGE[lang],
-          collapsed: false,
-        });
-
-        return {
-          ...state,
-          messages: updatedMessages,
-          records: [],
-          isThinking: false,
-        };
-      });
+      showMessage(lang, 'errorMessage');
     }
   }
 
@@ -312,7 +294,7 @@ function createChatStore() {
     const firstVisit = history.length === 0;
 
     if (firstVisit) {
-      showMessage(lang, WELCOME_MESSAGE);
+      showMessage(lang, 'welcomeMessage');
       return;
     }
 
@@ -329,7 +311,7 @@ function createChatStore() {
 
     // New chat placeholder (no session created yet)
     if (!chatToLoad?.sessionId) {
-      showMessage(lang, NEW_CHAT_MESSAGE);
+      showMessage(lang, 'newChatMessage');
       return;
     }
 
@@ -374,7 +356,7 @@ function createChatStore() {
       collapseHistoryMessages(historyMessages);
 
       if (historyMessages.length === 0) {
-        showMessage(lang, WELCOME_MESSAGE);
+        showMessage(lang, 'welcomeMessage');
         return;
       }
 
@@ -420,7 +402,7 @@ function createChatStore() {
       records: [],
     }));
 
-    showMessage(lang, NEW_CHAT_MESSAGE);
+    showMessage(lang, 'newChatMessage');
 
     return history;
   }
@@ -429,13 +411,13 @@ function createChatStore() {
   // Display Bot Message
   // ==========================
 
-  function showMessage(lang: 'en' | 'fr', message: { en: string; fr: string }) {
+  function showMessage(lang: 'en' | 'fr', message: 'welcomeMessage' | 'newChatMessage' | 'errorMessage') {
     update((state) => ({
       ...state,
       messages: [
         {
           role: 'bot',
-          html: formatMarkdown(message[lang]),
+          html: formatMarkdown(translations[lang][message]),
           records: [],
           expandable: false,
           collapsed: false,
@@ -495,7 +477,7 @@ function createChatStore() {
         isThinking: false,
       }));
 
-      showMessage(lang, NEW_CHAT_MESSAGE);
+      showMessage(lang, 'newChatMessage');
       return;
     }
 
@@ -519,39 +501,6 @@ function createChatStore() {
     set,
   };
 }
-
-// ==========================
-// Message Constants
-// ==========================
-
-const WELCOME_MESSAGE = {
-  en: `## Hello!
-
-I'm excited to help you explore the world of geospatial information.
-What would you like to know or discover today?`,
-
-  fr: `## Bonjour !
-
-Bienvenue sur GEO.ca ! Je suis ravi de vous accueillir.
-
-Si vous cherchez des informations géospatiales ou des données pour un projet, n'hésitez pas à me poser des questions ou à explorer nos ressources.
-Je suis là pour vous aider !`,
-};
-
-const NEW_CHAT_MESSAGE = {
-  en: `## New Chat
-
-What would you like to explore?`,
-
-  fr: `## Nouvelle conversation
-
-Que souhaitez-vous explorer ?`,
-};
-
-const ERROR_MESSAGE = {
-  en: 'Sorry, something went wrong.',
-  fr: 'Désolé, une erreur est survenue.',
-};
 
 // ==========================
 // Export Store

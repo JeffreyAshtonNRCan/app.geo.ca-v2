@@ -4,10 +4,13 @@
   "chatHistory": "Chat History",
   "newChat": "New Chat",
   "chat": "Chat",
-  "recordsAndMap": "Records & Map",
+  "recordsMap": "Records & Map",
   "aboutChatHistory": "About chat history",
   "aboutChatHistoryText": "Recent chats are stored on this device for your convenience. They may not always be available until account sign-in and persistent history are introduced in a future release.",
   "diveDeeper": "Dive deeper with GeoChat",
   "languageMessage": "This question was asked in French. You are currently using the English GeoChat.",
-  "switchToFrench": "Click here for the French version"
+  "switchToFrench": "Click here for the French version",
+  "welcomeMessage": "## Hello!\n\nI'm excited to help you explore the world of geospatial information.\nWhat would you like to know or discover today?",
+  "newChatMessage": "## New Chat\n\nWhat would you like to explore?",
+  "errorMessage": "Sorry, something went wrong."
 }
