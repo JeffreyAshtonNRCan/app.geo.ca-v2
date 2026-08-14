@@ -37,6 +37,8 @@
 
   const newChat = translations?.newChat ? translations['newChat'] : 'New Chat';
 
+  const typeMessage = translations?.typeMessage ? translations['typeMessage'] : 'Type a message...';
+
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
   let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
@@ -129,7 +131,7 @@
 
       <div class="panel-body">
         <div class="panel-content chat-layout">
-          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} />
+          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} {typeMessage} />
         </div>
       </div>
     </section>

@@ -19,5 +19,6 @@
   "smallChat": "Small Chat",
   "largeChat": "Large Chat",
   "closeChat": "Close chat",
-  "close": "Close"
+  "close": "Close",
+  "typeMessage": "Type a message..."
 }
