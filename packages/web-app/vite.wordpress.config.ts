@@ -13,6 +13,7 @@ export default defineConfig({
       name: 'GeoChat',
       formats: ['iife'],
       fileName: () => 'geochat.js',
+      cssFileName: 'geochat-styles',
     },
   },
 });
