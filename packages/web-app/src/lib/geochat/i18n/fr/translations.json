@@ -22,5 +22,10 @@
   "close": "Fermer",
   "typeMessage": "Écrivez un message...",
   "switchToEnglish": "Cliquez ici pour la version anglaise",
-  "switchToFrench": "Cliquez ici pour la version française"
+  "switchToFrench": "Cliquez ici pour la version française",
+  "searchingRecords": "Recherche de données de soutien...",
+  "noSupportingRecords": "Aucune donnée de soutien n’est disponible pour cette réponse.",
+  "generalResponse": "Certaines réponses sont des conversations générales ou des conseils et ne font pas référence à des ensembles de données précis de GEO.ca.",
+  "searchingMap": "Recherche d’une carte de soutien...",
+  "noMap": "Aucune carte disponible."
 }
