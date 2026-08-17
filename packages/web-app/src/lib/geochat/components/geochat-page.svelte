@@ -45,19 +45,6 @@
 
   const newChat = translations?.newChat ? translations['newChat'] : 'New Chat';
 
-  const typeMessage = translations?.typeMessage ? translations['typeMessage'] : 'Type a message...';
-
-  const languageMessage = translations?.languageMessage ? translations['languageMessage'] : '';
-
-  const switchLanguage =
-    lang === 'fr'
-      ? translations?.switchToEnglish
-        ? translations['switchToEnglish']
-        : 'Click here for the English version'
-      : translations?.switchToFrench
-        ? translations['switchToFrench']
-        : 'Click here for the French version';
-
   /************* End Translations ***************/
 
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
@@ -74,10 +61,10 @@
     localStorage.setItem('geochat-history-collapsed', String(historyCollapsed));
   });
 
-  console.log('=== GeoChatPage props ===');
-  console.log('lang =', lang);
-  console.log('alternateLanguageUrl =', alternateLanguageUrl);
-  console.log('==========================');
+  // console.log('=== GeoChatPage props ===');
+  // console.log('lang =', lang);
+  // console.log('alternateLanguageUrl =', alternateLanguageUrl);
+  // console.log('==========================');
 
   onMount(() => {
     chatStore.initializeChat(lang);
