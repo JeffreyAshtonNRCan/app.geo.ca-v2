@@ -16,7 +16,7 @@
     return `${page.url.pathname.replace(`/${page.params.lang}`, `/${alternateLocale}`)}${page.url.search}${page.url.hash}`;
   });
 
-  console.log('alternateLanguageUrl=', alternateLanguageUrl);
+  //console.log('alternateLanguageUrl=', alternateLanguageUrl);
 
   function handleDiveDeeper() {
     console.log('page.params.lang =', page.params.lang);
