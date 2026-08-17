@@ -262,7 +262,20 @@ function createChatStore() {
       });
     } catch (err) {
       console.error(err);
-      showMessage(lang, 'errorMessage');
+
+      update((state) => ({
+        ...state,
+        messages: [
+          ...state.messages,
+          {
+            role: 'bot',
+            html: translations[lang].errorMessage,
+            collapsed: false,
+          },
+        ],
+        records: [],
+        isThinking: false,
+      }));
     }
   }
 
