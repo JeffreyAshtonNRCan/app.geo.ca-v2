@@ -7,8 +7,8 @@
   const locale = $derived(page.params.lang ?? 'en-ca');
 
   const lang = $derived(locale.startsWith('fr') ? 'fr' : 'en');
-  console.log('lang=', lang);
-  console.log('page.params.lang=', page.params.lang);
+  // console.log('lang=', lang);
+  // console.log('page.params.lang=', page.params.lang);
 
   const alternateLanguageUrl = $derived.by(() => {
     const alternateLocale = page.params.lang === 'fr-ca' ? 'en-ca' : 'fr-ca';
