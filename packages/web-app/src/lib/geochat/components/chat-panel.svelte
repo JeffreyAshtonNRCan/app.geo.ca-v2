@@ -126,7 +126,7 @@
         {#if msg.role === 'bot' && msg.languageMismatch}
           <div class="bubble bot-text">
             {t.languageMessage}
-            <a href={alternateLanguageUrl}>
+            <a href={alternateLanguageUrl} data-sveltekit-reload>
               {lang.startsWith('fr') ? t.switchToEnglish : t.switchToFrench}
             </a>
           </div>
