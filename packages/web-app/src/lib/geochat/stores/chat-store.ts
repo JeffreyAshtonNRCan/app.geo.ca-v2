@@ -168,118 +168,6 @@ function createChatStore() {
   }
 
   // ==========================
-  // Send Message
-  // ==========================
-
-  async function sendMessage(message: string, lang: 'en' | 'fr') {
-    const trimmed = message.trim();
-    if (!trimmed) return;
-
-    // add user message
-    update((state) => ({
-      ...state,
-      messages: [
-        ...state.messages,
-        {
-          role: 'user',
-          html: escapeHtml(trimmed),
-        },
-      ],
-      records: [],
-      isThinking: true,
-    }));
-
-    try {
-      const state = get(store);
-
-      let activeChat = state.activeSessionId
-        ? state.history.find((chat: ChatHistory) => chat.sessionId === state.activeSessionId)
-        : state.history[0];
-
-      if (!activeChat) {
-        activeChat = {
-          title: 'New Chat',
-        };
-      }
-
-      const isNewChat = !activeChat.sessionId;
-      const sessionId = activeChat.sessionId ?? generateSessionId();
-
-      const data = await sendChatMessage(sessionId, trimmed, lang);
-
-      console.log('data=', data);
-
-      const responseText = data.answer;
-      const formatted = formatMarkdown(responseText);
-
-      let history = state.history;
-
-      // First successful message - promote placeholder to a real chat
-      if (isNewChat) {
-        const updatedChat = {
-          ...activeChat,
-          sessionId,
-          title: trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed,
-        };
-
-        history = [updatedChat, ...state.history.filter((chat) => chat.title !== 'New Chat')];
-
-        saveHistory(history);
-      } else {
-        // Existing chat - move it to the top
-        history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId);
-
-        history.unshift(activeChat);
-
-        saveHistory(history);
-      }
-
-      update((state) => {
-        const updatedMessages = [...state.messages];
-
-        collapseLastBotMessage(updatedMessages);
-
-        const isLongMessage = responseText.length > 400;
-
-        updatedMessages.push({
-          role: 'bot',
-          html: formatted,
-          records: data.records,
-          languageMismatch: data.type === 'language_mismatch',
-          collapsed: false,
-          expandable: isLongMessage,
-          isCurrent: true,
-        });
-
-        return {
-          ...state,
-          messages: updatedMessages,
-          records: data.records ?? [],
-          history,
-          activeSessionId: sessionId,
-          isThinking: false,
-        };
-      });
-    } catch (err) {
-      console.error(err);
-
-      update((state) => ({
-        ...state,
-        messages: [
-          ...state.messages,
-          {
-            role: 'bot',
-            html: translations[lang].errorMessage,
-            collapsed: false,
-          },
-        ],
-        records: [],
-        isThinking: false,
-      }));
-    }
-  }
-
-  // ==========================
   // Initialize Chat
   // ==========================
 
@@ -386,6 +274,118 @@ function createChatStore() {
 
       update((state) => ({
         ...state,
+        isThinking: false,
+      }));
+    }
+  }
+
+  // ==========================
+  // Send Message
+  // ==========================
+
+  async function sendMessage(message: string, lang: 'en' | 'fr') {
+    const trimmed = message.trim();
+    if (!trimmed) return;
+
+    // add user message
+    update((state) => ({
+      ...state,
+      messages: [
+        ...state.messages,
+        {
+          role: 'user',
+          html: escapeHtml(trimmed),
+        },
+      ],
+      records: [],
+      isThinking: true,
+    }));
+
+    try {
+      const state = get(store);
+
+      let activeChat = state.activeSessionId
+        ? state.history.find((chat: ChatHistory) => chat.sessionId === state.activeSessionId)
+        : state.history[0];
+
+      if (!activeChat) {
+        activeChat = {
+          title: 'New Chat',
+        };
+      }
+
+      const isNewChat = !activeChat.sessionId;
+      const sessionId = activeChat.sessionId ?? generateSessionId();
+
+      const data = await sendChatMessage(sessionId, trimmed, lang);
+
+      console.log('data=', data);
+
+      const responseText = data.answer_markdown;
+      const formatted = formatMarkdown(responseText);
+
+      let history = state.history;
+
+      // First successful message - promote placeholder to a real chat
+      if (isNewChat) {
+        const updatedChat = {
+          ...activeChat,
+          sessionId,
+          title: trimmed.length > 40 ? `${trimmed.slice(0, 40)}...` : trimmed,
+        };
+
+        history = [updatedChat, ...state.history.filter((chat) => chat.title !== 'New Chat')];
+
+        saveHistory(history);
+      } else {
+        // Existing chat - move it to the top
+        history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId);
+
+        history.unshift(activeChat);
+
+        saveHistory(history);
+      }
+
+      update((state) => {
+        const updatedMessages = [...state.messages];
+
+        collapseLastBotMessage(updatedMessages);
+
+        const isLongMessage = responseText.length > 400;
+
+        updatedMessages.push({
+          role: 'bot',
+          html: formatted,
+          records: data.records,
+          languageMismatch: data.type === 'language_mismatch',
+          collapsed: false,
+          expandable: isLongMessage,
+          isCurrent: true,
+        });
+
+        return {
+          ...state,
+          messages: updatedMessages,
+          records: data.records ?? [],
+          history,
+          activeSessionId: sessionId,
+          isThinking: false,
+        };
+      });
+    } catch (err) {
+      console.error(err);
+
+      update((state) => ({
+        ...state,
+        messages: [
+          ...state.messages,
+          {
+            role: 'bot',
+            html: translations[lang].errorMessage,
+            collapsed: false,
+          },
+        ],
+        records: [],
         isThinking: false,
       }));
     }
