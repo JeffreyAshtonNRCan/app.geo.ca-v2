@@ -22,5 +22,10 @@
   "close": "Close",
   "typeMessage": "Type a message...",
   "switchToEnglish": "Click here for the English version",
-  "switchToFrench": "Click here for the French version"
+  "switchToFrench": "Click here for the French version",
+  "searchingRecords": "Searching for supporting records...",
+  "noSupportingRecords": "No supporting records are available for this response.",
+  "generalResponse": "Some responses are general conversation or guidance and don't reference specific GEO.ca datasets.",
+  "searchingMap": "Searching for supporting map...",
+  "noMap": "No map available."
 }

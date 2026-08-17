@@ -158,7 +158,7 @@
 
       <div class="panel-body">
         <div class="panel-content">
-          <RecordsPanel />
+          <RecordsPanel {lang} />
         </div>
       </div>
     </div>

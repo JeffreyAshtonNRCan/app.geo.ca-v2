@@ -3,6 +3,21 @@
   import type { ChatRecord } from '$lib/geochat/stores/chat-store';
   import Splitter from '$lib/geochat/components/splitter.svelte';
   import Map from '$lib/components/map/map.svelte';
+  import enTranslations from '$lib/geochat/i18n/en/translations.json';
+  import frTranslations from '$lib/geochat/i18n/fr/translations.json';
+
+  const translations = {
+    en: enTranslations,
+    fr: frTranslations,
+  };
+
+  let {
+    lang = 'en',
+  }: {
+    lang?: 'en' | 'fr';
+  } = $props();
+
+  const t = $derived(translations[lang]);
 
   // const testUuid = '175fc87a-acce-4f98-a03a-32846481efc8';
   //
@@ -54,12 +69,12 @@
     <div class="records-list">
       {#if $chatStore.isThinking}
         <div class="empty">
-          <p>Searching for supporting records...</p>
+          <p>{t.searchingRecords}</p>
         </div>
       {:else if $chatStore.records.length === 0}
         <div class="empty">
-          <p>No supporting records are available for this response.</p>
-          <p>Some responses are general conversation or guidance and don't reference specific GEO.ca datasets.</p>
+          <p>{t.noSupportingRecords}</p>
+          <p>{t.generalResponse}</p>
         </div>
       {:else}
         {#each $chatStore.records as record (record.uuid)}
@@ -81,7 +96,7 @@
     <div class="map">
       {#if $chatStore.isThinking}
         <div class="empty">
-          <p>Searching for supporting map...</p>
+          <p>{t.searchingMap}</p>
         </div>
       {:else if selectedRecord?.geometry}
         {#key uuid}
@@ -89,7 +104,7 @@
         {/key}
       {:else}
         <div class="empty">
-          <p>No map available.</p>
+          <p>{t.noMap}</p>
         </div>
       {/if}
     </div>
