@@ -17,7 +17,7 @@ export async function sendChatMessage(sessionId: string, message: string, lang: 
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      session_id: sessionId,
+      conversation_id: sessionId,
       message,
       lang,
     }),
