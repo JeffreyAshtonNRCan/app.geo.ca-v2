@@ -11,7 +11,7 @@
   "languageMessage": "This question was asked in French. You are currently using the English GeoChat.",
   "switchToFrench": "Click here for the French version",
   "welcomeMessage": "## Hello!\n\nI'm excited to help you explore the world of geospatial information.\nWhat would you like to know or discover today?",
-  "newChatMessage": "## New Chat\n\nWhat would you like to explore?",
+  "newChatMessage": "What would you like to explore?",
   "errorMessage": "Sorry, something went wrong.",
   "askGeoChat": "Ask GeoChat",
   "switchToSmallChat": "Switch to small chat",
