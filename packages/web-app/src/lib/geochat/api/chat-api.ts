@@ -67,17 +67,17 @@ export function warmUpChat(): void {
   });
 }
 
-export async function verifyChatHistory(sessionIds: string[]): Promise<{ validSessionIds: string[] }> {
+export async function verifyChatHistory(sessionIds: string[]): Promise<{ valid_session_ids: string[] }> {
   const { chatHistoryVerifyUrl } = getGeoChatConfig();
-
-  console.log('chatHistoryVerifyUrl =', chatHistoryVerifyUrl);
 
   const response = await fetch(chatHistoryVerifyUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ sessionIds }),
+    body: JSON.stringify({
+      session_ids: sessionIds,
+    }),
   });
 
   if (!response.ok) {

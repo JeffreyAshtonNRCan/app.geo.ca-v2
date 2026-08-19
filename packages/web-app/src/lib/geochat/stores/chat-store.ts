@@ -191,9 +191,9 @@ function createChatStore() {
 
     if (sessionIds.length > 0) {
       try {
-        const { validSessionIds } = await verifyChatHistory(sessionIds);
+        const { valid_session_ids } = await verifyChatHistory(sessionIds);
 
-        const validSet = new Set(validSessionIds);
+        const validSet = new Set(valid_session_ids);
 
         history = history.filter((chat) => !chat.sessionId || validSet.has(chat.sessionId));
 
