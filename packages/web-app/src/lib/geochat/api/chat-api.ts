@@ -70,6 +70,8 @@ export function warmUpChat(): void {
 export async function verifyChatHistory(sessionIds: string[]): Promise<{ validSessionIds: string[] }> {
   const { chatHistoryVerifyUrl } = getGeoChatConfig();
 
+  console.log('chatHistoryVerifyUrl =', chatHistoryVerifyUrl);
+
   const response = await fetch(chatHistoryVerifyUrl, {
     method: 'POST',
     headers: {
