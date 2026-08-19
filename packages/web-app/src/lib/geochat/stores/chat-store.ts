@@ -1,7 +1,7 @@
 // src/lib/geochat/stores/chat-stores.ts
 
 import { writable, get } from 'svelte/store';
-import { sendChatMessage, loadChatSession } from '$lib/geochat/api/chat-api';
+import { sendChatMessage, loadChatSession, verifyChatHistory } from '$lib/geochat/api/chat-api';
 import { type ChatHistory, generateSessionId, loadHistory, saveHistory } from '$lib/geochat/session/chat-session';
 import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 
@@ -176,7 +176,50 @@ function createChatStore() {
       return;
     }
 
-    await loadChat(lang);
+    let history = loadHistory();
+
+    if (history.length === 0) {
+      showMessage(lang, 'welcomeMessage');
+      update((state) => ({
+        ...state,
+        initialized: true,
+      }));
+      return;
+    }
+
+    const sessionIds = history.map((chat) => chat.sessionId).filter((id): id is string => !!id);
+
+    if (sessionIds.length > 0) {
+      try {
+        const { validSessionIds } = await verifyChatHistory(sessionIds);
+
+        const validSet = new Set(validSessionIds);
+
+        history = history.filter((chat) => !chat.sessionId || validSet.has(chat.sessionId));
+
+        saveHistory(history);
+      } catch (err) {
+        console.error('Chat history verification failed:', err);
+      }
+    }
+
+    update((state) => ({
+      ...state,
+      history,
+    }));
+
+    const activeChat = history[0];
+
+    if (!activeChat?.sessionId) {
+      showMessage(lang, 'newChatMessage');
+      update((state) => ({
+        ...state,
+        initialized: true,
+      }));
+      return;
+    }
+
+    await loadChat(lang, activeChat);
 
     update((state) => ({
       ...state,
@@ -188,42 +231,23 @@ function createChatStore() {
   // Load Active Chat
   // ==========================
 
-  async function loadChat(lang: 'en' | 'fr', activeChat?: ChatHistory) {
-    const history = loadHistory();
-    console.log('history loaded =', history);
-
-    const firstVisit = history.length === 0;
-
-    if (firstVisit) {
-      showMessage(lang, 'welcomeMessage');
-      return;
-    }
-
-    // Restore history into the store
-    update((state) => ({
-      ...state,
-      history,
-    }));
-
-    // Use the supplied chat, otherwise use the first history item.
-    const chatToLoad = activeChat ?? history[0];
-
-    console.log('chatToLoad =', chatToLoad);
+  async function loadChat(lang: 'en' | 'fr', activeChat: ChatHistory) {
+    console.log('activeChat =', activeChat);
 
     // New chat placeholder (no session created yet)
-    if (!chatToLoad?.sessionId) {
+    if (!activeChat.sessionId) {
       showMessage(lang, 'newChatMessage');
       return;
     }
 
     update((state) => ({
       ...state,
-      activeSessionId: chatToLoad.sessionId,
+      activeSessionId: activeChat.sessionId,
       isThinking: true,
     }));
 
     try {
-      const data = await loadChatSession(chatToLoad.sessionId);
+      const data = await loadChatSession(activeChat.sessionId);
 
       console.log('active session data=', data);
 
@@ -272,10 +296,7 @@ function createChatStore() {
     } catch (err) {
       console.error(err);
 
-      update((state) => ({
-        ...state,
-        isThinking: false,
-      }));
+      showMessage(lang, 'errorMessage');
     }
   }
 
@@ -500,7 +521,11 @@ function createChatStore() {
       history,
     }));
 
-    await loadChat(lang);
+    if (history.length > 0) {
+      await loadChat(lang, history[0]);
+    } else {
+      showMessage(lang, 'newChatMessage');
+    }
   }
 
   return {
