@@ -46,7 +46,7 @@ export async function loadChatSession(sessionId: string, limit = 25) {
   return await response.json();
 }
 
-const CHAT_WARMUP_URL = 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/warmup';
+//const CHAT_WARMUP_URL = 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/warmup';
 
 let warmupSent = false;
 
@@ -57,10 +57,30 @@ export function warmUpChat(): void {
 
   console.log('warmup sent');
 
-  fetch(CHAT_WARMUP_URL, {
+  const { warmUpUrl } = getGeoChatConfig();
+
+  fetch(warmUpUrl, {
     method: 'GET',
     keepalive: true,
   }).catch(() => {
     // Ignore errors
   });
+}
+
+export async function verifyChatHistory(sessionIds: string[]): Promise<{ validSessionIds: string[] }> {
+  const { chatHistoryVerifyUrl } = getGeoChatConfig();
+
+  const response = await fetch(chatHistoryVerifyUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ sessionIds }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Chat history verification failed: ${response.status}`);
+  }
+
+  return response.json();
 }
