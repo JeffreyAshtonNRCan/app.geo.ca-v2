@@ -193,15 +193,9 @@ function createChatStore() {
       try {
         const { valid_session_ids } = await verifyChatHistory(sessionIds);
 
-        console.log('sessionIds sent:', sessionIds);
-        console.log('valid_session_ids returned:', valid_session_ids);
-
         const validSet = new Set(valid_session_ids);
 
         const verifiedHistory = history.filter((chat) => !chat.sessionId || validSet.has(chat.sessionId));
-
-        console.log('history before:', history);
-        console.log('history after:', verifiedHistory);
 
         history = verifiedHistory;
         saveHistory(history);
