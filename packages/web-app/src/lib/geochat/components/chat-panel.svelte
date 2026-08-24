@@ -26,10 +26,10 @@
 
   const t = $derived(translations[lang]);
 
-  console.log('ChatPanel props:', {
-    lang,
-    alternateLanguageUrl,
-  });
+  // console.log('ChatPanel props:', {
+  //   lang,
+  //   alternateLanguageUrl,
+  // });
 
   let message = $state('');
   let chatLogWrapper: HTMLDivElement;
