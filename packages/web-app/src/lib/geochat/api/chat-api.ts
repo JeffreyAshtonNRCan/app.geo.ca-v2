@@ -9,6 +9,10 @@ import { getGeoChatConfig } from '$lib/geochat/geochat-config';
 
 // const { chatApiUrl: CHAT_API_URL, chatHistoryUrl: CHAT_HISTORY_URL } = getGeoChatConfig();
 
+// ==========================
+// Chat API
+// ==========================
+
 export async function sendChatMessage(sessionId: string, message: string, lang: string) {
   const { chatApiUrl: CHAT_API_URL } = getGeoChatConfig();
   const response = await fetch(CHAT_API_URL, {
@@ -30,6 +34,10 @@ export async function sendChatMessage(sessionId: string, message: string, lang: 
   return await response.json();
 }
 
+// ==========================
+// Load Chat History API
+// ==========================
+
 export async function loadChatSession(sessionId: string, limit = 25) {
   const params = new URLSearchParams({
     session_id: sessionId,
@@ -47,6 +55,10 @@ export async function loadChatSession(sessionId: string, limit = 25) {
 }
 
 //const CHAT_WARMUP_URL = 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/warmup';
+
+// ==========================
+// Warm Up API
+// ==========================
 
 let warmupSent = false;
 
@@ -66,6 +78,10 @@ export function warmUpChat(): void {
     // Ignore errors
   });
 }
+
+// ==========================
+// Verify Chat History API
+// ==========================
 
 export async function verifyChatHistory(sessionIds: string[]): Promise<{ valid_session_ids: string[] }> {
   const { chatHistoryVerifyUrl } = getGeoChatConfig();
