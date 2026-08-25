@@ -50,7 +50,13 @@
   }
 
   function setWidgetOpenState(open: boolean): void {
-    document.cookie = `${WIDGET_OPEN_COOKIE}=${open}; path=/; domain=geo.ca; max-age=31536000; Secure; SameSite=Lax`;
+    const cookie = `${WIDGET_OPEN_COOKIE}=${open}; path=/; max-age=31536000; Secure; SameSite=Lax`;
+
+    if (window.location.hostname === 'geo.ca' || window.location.hostname.endsWith('.geo.ca')) {
+      document.cookie = `${cookie}; domain=geo.ca`;
+    } else {
+      document.cookie = cookie;
+    }
   }
 
   onMount(() => {
