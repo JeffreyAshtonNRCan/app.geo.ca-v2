@@ -61,6 +61,10 @@
 
   onMount(() => {
     isOpen = getWidgetOpenState();
+
+    if (isOpen) {
+      chatStore.initializeChat(lang);
+    }
   });
 
   function closeChat() {
