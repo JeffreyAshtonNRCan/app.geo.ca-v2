@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { draggable } from '$lib/geochat/utils/draggable';
 
   import ChatPanel from '$lib/geochat/components/chat-panel.svelte';
@@ -33,8 +34,38 @@
   let isOpen = $state(false);
   let isExpanded = $state(false);
 
+  const WIDGET_OPEN_COOKIE = 'geochat-widget-open';
+
+  function getWidgetOpenState(): boolean {
+    if (typeof document === 'undefined') {
+      return false;
+    }
+
+    return (
+      document.cookie
+        .split('; ')
+        .find((row) => row.startsWith(`${WIDGET_OPEN_COOKIE}=`))
+        ?.split('=')[1] === 'true'
+    );
+  }
+
+  function setWidgetOpenState(open: boolean): void {
+    document.cookie = `${WIDGET_OPEN_COOKIE}=${open}; path=/; domain=geo.ca; max-age=31536000; Secure; SameSite=Lax`;
+  }
+
+  onMount(() => {
+    isOpen = getWidgetOpenState();
+  });
+
+  function closeChat() {
+    isOpen = false;
+    setWidgetOpenState(false);
+  }
+
   function toggleChat() {
     isOpen = !isOpen;
+
+    setWidgetOpenState(isOpen);
 
     if (isOpen) {
       chatStore.initializeChat(lang);
@@ -91,7 +122,7 @@
           <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
         </button>
 
-        <button class="chat-close" aria-label={t.closeChat} title={t.close} onclick={() => (isOpen = false)}>
+        <button class="chat-close" aria-label={t.closeChat} title={t.close} onclick={closeChat}>
           <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
         </button>
       </div>
