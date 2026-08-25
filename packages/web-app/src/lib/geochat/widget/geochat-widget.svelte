@@ -68,8 +68,12 @@
   });
 
   function closeChat() {
+    console.log('closeChat called');
+
     isOpen = false;
     setWidgetOpenState(false);
+
+    console.log('cookie after close:', document.cookie);
   }
 
   function toggleChat() {
