@@ -186,25 +186,37 @@ function createChatStore() {
     let history = loadHistory();
     const sessionCookie = getSessionCookie();
 
-    // Cookie session takes precedence.
-    if (sessionCookie?.sessionId) {
-      history = history.filter((chat) => chat.sessionId !== sessionCookie.sessionId);
+    // Verify local history sessions and the cookie session.
+    const sessionIds = [...history.map((chat) => chat.sessionId), sessionCookie?.sessionId].filter((id): id is string => !!id);
 
-      history.unshift(sessionCookie);
-    }
-
-    const sessionIds = history.map((chat) => chat.sessionId).filter((id): id is string => !!id);
+    let validSet = new Set<string>();
 
     if (sessionIds.length > 0) {
       try {
         const { valid_session_ids } = await verifyChatHistory(sessionIds);
 
-        const validSet = new Set(valid_session_ids);
+        validSet = new Set(valid_session_ids);
 
+        // Remove invalid sessions from local history.
         history = history.filter((chat) => !chat.sessionId || validSet.has(chat.sessionId));
       } catch (err) {
         console.error('Chat history verification failed:', err);
       }
+    }
+
+    // Determine the active chat.
+    let activeChat: ChatHistory | undefined;
+
+    if (sessionCookie?.sessionId && validSet.has(sessionCookie.sessionId)) {
+      activeChat = history.find((chat) => chat.sessionId === sessionCookie.sessionId);
+
+      // Cookie session is valid but isn't in local history.
+      if (!activeChat) {
+        history.unshift(sessionCookie);
+        activeChat = sessionCookie;
+      }
+    } else if (sessionIds.length > 0) {
+      activeChat = history[0];
     }
 
     saveHistory(history);
@@ -212,9 +224,8 @@ function createChatStore() {
     update((state) => ({
       ...state,
       history,
+      activeSessionId: activeChat?.sessionId,
     }));
-
-    const activeChat = history[0];
 
     if (!activeChat?.sessionId) {
       showMessage(lang, history.length === 0 ? 'welcomeMessage' : 'newChatMessage');
