@@ -2,7 +2,14 @@
 
 import { writable, get } from 'svelte/store';
 import { sendChatMessage, loadChatSession, verifyChatHistory } from '$lib/geochat/api/chat-api';
-import { type ChatHistory, generateSessionId, loadHistory, saveHistory } from '$lib/geochat/session/chat-session';
+import {
+  type ChatHistory,
+  generateSessionId,
+  loadHistory,
+  saveHistory,
+  getSessionCookie,
+  setSessionCookie,
+} from '$lib/geochat/session/chat-session';
 import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 
 import enTranslations from '$lib/geochat/i18n/en/translations.json';
@@ -177,14 +184,13 @@ function createChatStore() {
     }
 
     let history = loadHistory();
+    const sessionCookie = getSessionCookie();
 
-    if (history.length === 0) {
-      showMessage(lang, 'welcomeMessage');
-      update((state) => ({
-        ...state,
-        initialized: true,
-      }));
-      return;
+    // Cookie session takes precedence.
+    if (sessionCookie?.sessionId) {
+      history = history.filter((chat) => chat.sessionId !== sessionCookie.sessionId);
+
+      history.unshift(sessionCookie);
     }
 
     const sessionIds = history.map((chat) => chat.sessionId).filter((id): id is string => !!id);
@@ -195,14 +201,13 @@ function createChatStore() {
 
         const validSet = new Set(valid_session_ids);
 
-        const verifiedHistory = history.filter((chat) => !chat.sessionId || validSet.has(chat.sessionId));
-
-        history = verifiedHistory;
-        saveHistory(history);
+        history = history.filter((chat) => !chat.sessionId || validSet.has(chat.sessionId));
       } catch (err) {
         console.error('Chat history verification failed:', err);
       }
     }
+
+    saveHistory(history);
 
     update((state) => ({
       ...state,
@@ -212,15 +217,19 @@ function createChatStore() {
     const activeChat = history[0];
 
     if (!activeChat?.sessionId) {
-      showMessage(lang, 'newChatMessage');
+      showMessage(lang, history.length === 0 ? 'welcomeMessage' : 'newChatMessage');
+
       update((state) => ({
         ...state,
         initialized: true,
       }));
+
       return;
     }
 
     await loadChat(lang, activeChat);
+
+    setSessionCookie(activeChat);
 
     update((state) => ({
       ...state,
