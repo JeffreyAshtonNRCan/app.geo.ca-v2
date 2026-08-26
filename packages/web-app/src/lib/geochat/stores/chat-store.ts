@@ -229,8 +229,6 @@ function createChatStore() {
 
     await loadChat(lang, activeChat);
 
-    setSessionCookie(activeChat);
-
     update((state) => ({
       ...state,
       initialized: true,
@@ -303,6 +301,9 @@ function createChatStore() {
         records: currentBot?.records ?? [],
         isThinking: false,
       }));
+
+      // Store the active chat in the shared session cookie.
+      setSessionCookie(activeChat);
     } catch (err) {
       console.error(err);
 
