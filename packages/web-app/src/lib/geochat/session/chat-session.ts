@@ -1,15 +1,12 @@
 const browser = typeof window !== 'undefined';
 
-const SESSION_ID_KEY = 'geochat_session_id';
-const SESSION_STARTED_KEY = 'geochat_session_started';
-
 const HISTORY_KEY = 'geochat-history';
+
+const SESSION_COOKIE = 'geochat_session_id';
 
 export interface ChatHistory {
   sessionId?: string;
   title: string;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export function loadHistory(): ChatHistory[] {
@@ -34,22 +31,6 @@ export function saveHistory(history: ChatHistory[]): void {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
 }
 
-// export function getSessionId(): string {
-//   if (!browser) {
-//     return '';
-//   }
-//
-//   let sessionId: string | null = localStorage.getItem(SESSION_ID_KEY);
-//
-//   if (!sessionId) {
-//     sessionId = generateSessionId();
-//
-//     localStorage.setItem(SESSION_ID_KEY, sessionId);
-//   }
-//
-//   return sessionId;
-// }
-
 export function generateSessionId(): string {
   if (browser && window.crypto && crypto.randomUUID) {
     return crypto.randomUUID();
@@ -64,26 +45,36 @@ export function generateSessionId(): string {
   });
 }
 
-// export function checkSession(): boolean {
-//   if (!browser) {
-//     return false;
-//   }
-//
-//   return !!localStorage.getItem(SESSION_ID_KEY);
-// }
-
-export function isNewSession(): boolean {
+export function getSessionCookie(): ChatHistory | undefined {
   if (!browser) {
-    return true;
+    return undefined;
   }
 
-  return !localStorage.getItem(SESSION_STARTED_KEY);
+  const row = document.cookie.split('; ').find((row) => row.startsWith(`${SESSION_COOKIE}=`));
+
+  if (!row) {
+    return undefined;
+  }
+
+  try {
+    return JSON.parse(decodeURIComponent(row.split('=')[1])) as ChatHistory;
+  } catch (err) {
+    console.error('Unable to read session cookie', err);
+    return undefined;
+  }
 }
 
-export function markSessionStarted(): void {
+export function setSessionCookie(chat: ChatHistory): void {
   if (!browser) {
     return;
   }
 
-  localStorage.setItem(SESSION_STARTED_KEY, '1');
+  const value = encodeURIComponent(JSON.stringify(chat));
+  const cookie = `${SESSION_COOKIE}=${value}; path=/; max-age=31536000; Secure; SameSite=Lax`;
+
+  if (window.location.hostname === 'geo.ca' || window.location.hostname.endsWith('.geo.ca')) {
+    document.cookie = `${cookie}; domain=geo.ca`;
+  } else {
+    document.cookie = cookie;
+  }
 }
