@@ -60,11 +60,20 @@
   }
 
   onMount(() => {
-    isOpen = getWidgetOpenState();
+    console.log('GeoChat widget mounted');
+
+    const openState = getWidgetOpenState();
+    console.log('widget cookie on mount:', openState);
+
+    isOpen = openState;
 
     if (isOpen) {
       chatStore.initializeChat(lang);
     }
+
+    return () => {
+      console.log('GeoChat widget unmounted');
+    };
   });
 
   function closeChat() {

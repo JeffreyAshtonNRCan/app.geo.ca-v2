@@ -184,6 +184,8 @@ function createChatStore() {
     }
 
     let history = loadHistory();
+
+    // Use the shared cookie to restore the active chat when navigating between geo.ca and app.geo.ca
     const sessionCookie = getSessionCookie();
 
     // Verify local history sessions and the cookie session.
