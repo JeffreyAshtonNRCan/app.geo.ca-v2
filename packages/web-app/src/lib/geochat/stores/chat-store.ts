@@ -197,6 +197,9 @@ function createChatStore() {
       try {
         const { valid_session_ids } = await verifyChatHistory(sessionIds);
 
+        console.log('sessionIds=', sessionIds);
+        console.log('valid_session_ids=', valid_session_ids);
+
         validSet = new Set(valid_session_ids);
 
         // Remove invalid sessions from local history.
