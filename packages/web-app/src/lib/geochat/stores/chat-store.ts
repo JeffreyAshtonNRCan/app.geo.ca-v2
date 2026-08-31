@@ -385,7 +385,7 @@ function createChatStore() {
 
         setSessionCookie(updatedChat);
       } else {
-        // Existing chat - move it to the top
+        // Existing chat - move it to the topp
         history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId);
 
         history.unshift(activeChat);
