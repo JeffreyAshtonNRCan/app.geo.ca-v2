@@ -72,6 +72,8 @@ export function setSessionCookie(chat: ChatHistory): void {
   const value = encodeURIComponent(JSON.stringify(chat));
   const cookie = `${SESSION_COOKIE}=${value}; path=/; max-age=31536000; Secure; SameSite=Lax`;
 
+  console.trace('SET SESSION COOKIE', chat);
+
   if (window.location.hostname === 'geo.ca' || window.location.hostname.endsWith('.geo.ca')) {
     document.cookie = `${cookie}; domain=geo.ca`;
   } else {
