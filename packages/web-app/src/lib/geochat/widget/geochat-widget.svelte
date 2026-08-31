@@ -91,7 +91,7 @@
     setWidgetOpenState(isOpen);
 
     if (isOpen) {
-      chatStore.initializeChat(lang);
+      //chatStore.initializeChat(lang);
     }
   }
 
