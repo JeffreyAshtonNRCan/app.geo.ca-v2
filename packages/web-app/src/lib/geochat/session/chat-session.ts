@@ -74,9 +74,9 @@ export function setSessionCookie(chat: ChatHistory): void {
 
   console.trace('SET SESSION COOKIE', chat);
 
-  if (window.location.hostname === 'geo.ca' || window.location.hostname.endsWith('.geo.ca')) {
-    document.cookie = `${cookie}; domain=geo.ca`;
-  } else {
-    document.cookie = cookie;
-  }
+  // if (window.location.hostname === 'geo.ca' || window.location.hostname.endsWith('.geo.ca')) {
+  //   document.cookie = `${cookie}; domain=geo.ca`;
+  // } else {
+  //   document.cookie = cookie;
+  // }
 }
