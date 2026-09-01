@@ -389,8 +389,8 @@ function createChatStore() {
 
         setSessionCookie(updatedChat);
       } else {
-        // Existing chat - move it to the topp
-        history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId);
+        // Existing chat - move it to the top and remove New Chat placeholder
+        history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId && chat.title !== 'New Chat');
 
         history.unshift(activeChat);
 
