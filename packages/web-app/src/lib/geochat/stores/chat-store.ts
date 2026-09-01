@@ -519,6 +519,12 @@ function createChatStore() {
     const state = get(store);
 
     const isActiveChat = state.activeSessionId === chat.sessionId;
+    const sessionCookie = getSessionCookie();
+    const isCookieChat = sessionCookie?.sessionId === chat.sessionId;
+
+    if (isCookieChat) {
+      clearSessionCookie();
+    }
 
     const history = state.history.filter((h) => h.sessionId !== chat.sessionId && h.title !== 'New Chat');
 
