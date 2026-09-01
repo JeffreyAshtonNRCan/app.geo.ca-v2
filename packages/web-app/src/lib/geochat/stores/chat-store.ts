@@ -319,7 +319,7 @@ function createChatStore() {
       }));
 
       // Store the active chat in the shared session cookie.
-      //setSessionCookie(activeChat);
+      setSessionCookie(activeChat);
     } catch (err) {
       console.error(err);
 
@@ -386,7 +386,7 @@ function createChatStore() {
 
         saveHistory(history);
 
-        //setSessionCookie(updatedChat);
+        setSessionCookie(updatedChat);
       } else {
         // Existing chat - move it to the topp
         history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId);
@@ -395,7 +395,7 @@ function createChatStore() {
 
         saveHistory(history);
 
-        //setSessionCookie(activeChat);
+        setSessionCookie(activeChat);
       }
 
       update((state) => {
@@ -448,16 +448,17 @@ function createChatStore() {
   // ==========================
 
   function newChat(lang: 'en' | 'fr'): ChatHistory[] {
-    const history = [...get(store).history];
+    let history = [...get(store).history];
 
-    // Add New Chat placeholder if it doesn't already exist
-    if (history[0]?.title !== 'New Chat') {
-      history.unshift({
-        title: 'New Chat',
-      });
+    // Remove any existing New Chat placeholders
+    history = history.filter((chat) => chat.title !== 'New Chat');
 
-      saveHistory(history);
-    }
+    // Add exactly one New Chat placeholder at the beginning
+    history.unshift({
+      title: 'New Chat',
+    });
+
+    saveHistory(history);
 
     update((state) => ({
       ...state,
