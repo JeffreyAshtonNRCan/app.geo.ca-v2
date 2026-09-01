@@ -65,11 +65,12 @@
     const openState = getWidgetOpenState();
     console.log('widget cookie on mount:', openState);
 
-    isOpen = openState;
+    // TEMPORARY TEST: disable auto-open
+    // isOpen = openState;
 
-    if (isOpen) {
-      //chatStore.initializeChat(lang);
-    }
+    // if (isOpen) {
+    //   chatStore.initializeChat(lang);
+    // }
 
     return () => {
       console.log('GeoChat widget unmounted');
