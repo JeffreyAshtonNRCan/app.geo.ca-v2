@@ -9,6 +9,7 @@ import {
   saveHistory,
   getSessionCookie,
   setSessionCookie,
+  clearSessionCookie,
 } from '$lib/geochat/session/chat-session';
 import { formatMarkdown, escapeHtml } from '$lib/geochat/utils/markdown';
 
@@ -534,6 +535,8 @@ function createChatStore() {
 
     // No chats left
     if (history.length === 0) {
+      clearSessionCookie();
+
       update((state) => ({
         ...state,
         history,
