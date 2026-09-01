@@ -68,7 +68,7 @@
     isOpen = openState;
 
     if (isOpen) {
-      //chatStore.initializeChat(lang);
+      chatStore.initializeChat(lang);
     }
 
     return () => {

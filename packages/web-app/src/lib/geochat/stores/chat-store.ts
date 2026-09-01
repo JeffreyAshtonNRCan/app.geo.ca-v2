@@ -185,11 +185,11 @@ function createChatStore() {
 
     let history = loadHistory();
 
-    // Use the shared cookie to restore the active chat when navigating between geo.ca and app.geo.ca
-    const sessionCookie = getSessionCookie();
+    // TEMPORARY: session cookie disabled for testing.
+    // const sessionCookie = getSessionCookie();
 
-    // Verify local history sessions and the cookie session.
-    const sessionIds = [...history.map((chat) => chat.sessionId), sessionCookie?.sessionId].filter((id): id is string => !!id);
+    // Verify local history sessions only.
+    const sessionIds = history.map((chat) => chat.sessionId).filter((id): id is string => !!id);
 
     let validSet = new Set<string>();
 
@@ -209,18 +209,10 @@ function createChatStore() {
       }
     }
 
-    // Determine the active chat.
+    // Determine the active chat from local history only.
     let activeChat: ChatHistory | undefined;
 
-    if (sessionCookie?.sessionId && validSet.has(sessionCookie.sessionId)) {
-      activeChat = history.find((chat) => chat.sessionId === sessionCookie.sessionId);
-
-      // Cookie session is valid but isn't in local history.
-      if (!activeChat) {
-        history.unshift(sessionCookie);
-        activeChat = sessionCookie;
-      }
-    } else if (sessionIds.length > 0) {
+    if (history.length > 0) {
       activeChat = history[0];
     }
 
@@ -319,7 +311,7 @@ function createChatStore() {
       }));
 
       // Store the active chat in the shared session cookie.
-      setSessionCookie(activeChat);
+      //setSessionCookie(activeChat);
     } catch (err) {
       console.error(err);
 
@@ -386,7 +378,7 @@ function createChatStore() {
 
         saveHistory(history);
 
-        setSessionCookie(updatedChat);
+        //setSessionCookie(updatedChat);
       } else {
         // Existing chat - move it to the topp
         history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId);
@@ -395,7 +387,7 @@ function createChatStore() {
 
         saveHistory(history);
 
-        setSessionCookie(activeChat);
+        //setSessionCookie(activeChat);
       }
 
       update((state) => {
