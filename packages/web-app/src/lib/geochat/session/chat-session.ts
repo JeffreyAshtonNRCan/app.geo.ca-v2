@@ -2,7 +2,7 @@ const browser = typeof window !== 'undefined';
 
 const HISTORY_KEY = 'geochat-history';
 
-const SESSION_COOKIE = 'geochat_session_id';
+const SESSION_COOKIE = 'geochat-session-id';
 
 export interface ChatHistory {
   sessionId?: string;
