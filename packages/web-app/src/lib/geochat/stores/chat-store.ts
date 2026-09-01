@@ -319,7 +319,7 @@ function createChatStore() {
       }));
 
       // Store the active chat in the shared session cookie.
-      setSessionCookie(activeChat);
+      //setSessionCookie(activeChat);
     } catch (err) {
       console.error(err);
 
@@ -386,7 +386,7 @@ function createChatStore() {
 
         saveHistory(history);
 
-        setSessionCookie(updatedChat);
+        //setSessionCookie(updatedChat);
       } else {
         // Existing chat - move it to the topp
         history = state.history.filter((chat) => chat.sessionId !== activeChat.sessionId);
@@ -395,7 +395,7 @@ function createChatStore() {
 
         saveHistory(history);
 
-        setSessionCookie(activeChat);
+        //setSessionCookie(activeChat);
       }
 
       update((state) => {
