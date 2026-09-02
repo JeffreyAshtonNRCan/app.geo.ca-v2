@@ -42,7 +42,7 @@
 
     chatHistoryUrl: 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/chathistory',
 
-    warmUpUrl: 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/warmup',
+    chatWarmUpUrl: 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/warmup',
 
     chatHistoryVerifyUrl: 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/chathistory/verify',
   });

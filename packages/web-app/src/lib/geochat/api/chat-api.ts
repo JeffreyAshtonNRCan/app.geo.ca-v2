@@ -69,9 +69,9 @@ export function warmUpChat(): void {
 
   console.log('warmup sent');
 
-  const { warmUpUrl } = getGeoChatConfig();
+  const { chatWarmUpUrl } = getGeoChatConfig();
 
-  fetch(warmUpUrl, {
+  fetch(chatWarmUpUrl, {
     method: 'GET',
     keepalive: true,
   }).catch(() => {
