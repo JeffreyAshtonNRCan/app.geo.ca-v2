@@ -4,9 +4,9 @@
   import { getGeoChatConfig } from '../geochat-config';
 
   const { lang, locale, alternateLanguageUrl } = getWordPressLang();
-  const { appUrl } = getGeoChatConfig();
 
   function handleDiveDeeper() {
+    const { appUrl } = getGeoChatConfig();
     window.location.href = `${appUrl}/${locale}/geochat`;
   }
 </script>
