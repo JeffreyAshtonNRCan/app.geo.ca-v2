@@ -182,6 +182,8 @@
   .chat-header .history-toggle {
     position: absolute;
     left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
 
     width: 30px;
     height: 30px;
