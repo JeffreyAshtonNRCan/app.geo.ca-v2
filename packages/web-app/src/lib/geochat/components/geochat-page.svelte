@@ -196,7 +196,7 @@
   }
 
   .chat-header .history-toggle :global(.history-chevron-left) {
-    transform: translate(1px, 0);
+    transform: translate(0, 0);
   }
 
   .chat-header h2 {
