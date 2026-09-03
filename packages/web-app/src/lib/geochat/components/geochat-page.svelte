@@ -120,11 +120,11 @@
           aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
         >
           {#if historyCollapsed}
-            <ChevronRight classes="w-6 h-6 md:block hidden" />
-            <ChevronDown classes="w-5 h-5 md:hidden" />
+            <ChevronRight classes="w-6 h-6 hidden md:block" />
+            <ChevronDown classes="w-5 h-5 block md:hidden" />
           {:else}
-            <ChevronLeft classes="w-6 h-6 history-chevron-left" />
-            <ChevronUp classes="w-5 h-5 md:hidden" />
+            <ChevronLeft classes="w-6 h-6 history-chevron-left hidden md:block" />
+            <ChevronUp classes="w-5 h-5 block md:hidden" />
           {/if}
         </button>
 
@@ -436,10 +436,6 @@
     .history-info,
     .history-note {
       margin-left: 1rem;
-    }
-
-    .chat-header .history-toggle :global(svg) {
-      transform: translate(-2px, -2px);
     }
   }
 </style>
