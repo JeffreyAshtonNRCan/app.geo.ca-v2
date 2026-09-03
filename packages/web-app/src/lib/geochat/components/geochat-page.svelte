@@ -399,6 +399,7 @@
   @media (max-width: 47.999rem) {
     .geochat-page {
       grid-template-columns: 1fr;
+      grid-template-rows: auto;
       height: auto;
       min-height: 0;
       gap: 1rem;
