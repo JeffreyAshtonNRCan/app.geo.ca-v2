@@ -410,6 +410,10 @@
       gap: 1rem;
     }
 
+    .geochat-page.history-collapsed .history {
+      display: none;
+    }
+
     .main-layout {
       grid-template-columns: 1fr;
       gap: 1rem;
