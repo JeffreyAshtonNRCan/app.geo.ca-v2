@@ -441,5 +441,9 @@
     .chat-header .history-toggle :global(svg) {
       transform: translate(-2px, -2px);
     }
+
+    .chat {
+      height: 600px;
+    }
   }
 </style>
