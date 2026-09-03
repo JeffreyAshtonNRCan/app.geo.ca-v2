@@ -394,4 +394,35 @@
     font-size: 0.95rem;
     line-height: 1.5;
   }
+
+  /* Mobile: below Tailwind's md breakpoint (48rem / 768px) */
+  @media (max-width: 47.999rem) {
+    .geochat-page {
+      grid-template-columns: 1fr;
+      height: auto;
+      min-height: 0;
+      gap: 1rem;
+    }
+
+    .geochat-page.history-collapsed {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .main-layout {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      overflow: visible;
+    }
+
+    .main-layout > .splitter {
+      display: none;
+    }
+
+    .history,
+    .chat,
+    .records {
+      width: 100%;
+    }
+  }
 </style>
