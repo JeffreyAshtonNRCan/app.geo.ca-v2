@@ -191,6 +191,10 @@
     justify-content: center;
   }
 
+  .chat-header .history-toggle :global(svg) {
+    transform: translateY(-1px);
+  }
+
   .chat-header h2 {
     flex: 1;
     text-align: center;
@@ -417,10 +421,6 @@
       grid-template-columns: 1fr;
       gap: 1rem;
       overflow: visible;
-    }
-
-    .main-layout > .splitter {
-      display: none;
     }
 
     .history,
