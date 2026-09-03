@@ -123,7 +123,7 @@
             <ChevronRight classes="w-6 h-6 md:block hidden" />
             <ChevronDown classes="w-5 h-5 md:hidden" />
           {:else}
-            <ChevronLeft classes="w-6 h-6 md:block hidden" />
+            <ChevronLeft classes="w-6 h-6 md:block hidden history-chevron-left" />
             <ChevronUp classes="w-5 h-5 md:hidden" />
           {/if}
         </button>
@@ -193,6 +193,10 @@
 
   .chat-header .history-toggle :global(svg) {
     transform: translate(-2px, 0);
+  }
+
+  .chat-header :global(.history-chevron-left) {
+    transform: translateX(-1px);
   }
 
   .chat-header h2 {
