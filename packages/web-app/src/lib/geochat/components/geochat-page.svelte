@@ -123,9 +123,7 @@
             <ChevronRight classes="w-6 h-6 md:block hidden" />
             <ChevronDown classes="w-5 h-5 md:hidden" />
           {:else}
-            <span class="history-chevron-left md:inline-flex hidden">
-              <ChevronLeft classes="w-6 h-6" />
-            </span>
+            <ChevronLeft classes="w-6 h-6 history-chevron-left" />
             <ChevronUp classes="w-5 h-5 md:hidden" />
           {/if}
         </button>
@@ -197,9 +195,8 @@
     transform: translate(-2px, 0);
   }
 
-  .chat-header .history-chevron-left {
-    position: relative;
-    left: -1px;
+  .chat-header .history-toggle :global(.history-chevron-left) {
+    transform: translate(-3px, 0);
   }
 
   .chat-header h2 {
