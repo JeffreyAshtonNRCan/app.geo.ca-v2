@@ -103,7 +103,7 @@
       </div>
     </div>
   </div>
-  <div class="main-layout" style={`grid-template-columns:${chatWidth}% 12px 1fr;`}>
+  <div class="main-layout" style={`--chat-width:${chatWidth}%;`}>
     <section class="panel chat">
       <div class="panel-header chat-header">
         <button
@@ -221,7 +221,7 @@
 
   .main-layout {
     display: grid;
-    grid-template-columns: 50% 12px 1fr;
+    grid-template-columns: var(--chat-width) 12px 1fr;
 
     min-width: 0;
     min-height: 0;
