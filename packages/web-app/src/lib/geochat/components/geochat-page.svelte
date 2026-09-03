@@ -192,7 +192,7 @@
   }
 
   .chat-header .history-toggle :global(svg) {
-    transform: translate(-2px, -2px);
+    transform: translate(-2px, 0);
   }
 
   .chat-header h2 {
@@ -432,6 +432,10 @@
     .history-info,
     .history-note {
       margin-left: 1rem;
+    }
+
+    .chat-header .history-toggle :global(svg) {
+      transform: translate(-2px, -2px);
     }
   }
 </style>
