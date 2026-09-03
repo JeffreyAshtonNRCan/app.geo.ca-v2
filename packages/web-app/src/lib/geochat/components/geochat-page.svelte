@@ -192,7 +192,7 @@
   }
 
   .chat-header .history-toggle :global(svg) {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
 
   .chat-header h2 {
