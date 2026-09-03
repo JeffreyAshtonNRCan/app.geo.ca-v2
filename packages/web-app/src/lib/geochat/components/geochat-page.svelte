@@ -120,9 +120,11 @@
           aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
         >
           {#if historyCollapsed}
-            <ChevronRight classes="w-6 h-6" />
+            <ChevronRight classes="w-6 h-6 md:block hidden" />
+            <ChevronDown classes="w-6 h-6 md:hidden" />
           {:else}
-            <ChevronLeft classes="w-6 h-6" />
+            <ChevronLeft classes="w-6 h-6 md:block hidden" />
+            <ChevronUp classes="w-6 h-6 md:hidden" />
           {/if}
         </button>
 
@@ -428,6 +430,11 @@
     .chat,
     .records {
       width: 100%;
+    }
+
+    .history-info,
+    .history-note {
+      margin-left: 1rem;
     }
   }
 </style>
