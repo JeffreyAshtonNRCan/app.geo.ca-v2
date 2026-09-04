@@ -443,8 +443,7 @@
     }
 
     .chat {
-        height: 70dvh;
-    }
+      height: 70dvh;
     }
   }
 </style>
