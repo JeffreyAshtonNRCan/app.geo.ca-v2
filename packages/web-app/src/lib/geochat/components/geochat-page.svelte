@@ -83,42 +83,36 @@
 
 <p class="mt-3 mb-4 px-5 md:px-0 font-open-sans">{description}</p>
 
+<div class="history-info-section" class:hidden={historyCollapsed}>
+  <button class="history-info" class:collapsed={!showHistoryInfo} onclick={() => (showHistoryInfo = !showHistoryInfo)}>
+    <Info classes="w-5 h-5 mr-2" />
+    <span>{aboutChatHistory}</span>
+    {#if showHistoryInfo}
+      <ChevronUp classes="w-4 h-4 ml-2" />
+    {:else}
+      <ChevronDown classes="w-4 h-4 ml-2" />
+    {/if}
+  </button>
+
+  {#if showHistoryInfo}
+    <p class="history-note">
+      {aboutChatHistoryText}
+    </p>
+  {/if}
+</div>
+
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
-  <div class="history-column">
-    <!-- About Chat History -->
-    <div class="history-info-section">
-      <button class="history-info" class:collapsed={!showHistoryInfo} onclick={() => (showHistoryInfo = !showHistoryInfo)}>
-        <Info classes="w-5 h-5 mr-2" />
-        <span>{aboutChatHistory}</span>
-
-        {#if showHistoryInfo}
-          <ChevronUp classes="w-4 h-4 ml-2" />
-        {:else}
-          <ChevronDown classes="w-4 h-4 ml-2" />
-        {/if}
-      </button>
-
-      {#if showHistoryInfo}
-        <p class="history-note">
-          {aboutChatHistoryText}
-        </p>
-      {/if}
+  <div class="panel history" class:collapsed={historyCollapsed}>
+    <div class="panel-header history-header">
+      <h2>{chatHistory}</h2>
     </div>
 
-    <!-- Chat History panel -->
-    <div class="panel history" class:collapsed={historyCollapsed}>
-      <div class="panel-header history-header">
-        <h2>{chatHistory}</h2>
-      </div>
-
-      <div class="panel-body">
-        <div class="panel-content history-content">
-          <HistoryPanel {lang} {newChat} onHistoryAction={collapseHistoryOnMobile} />
-        </div>
+    <div class="panel-body">
+      <div class="panel-content history-content">
+        <HistoryPanel {lang} {newChat} onHistoryAction={collapseHistoryOnMobile} />
       </div>
     </div>
   </div>
-
   <div class="main-layout" style={`--chat-width:${chatWidth}%;`}>
     <section class="panel chat">
       <div class="panel-header chat-header">
@@ -385,10 +379,6 @@
     padding-top: 8px;
   }
 
-  .history-column {
-    min-width: 0;
-  }
-
   .history-info {
     display: inline-flex;
     align-items: center;
@@ -465,7 +455,7 @@
       height: 70dvh;
     }
 
-    .geochat-page.history-collapsed .history-column {
+    .geochat-page.history-collapsed .history-info-section {
       display: none;
     }
   }
