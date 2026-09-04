@@ -289,15 +289,11 @@
        MOBILE
     ========================= */
   @media (max-width: 47.999rem) {
-    #chatbot-panel {
-      width: calc(100% - 4rem);
-      height: 65dvh;
-
+    #chatbot-widget {
+      width: calc(100% - 5rem);
+      height: 60dvh;
       top: 50%;
       left: 50%;
-      right: auto;
-      bottom: auto;
-
       transform: translate(-50%, -50%);
     }
   }
