@@ -169,7 +169,7 @@
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
 
-    gap: 1rem;
+    gap: 0.75rem;
     height: 600px;
     min-height: calc(100vh - 160px);
     align-items: stretch;
@@ -243,7 +243,7 @@
     min-width: 0;
     min-height: 0;
 
-    gap: 0;
+    gap: 0.5rem;
     overflow: hidden;
   }
 
