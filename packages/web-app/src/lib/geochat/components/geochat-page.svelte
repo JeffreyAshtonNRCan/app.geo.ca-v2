@@ -83,21 +83,23 @@
 
 <p class="mt-3 px-5 md:px-0 font-open-sans">{description}</p>
 
-<button class="history-info" class:collapsed={!showHistoryInfo} onclick={() => (showHistoryInfo = !showHistoryInfo)}>
-  <Info classes="w-5 h-5 mr-2" />
-  <span>{aboutChatHistory}</span>
-  {#if showHistoryInfo}
-    <ChevronUp classes="w-4 h-4 ml-2" />
-  {:else}
-    <ChevronDown classes="w-4 h-4 ml-2" />
-  {/if}
-</button>
+<div class="history-info-section">
+  <button class="history-info" class:collapsed={!showHistoryInfo} onclick={() => (showHistoryInfo = !showHistoryInfo)}>
+    <Info classes="w-5 h-5 mr-2" />
+    <span>{aboutChatHistory}</span>
+    {#if showHistoryInfo}
+      <ChevronUp classes="w-4 h-4 ml-2" />
+    {:else}
+      <ChevronDown classes="w-4 h-4 ml-2" />
+    {/if}
+  </button>
 
-{#if showHistoryInfo}
-  <p class="history-note">
-    {aboutChatHistoryText}
-  </p>
-{/if}
+  {#if showHistoryInfo}
+    <p class="history-note">
+      {aboutChatHistoryText}
+    </p>
+  {/if}
+</div>
 
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
   <div class="panel history" class:collapsed={historyCollapsed}>
@@ -452,6 +454,10 @@
 
     .chat {
       height: 70dvh;
+    }
+
+    .geochat-page.history-collapsed .history-info-section {
+      display: none;
     }
   }
 </style>
