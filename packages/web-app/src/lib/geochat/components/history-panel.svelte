@@ -7,19 +7,23 @@
   let {
     lang,
     newChat,
+    onHistoryAction,
   }: {
     lang: 'en' | 'fr';
     newChat: string;
+    onHistoryAction: () => void;
   } = $props();
 
   let deleteSessionId = $state<string | undefined>();
 
   function handleNewChat() {
     chatStore.newChat(lang);
+    onHistoryAction();
   }
 
   function handleSelectChat(chat: ChatHistory) {
     chatStore.selectChat(chat, lang);
+    onHistoryAction();
   }
 
   function handleDeleteClick(chat: ChatHistory) {
@@ -56,7 +60,7 @@
     {newChat}
   </button>
 
-  {#each $chatStore.history as chat, i (chat.sessionId)}
+  {#each $chatStore.history as chat (chat.sessionId)}
     {#if chat.title !== 'New Chat'}
       <div class="history-item" class:active={$chatStore.activeSessionId === chat.sessionId}>
         <button

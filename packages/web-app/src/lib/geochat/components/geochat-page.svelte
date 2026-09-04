@@ -69,6 +69,12 @@
   onMount(() => {
     chatStore.initializeChat(lang);
   });
+
+  function collapseHistoryOnMobile() {
+    if (window.innerWidth < 768) {
+      historyCollapsed = true;
+    }
+  }
 </script>
 
 <h1 class="font-custom-style-h1 mt-8 px-5 md:px-0 leading-tight">{title}</h1>
@@ -99,7 +105,7 @@
 
     <div class="panel-body">
       <div class="panel-content history-content">
-        <HistoryPanel {lang} {newChat} />
+        <HistoryPanel {lang} {newChat} onHistoryAction={collapseHistoryOnMobile} />
       </div>
     </div>
   </div>
