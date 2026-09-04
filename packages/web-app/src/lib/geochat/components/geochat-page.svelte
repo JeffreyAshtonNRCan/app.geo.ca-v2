@@ -49,7 +49,9 @@
 
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
 
-  let historyCollapsed = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('geochat-history-collapsed') === 'true' : false);
+  let historyCollapsed = $state(
+    typeof window !== 'undefined' ? (window.innerWidth < 768 ? true : localStorage.getItem('geochat-history-collapsed') === 'true') : false
+  );
 
   let showHistoryInfo = $state(false);
 
