@@ -382,7 +382,7 @@
     display: inline-flex;
     align-items: center;
 
-    margin: 1rem 0 0.35rem;
+    margin: 0 0 0.35rem;
 
     padding: 0;
 
@@ -399,6 +399,10 @@
 
   .history-info.collapsed {
     margin-bottom: 1rem;
+  }
+
+  .history-info-section {
+    padding: 1rem 1rem 0;
   }
 
   .history-note {
