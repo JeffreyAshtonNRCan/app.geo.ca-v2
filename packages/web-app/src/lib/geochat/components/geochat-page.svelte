@@ -129,10 +129,10 @@
         >
           {#if historyCollapsed}
             <ChevronRight classes="w-6 h-6 hidden md:block" />
-            <ChevronDown classes="w-5 h-5 block md:hidden" />
+            <ChevronUp classes="w-5 h-5 block md:hidden" />
           {:else}
             <ChevronLeft classes="w-6 h-6 history-chevron-left hidden md:block" />
-            <ChevronUp classes="w-5 h-5 block md:hidden" />
+            <ChevronDown classes="w-5 h-5 block md:hidden" />
           {/if}
         </button>
 
