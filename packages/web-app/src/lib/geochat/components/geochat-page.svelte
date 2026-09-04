@@ -298,7 +298,7 @@
   .panel {
     display: flex;
     flex-direction: column;
-    border: 2px solid #ddd;
+    border: 6px solid #ddd;
     background: #fff;
     min-height: 0;
     box-sizing: border-box;
