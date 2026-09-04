@@ -81,7 +81,7 @@
 
 <h1 class="font-custom-style-h1 mt-8 px-5 md:px-0 leading-tight">{title}</h1>
 
-<p class="mt-3 px-5 md:px-0 font-open-sans">{description}</p>
+<p class="mt-3 mb-2 px-5 md:px-0 font-open-sans">{description}</p>
 
 <div class="geochat-page px-5 md:px-0" class:history-collapsed={historyCollapsed}>
   <!-- About Chat History: outside the panel -->
@@ -446,11 +446,6 @@
     .chat,
     .records {
       width: 100%;
-    }
-
-    .history-info,
-    .history-note {
-      margin-left: 1rem;
     }
 
     .chat-header .history-toggle :global(svg) {
