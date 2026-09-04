@@ -291,9 +291,9 @@
   @media (max-width: 47.999rem) {
     #chatbot-panel {
       bottom: 70px !important;
-      width: 80vw;
+      width: 70vw;
       right: 5vw;
-      height: 65dvh;
+      height: 55dvh;
     }
   }
 
