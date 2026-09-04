@@ -405,6 +405,7 @@
   .history-info-section {
     padding: 1rem 0 0;
     margin-left: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .history-note {
