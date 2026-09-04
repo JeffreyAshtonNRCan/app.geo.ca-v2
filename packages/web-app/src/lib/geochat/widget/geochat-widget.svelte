@@ -304,7 +304,7 @@
     border-radius: 50%;
   }
 
-  #chatbot-toggle .label {
-    display: none;
-  }
+  /*#chatbot-toggle .label {*/
+  /*  display: none;*/
+  /*}*/
 </style>
