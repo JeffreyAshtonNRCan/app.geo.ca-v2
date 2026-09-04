@@ -443,6 +443,10 @@
       overflow: visible;
     }
 
+    .main-layout > :global(.splitter) {
+      display: none;
+    }
+
     .history,
     .chat,
     .records {
@@ -455,10 +459,6 @@
 
     .chat {
       height: 70dvh;
-    }
-
-    .geochat-page.history-collapsed .history-info-section {
-      display: none;
     }
   }
 </style>
