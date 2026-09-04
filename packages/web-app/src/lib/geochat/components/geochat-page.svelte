@@ -400,11 +400,11 @@
   }
 
   .history-info.collapsed {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
 
   .history-info-section {
-    padding: 1rem 1rem 0;
+    padding: 1rem 0 0;
   }
 
   .history-note {
