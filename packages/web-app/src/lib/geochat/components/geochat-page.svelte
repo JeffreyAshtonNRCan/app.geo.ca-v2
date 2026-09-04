@@ -409,7 +409,7 @@
 
   .history-note {
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
     max-width: 68ch;
 
     color: #374151;
