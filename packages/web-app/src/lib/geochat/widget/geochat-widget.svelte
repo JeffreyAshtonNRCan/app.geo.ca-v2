@@ -291,18 +291,18 @@
   @media (max-width: 47.999rem) {
     #chatbot-panel {
       bottom: 70px !important;
-      width: 70vw;
+      width: 80vw;
       right: 5vw;
       height: 55dvh;
     }
   }
 
-  #chatbot-toggle {
-    width: 56px;
-    padding: 0;
-    justify-content: center;
-    border-radius: 50%;
-  }
+  /*#chatbot-toggle {*/
+  /*  width: 56px;*/
+  /*  padding: 0;*/
+  /*  justify-content: center;*/
+  /*  border-radius: 50%;*/
+  /*}*/
 
   /*#chatbot-toggle .label {*/
   /*  display: none;*/
