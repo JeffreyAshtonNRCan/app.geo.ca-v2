@@ -137,7 +137,7 @@
       </div>
       <div class="icons">
         <button
-          class="chat-expand"
+          class="chat-expand hidden md:block"
           aria-label={isExpanded ? t.switchToSmallChat : t.switchToLargeChat}
           title={isExpanded ? t.smallChat : t.largeChat}
           onclick={toggleExpanded}
@@ -288,34 +288,23 @@
   /* =========================
        MOBILE
     ========================= */
-  @media (max-width: 768px) {
+  @media (max-width: 47.999rem) {
     #chatbot-panel {
-      /*left: auto !important;*/
-      /*top: auto !important;*/
       bottom: 70px !important;
-
-      width: 85vw;
-      right: 2.5vw;
-      height: 70dvh;
-    }
-
-    #chatbot-panel.large {
-      width: calc(100vw - 20px);
-      right: 10px;
+      width: 80vw;
+      right: 5vw;
+      height: 65dvh;
     }
   }
 
-  /*@media (max-width: 480px) {*/
-  @media (max-width: 680px) {
-    #chatbot-toggle {
-      width: 56px;
-      padding: 0;
-      justify-content: center;
-      border-radius: 50%;
-    }
+  #chatbot-toggle {
+    width: 56px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
 
-    #chatbot-toggle .label {
-      display: none;
-    }
+  #chatbot-toggle .label {
+    display: none;
   }
 </style>
