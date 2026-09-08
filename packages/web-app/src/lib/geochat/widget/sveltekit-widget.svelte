@@ -48,7 +48,6 @@
   });
 </script>
 
-// no widget for full page chat
 {#if !page.url.pathname.endsWith('/geochat')}
   <GeoChatWidget {lang} {alternateLanguageUrl} onDiveDeeper={handleDiveDeeper} />
 {/if}
