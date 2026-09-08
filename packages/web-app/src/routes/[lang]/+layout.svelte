@@ -115,10 +115,14 @@
 
 <style>
   .skip-link {
-    position: absolute;
+    position: fixed;
     left: 1rem;
     top: 1rem;
-    z-index: 9999;
+    z-index: 11000;
+    padding: 0.75rem 1rem;
+    background: white;
+    color: black;
+    border: 2px solid black;
     transform: translateY(-200%);
   }
 
