@@ -183,4 +183,12 @@
     border: none;
     cursor: pointer;
   }
+
+  /* Keep the delete icon visible for the selected chat on mobile and tablet. */
+  @media (max-width: 63.999rem) {
+    .history-item.active .history-delete {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
 </style>
