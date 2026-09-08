@@ -88,10 +88,19 @@
 
 <GoogleTag />
 
+<a href="#main-content" class="skip-link">
+  {lang === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}
+</a>
+
 <SvelteKitWidget />
 
 <Header />
-<main class="flex flex-col content-width bg-custom-1 min-h-screen pt-8" data-sveltekit-reload={updated.current ? '' : 'off'}>
+
+<main
+  id="main-content"
+  class="flex flex-col content-width bg-custom-1 min-h-screen pt-8"
+  data-sveltekit-reload={updated.current ? '' : 'off'}
+>
   <Breadcrumbs />
   <div>
     {@render children?.()}
@@ -103,3 +112,17 @@
 {#if showLeavingSitePopup}
   <LeavingNotice />
 {/if}
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 9999;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+</style>
