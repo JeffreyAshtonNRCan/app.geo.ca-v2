@@ -86,7 +86,10 @@
   }
 
   function handleKeydown(event: KeyboardEvent) {
+    console.log('KEY:', event.key);
+
     if (event.key === 'Escape' && isOpen) {
+      console.log('ESCAPE DETECTED');
       event.preventDefault();
       closeChat();
     }
