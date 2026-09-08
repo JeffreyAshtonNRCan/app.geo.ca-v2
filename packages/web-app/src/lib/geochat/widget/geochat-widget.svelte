@@ -85,6 +85,13 @@
     console.log('cookie after close:', document.cookie);
   }
 
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape' && isOpen) {
+      event.preventDefault();
+      closeChat();
+    }
+  }
+
   function toggleChat() {
     isOpen = !isOpen;
 
@@ -114,6 +121,8 @@
     }
   });
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <div id="chatbot-widget">
   <!-- launcher -->
