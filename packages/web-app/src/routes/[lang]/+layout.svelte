@@ -87,6 +87,9 @@
 </script>
 
 <GoogleTag />
+
+<SvelteKitWidget />
+
 <Header />
 <main class="flex flex-col content-width bg-custom-1 min-h-screen pt-8" data-sveltekit-reload={updated.current ? '' : 'off'}>
   <Breadcrumbs />
@@ -96,8 +99,6 @@
   <Feedback />
 </main>
 <Footer />
-
-<SvelteKitWidget />
 
 {#if showLeavingSitePopup}
   <LeavingNotice />
