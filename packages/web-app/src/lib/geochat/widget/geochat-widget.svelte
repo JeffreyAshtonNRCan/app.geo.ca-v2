@@ -181,6 +181,7 @@
     position: fixed;
     right: 20px;
     bottom: 20px;
+    z-index: 10020;
     display: flex;
     align-items: center;
     gap: 8px;
