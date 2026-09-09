@@ -3,6 +3,7 @@
   import { chatStore } from '$lib/geochat/stores/chat-store';
   import type { ChatMessage } from '$lib/geochat/stores/chat-store';
   import ChatBubbleIcon from '$lib/components/icons/chatbubble.svelte';
+  import SendIcon from '$lib/components/icons/send.svelte';
   import { DOWNLOAD_ICON_URI } from '$lib/geochat/utils/download-icon';
   import enTranslations from '$lib/geochat/i18n/en/translations.json';
   import frTranslations from '$lib/geochat/i18n/fr/translations.json';
@@ -187,7 +188,9 @@
 
   <textarea id="chat-input" bind:value={message} maxlength="100" placeholder={t.typeMessage} onkeydown={handleKeydown}></textarea>
 
-  <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤</button>
+  <button id="chat-send" type="button" class:disabled={!message.trim()} aria-label={t.sendMessage} onclick={handleSend}>
+    <SendIcon classes="h-4 w-4" />
+  </button>
 </div>
 
 <div id="chat-counter">
