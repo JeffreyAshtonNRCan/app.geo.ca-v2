@@ -121,7 +121,7 @@
      to keep the WordPress widget self-contained (no external SVG file required). -->
 <!-- messages -->
 <div id="chat-log-wrapper" bind:this={chatLogWrapper}>
-  <div id="chat-log" style={`--download-icon-uri: url("${DOWNLOAD_ICON_URI}")`}>
+  <div id="chat-log" role="log" aria-live="polite" aria-relevant="additions" style={`--download-icon-uri: url("${DOWNLOAD_ICON_URI}")`}>
     {#each $chatStore.messages as msg, index (index)}
       <div class="chat-row {msg.role}">
         {#if msg.role === 'bot' && msg.languageMismatch}
