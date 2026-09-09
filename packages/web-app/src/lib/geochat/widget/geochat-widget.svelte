@@ -129,7 +129,16 @@
 
 <div id="chatbot-widget">
   <!-- launcher -->
-  <button id="chatbot-toggle" class="font-custom-style-button-1" onpointerenter={warmUpChat} ontouchstart={warmUpChat} onclick={toggleChat}>
+  <button
+    id="chatbot-toggle"
+    class="font-custom-style-button-1"
+    type="button"
+    aria-expanded={isOpen}
+    aria-controls="chatbot-panel"
+    onpointerenter={warmUpChat}
+    ontouchstart={warmUpChat}
+    onclick={toggleChat}
+  >
     <ChatBubbleIcon classes="h-5 w-5" />
     <span class="label">
       {t.askGeoChat}
@@ -139,7 +148,14 @@
 
 <!-- panel -->
 {#if isOpen}
-  <div id="chatbot-panel" bind:this={chatbotPanel} class:large={isExpanded} role="dialog" aria-labelledby="chatbot-title">
+  <div
+    id="chatbot-panel"
+    bind:this={chatbotPanel}
+    class:large={isExpanded}
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="chatbot-title"
+  >
     <!-- header -->
     <div class="chat-header">
       <div class="drag-handle" use:draggable>
@@ -149,6 +165,7 @@
       </div>
       <div class="icons">
         <button
+          type="button"
           class="chat-expand hidden md:block"
           aria-label={isExpanded ? t.switchToSmallChat : t.switchToLargeChat}
           title={isExpanded ? t.smallChat : t.largeChat}
@@ -157,7 +174,7 @@
           <ExpandIcon classes="h-4 w-4 md:h-5 md:w-5" />
         </button>
 
-        <button class="chat-close" aria-label={t.closeChat} title={t.close} onclick={closeChat}>
+        <button type="button" class="chat-close" aria-label={t.closeChat} title={t.close} onclick={closeChat}>
           <CloseIcon classes="h-4 w-4 md:h-4 md:w-4" />
         </button>
       </div>
