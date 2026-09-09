@@ -181,6 +181,10 @@
 
 <!-- input -->
 <div class="chat-input">
+  <label for="chat-input" class="sr-only">
+    {t.typeMessage}
+  </label>
+
   <textarea id="chat-input" bind:value={message} maxlength="100" placeholder={t.typeMessage} onkeydown={handleKeydown}></textarea>
 
   <button id="chat-send" class:disabled={!message.trim()} onclick={handleSend}> ➤</button>
