@@ -326,16 +326,9 @@
       top: 20%;
       bottom: auto;
     }
+
+    #chatbot-panel .chat-expand {
+      display: none;
+    }
   }
-
-  /*#chatbot-toggle {*/
-  /*  width: 56px;*/
-  /*  padding: 0;*/
-  /*  justify-content: center;*/
-  /*  border-radius: 50%;*/
-  /*}*/
-
-  /*#chatbot-toggle .label {*/
-  /*  display: none;*/
-  /*}*/
 </style>
