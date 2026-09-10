@@ -57,9 +57,32 @@
     window.addEventListener('pointermove', pointerMove);
     window.addEventListener('pointerup', pointerUp);
   }
+
+  function keydown(event: KeyboardEvent) {
+    const step = 5;
+
+    if (direction === 'vertical') {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        value = Math.max(min, value - step);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        value = Math.min(max, value + step);
+      }
+    } else {
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        value = Math.max(min, value - step);
+      } else if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        value = Math.min(max, value + step);
+      }
+    }
+  }
 </script>
 
-<!--todo tabindex="0"-->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <div
   bind:this={handle}
   class="splitter"
@@ -67,8 +90,13 @@
   class:vertical={direction === 'vertical'}
   class:horizontal={direction === 'horizontal'}
   role="separator"
+  tabindex="0"
   aria-orientation={direction}
+  aria-valuemin={min}
+  aria-valuemax={max}
+  aria-valuenow={value}
   onpointerdown={pointerDown}
+  onkeydown={keydown}
 >
   <div class="grip"></div>
 </div>
