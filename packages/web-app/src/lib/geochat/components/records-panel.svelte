@@ -78,7 +78,12 @@
         </div>
       {:else}
         {#each $chatStore.records as record (record.uuid)}
-          <button class="record" class:selected={selectedRecord?.uuid === record.uuid} onclick={() => (selectedRecord = record)}>
+          <button
+            class="record"
+            class:selected={selectedRecord?.uuid === record.uuid}
+            aria-pressed={selectedRecord?.uuid === record.uuid}
+            onclick={() => (selectedRecord = record)}
+          >
             <div class="record-title">
               {record.title_display}
             </div>
