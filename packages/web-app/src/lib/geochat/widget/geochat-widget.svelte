@@ -50,7 +50,9 @@
   }
 
   function setWidgetOpenState(open: boolean): void {
-    const cookie = `${WIDGET_OPEN_COOKIE}=${open}; path=/; max-age=31536000; Secure; SameSite=Lax`;
+    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+
+    const cookie = `${WIDGET_OPEN_COOKIE}=${open}; path=/; max-age=31536000; SameSite=Lax${secure}`;
 
     if (window.location.hostname === 'geo.ca' || window.location.hostname.endsWith('.geo.ca')) {
       document.cookie = `${cookie}; domain=geo.ca`;
