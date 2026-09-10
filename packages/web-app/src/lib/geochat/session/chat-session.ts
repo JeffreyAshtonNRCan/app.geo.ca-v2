@@ -70,7 +70,9 @@ export function setSessionCookie(chat: ChatHistory): void {
   }
 
   const value = encodeURIComponent(JSON.stringify(chat));
-  const cookie = `${SESSION_COOKIE}=${value}; path=/; max-age=31536000; Secure; SameSite=Lax`;
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+
+  const cookie = `${SESSION_COOKIE}=${value}; path=/; max-age=31536000; SameSite=Lax${secure}`;
 
   console.trace('SET SESSION COOKIE', chat);
 
