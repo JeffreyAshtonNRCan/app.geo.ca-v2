@@ -7,10 +7,16 @@
   let {
     lang,
     newChat,
+    deleteChat,
+    confirmDelete,
+    cancelDelete,
     onHistoryAction,
   }: {
     lang: 'en' | 'fr';
     newChat: string;
+    deleteChat: string;
+    confirmDelete: string;
+    cancelDelete: string;
     onHistoryAction: () => void;
   } = $props();
 
@@ -76,13 +82,14 @@
         {#if deleteSessionId === chat.sessionId}
           <!-- svelte-ignore a11y_no_static_element_interactions -->
           <div class="history-confirm-group" onmouseleave={handleCancelDelete}>
-            <button class="history-confirm" onclick={() => handleConfirmDelete(chat)}> ✓ </button>
+            <button type="button" class="history-confirm" aria-label={confirmDelete} onclick={() => handleConfirmDelete(chat)}> ✓ </button>
 
-            <button class="history-confirm" onclick={handleCancelDelete}> ✕ </button>
+            <button type="button" class="history-confirm" aria-label={cancelDelete} onclick={handleCancelDelete}> ✕ </button>
           </div>
         {:else}
           <button
             class="history-delete"
+            aria-label={deleteChat}
             onclick={(e) => {
               e.stopPropagation();
               handleDeleteClick(chat);
@@ -173,6 +180,11 @@
   }
 
   .history-item:hover .history-delete {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .history-item:focus-within .history-delete {
     opacity: 1;
     pointer-events: auto;
   }

@@ -45,6 +45,16 @@
 
   const newChat = translations?.newChat ? translations['newChat'] : 'New Chat';
 
+  const showHistory = translations?.showHistory ? translations['showHistory'] : 'Show history';
+
+  const hideHistory = translations?.hideHistory ? translations['hideHistory'] : 'Hide history';
+
+  const deleteChat = translations?.deleteChat ? translations['deleteChat'] : 'Delete chat';
+
+  const confirmDelete = translations?.confirmDelete ? translations['confirmDelete'] : 'Confirm delete';
+
+  const cancelDelete = translations?.cancelDelete ? translations['cancelDelete'] : 'Cancel delete';
+
   /************* End Translations ***************/
 
   let chatWidth = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-chat-width')) || 50 : 50);
@@ -84,7 +94,14 @@
 <p class="mt-3 mb-4 px-5 md:px-0 font-open-sans">{description}</p>
 
 <div class="history-info-section" class:hidden={historyCollapsed}>
-  <button class="history-info" class:collapsed={!showHistoryInfo} onclick={() => (showHistoryInfo = !showHistoryInfo)}>
+  <button
+    type="button"
+    class="history-info"
+    class:collapsed={!showHistoryInfo}
+    aria-expanded={showHistoryInfo}
+    aria-label={historyCollapsed ? showHistory : hideHistory}
+    onclick={() => (showHistoryInfo = !showHistoryInfo)}
+  >
     <Info classes="w-5 h-5 mr-2" />
     <span>{aboutChatHistory}</span>
     {#if showHistoryInfo}
@@ -109,7 +126,7 @@
 
     <div class="panel-body">
       <div class="panel-content history-content">
-        <HistoryPanel {lang} {newChat} onHistoryAction={collapseHistoryOnMobile} />
+        <HistoryPanel {lang} {newChat} {deleteChat} {confirmDelete} {cancelDelete} onHistoryAction={collapseHistoryOnMobile} />
       </div>
     </div>
   </div>
@@ -127,7 +144,8 @@
                   cursor-pointer
                   transition-colors"
           onclick={() => (historyCollapsed = !historyCollapsed)}
-          aria-label={historyCollapsed ? 'Show history' : 'Hide history'}
+          aria-label={historyCollapsed ? showHistory : hideHistory}
+          aria-expanded={!historyCollapsed}
         >
           {#if historyCollapsed}
             <ChevronRight classes="w-6 h-6 hidden md:block" />
