@@ -154,9 +154,6 @@
     outline-offset: 1px;
   }
 
-  .history-item.active .history-select {
-    font-weight: 600;
-  }
   .history-title {
     flex: 1;
     min-width: 0;
