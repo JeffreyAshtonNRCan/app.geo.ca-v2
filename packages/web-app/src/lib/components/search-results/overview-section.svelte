@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { page } from '$app/state';
   import { marked } from 'marked';
   import { tick } from 'svelte';
   import ChatBubble from '$lib/components/icons/chatbubble.svelte';
@@ -6,12 +8,10 @@
 
   marked.setOptions({
     gfm: true,
-    breaks: true
+    breaks: true,
   });
 
   let { overviewData, isLoading } = $props();
-
-  let diveDeeperMessage = $state('');
 
   let html = $state('');
   let expanded = $state(false);
@@ -24,28 +24,29 @@
 
   let titleRef = $state<HTMLHeadingElement | null>(null);
 
-  $effect(async () => {
-    const markdown =
-      overviewData?.overview_markdown ||
-      overviewData?.overview;
+  $effect(() => {
+    const updateOverview = async () => {
+      const markdown = overviewData?.overview;
 
-    if (markdown) {
-      html = await marked.parse(markdown) as string;
+      if (markdown) {
+        html = (await marked.parse(markdown)) as string;
 
-      expanded = false;
+        expanded = false;
 
-      await tick();
+        await tick();
 
-      if (contentRef) {
-        isOverflowing =
-          contentRef.scrollHeight > contentRef.clientHeight;
+        if (contentRef) {
+          isOverflowing = contentRef.scrollHeight > contentRef.clientHeight;
 
-        maxHeight = '7.5rem';
+          maxHeight = '7.5rem';
+        }
+      } else {
+        html = '';
+        isOverflowing = false;
       }
-    } else {
-      html = '';
-      isOverflowing = false;
-    }
+    };
+
+    updateOverview();
   });
 
   async function toggleExpand() {
@@ -57,9 +58,7 @@
 
     await tick();
 
-    const endHeight = expanded
-      ? contentRef.scrollHeight
-      : 120;
+    const endHeight = expanded ? contentRef.scrollHeight : 120;
 
     maxHeight = `${startHeight}px`;
 
@@ -75,7 +74,7 @@
           if (rect) {
             window.scrollTo({
               top: window.scrollY + rect.top - 10,
-              behavior: 'smooth'
+              behavior: 'smooth',
             });
           }
         });
@@ -84,19 +83,13 @@
   }
 
   function handleDiveDeeper() {
-    diveDeeperMessage =
-      'Dive Deeper with GeoChat is not available yet.';
-
-    setTimeout(() => {
-      diveDeeperMessage = '';
-    }, 3000);
+    const locale = page.params.lang ?? 'en-ca';
+    goto(`/${locale}/geochat`);
   }
 </script>
 
 {#if isLoading}
-  <h2 class="font-custom-style-h2 mt-5 px-5 md:px-0">
-    AI Overview
-  </h2>
+  <h2 class="font-custom-style-h2 mt-5 px-5 md:px-0">AI Overview</h2>
 
   <!-- CARD -->
   <div class="mt-2">
@@ -112,12 +105,7 @@
     </div>
   </div>
 {:else}
-  <h2
-    bind:this={titleRef}
-    class="font-custom-style-h2 mt-5 px-5 md:px-0"
-  >
-    AI Overview
-  </h2>
+  <h2 bind:this={titleRef} class="font-custom-style-h2 mt-5 px-5 md:px-0">AI Overview</h2>
 
   <div bind:this={containerRef} class="mt-1">
     <div class="bg-gray-100 border border-gray-200 rounded-lg px-5 pt-5 pb-5 shadow-md">
@@ -147,15 +135,11 @@
             >
               {expanded ? 'Show less' : 'Show more'}
 
-              <Chevrondown
-                classes={`w-4 h-4 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
-              />
+              <Chevrondown classes={`w-4 h-4 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} />
             </button>
           {/if}
         {:else}
-          <div class="text-gray-500 text-sm">
-            No overview available.
-          </div>
+          <div class="text-gray-500 text-sm">No overview available.</div>
         {/if}
       </div>
 
@@ -168,12 +152,6 @@
           <ChatBubble classes="w-5 h-5 shrink-0" />
           Dive deeper with GeoChat
         </button>
-
-        {#if diveDeeperMessage}
-          <div class="mt-2 text-base text-gray-600 text-center">
-            {diveDeeperMessage}
-          </div>
-        {/if}
       </div>
     </div>
   </div>
@@ -200,28 +178,28 @@
   :global(.overview-content li p) {
     margin-bottom: 0.9rem;
   }
-  
+
   :global(.overview-content ol) {
     margin-bottom: 0.15rem;
     padding-left: 1.5rem;
   }
-  
+
   :global(.overview-content ol + p) {
     margin-left: 1.5rem;
   }
-  
+
   :global(.overview-content ul) {
     margin-top: 0.15rem;
     margin-bottom: 1rem;
     padding-left: 1.5rem;
   }
-  
+
   :global(.overview-content a) {
     color: #515ba4;
     text-decoration: underline;
     word-break: break-word;
   }
-  
+
   :global(.overview-content a:hover) {
     color: #495197;
   }
@@ -230,6 +208,4 @@
     font-weight: 700;
     color: #000;
   }
-
-  
 </style>
