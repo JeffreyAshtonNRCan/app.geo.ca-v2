@@ -146,7 +146,7 @@
       <!-- DIVE DEEPER -->
       <div class="mt-5 flex flex-col items-center">
         <button
-          class="flex items-center gap-2 h-12 px-5 bg-custom-8 hover:bg-custom-10 text-white font-custom-style-button-3 rounded-md transition-all duration-200 hover:shadow-md active:translate-y-[1px]"
+          class="flex items-center gap-2 h-12 px-5 bg-custom-8 hover:bg-custom-10 text-white font-custom-style-button-3 rounded-md transition-all duration-200 hover:shadow-md active:translate-y-[1px] cursor-pointer"
           onclick={handleDiveDeeper}
         >
           <ChatBubble classes="w-5 h-5 shrink-0" />
