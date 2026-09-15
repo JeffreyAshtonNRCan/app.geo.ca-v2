@@ -15,7 +15,7 @@
 
   let { overviewData: incomingOverviewData } = $props();
 
-  let currentOverviewData = $state(incomingOverviewData);
+  let currentOverviewData = $state();
 
   $effect(() => {
     if (incomingOverviewData) {
