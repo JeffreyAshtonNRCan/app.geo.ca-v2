@@ -6,11 +6,7 @@ import { sanitizeSemantic } from '$lib/utils/data-sanitization/semantic-results'
 import { formatNumber } from '$lib/utils/format-number';
 import type { GeospatialRecord, UserInfo } from '$lib/db/db-types';
 
-import {
-    SEMANTIC_SEARCH_URL,
-    GEOCORE_API_DOMAIN,
-    OVERVIEW_API_URL
-} from '$env/static/private';
+import { SEMANTIC_SEARCH_URL, GEOCORE_API_DOMAIN, OVERVIEW_API_URL } from '$env/static/private';
 
 interface ParsedResponse {
   Items?: GeospatialRecord[];
@@ -71,36 +67,25 @@ interface SemanticSearchParams {
 
 export const load: PageServerLoad = async ({ request, fetch, params, url, cookies }) => {
   const searchMode = url.searchParams.get('searchMethod') === 'classic' || !SEMANTIC_SEARCH_URL ? 'classic' : 'semantic';
-  const q =
-      url.searchParams.get('q') ||
-      url.searchParams.get('search-terms') ||
-      url.searchParams.get('question') ||
-      '';
+  const q = url.searchParams.get('q') || url.searchParams.get('search-terms') || url.searchParams.get('question') || '';
 
   console.log('q=', q);
 
   const keyword = url.searchParams.get('search-terms') || '';
+  const pageNumber = parseInt(url.searchParams.get('page-number') || '0', 10);
 
-  const overviewPromise = keyword
-      ? getOverview(fetch, keyword)
-      : null;
+  const overviewPromise = keyword && pageNumber === 0 ? getOverview(fetch, keyword) : null;
 
   const responsePromise =
     searchMode === 'classic'
-      ? generateUrl(
-        fetch,
-        url.searchParams,
-        params.lang,
-        cookies.get('id_token') || '',
-        request.headers.get('x-forwarded-for') || ''
-      )
+      ? generateUrl(fetch, url.searchParams, params.lang, cookies.get('id_token') || '', request.headers.get('x-forwarded-for') || '')
       : generateSemanticUrl(
-        fetch,
-        url.searchParams,
-        params.lang,
-        cookies.get('id_token') || '',
-        request.headers.get('x-forwarded-for') || ''
-      );
+          fetch,
+          url.searchParams,
+          params.lang,
+          cookies.get('id_token') || '',
+          request.headers.get('x-forwarded-for') || ''
+        );
 
   const analyticsPromise = getAnalytics(fetch);
 
