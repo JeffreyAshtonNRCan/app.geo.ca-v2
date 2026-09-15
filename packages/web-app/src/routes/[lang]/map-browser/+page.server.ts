@@ -72,9 +72,8 @@ export const load: PageServerLoad = async ({ request, fetch, params, url, cookie
   console.log('q=', q);
 
   const keyword = url.searchParams.get('search-terms') || '';
-  const pageNumber = parseInt(url.searchParams.get('page-number') || '0', 10);
 
-  const overviewPromise = keyword && pageNumber === 0 ? getOverview(fetch, keyword) : null;
+  const overviewPromise = keyword ? getOverview(fetch, keyword) : null;
 
   const responsePromise =
     searchMode === 'classic'

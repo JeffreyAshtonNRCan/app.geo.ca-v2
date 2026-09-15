@@ -13,15 +13,7 @@
 
   let resultMessage = $derived(page.data.resultMessage);
 
-  let { overviewData: incomingOverviewData } = $props();
-
-  let currentOverviewData = $state();
-
-  $effect(() => {
-    if (incomingOverviewData) {
-      currentOverviewData = incomingOverviewData;
-    }
-  });
+  let { overviewData } = $props();
 </script>
 
 <h1 class="font-custom-style-h1 mt-8 px-5 md:px-0 leading-tight">
@@ -35,13 +27,13 @@
 <SearchBar />
 
 <!-- OVERVIEW -->
-{#if navigating.type !== null && page.url.searchParams.get('page-number') === '0'}
-  <!-- show skeleton for a new search -->
-  <OverviewSection overviewData={currentOverviewData} isLoading={true} />
-{:else if currentOverviewData}
-  {#await currentOverviewData}
-    <!-- still loading for a new search -->
-    <OverviewSection overviewData={currentOverviewData} isLoading={true} />
+{#if navigating.type !== null}
+  <!-- show immediately on search -->
+  <OverviewSection isLoading={true} />
+{:else if overviewData}
+  {#await overviewData}
+    <!-- still loading after navigation -->
+    <OverviewSection isLoading={true} />
   {:then data}
     <!-- loaded -->
     <OverviewSection overviewData={data} isLoading={false} />
