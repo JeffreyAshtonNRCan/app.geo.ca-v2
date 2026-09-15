@@ -7,17 +7,21 @@
   /************* Translations ***************/
   const translations = page.data.t;
 
-  const searchDatasets = translations?.searchDatasets
-    ? translations['searchDatasets']
-    : 'Search datasets';
+  const searchDatasets = translations?.searchDatasets ? translations['searchDatasets'] : 'Search datasets';
 
-  const searchResultsText = translations?.searchResults
-    ? translations['searchResults']
-    : 'Search results';
+  const searchResultsText = translations?.searchResults ? translations['searchResults'] : 'Search results';
 
   let resultMessage = $derived(page.data.resultMessage);
 
-  let { overviewData } = $props();
+  let { overviewData: incomingOverviewData } = $props();
+
+  let currentOverviewData = $state(incomingOverviewData);
+
+  $effect(() => {
+    if (incomingOverviewData) {
+      currentOverviewData = incomingOverviewData;
+    }
+  });
 </script>
 
 <h1 class="font-custom-style-h1 mt-8 px-5 md:px-0 leading-tight">
@@ -31,13 +35,13 @@
 <SearchBar />
 
 <!-- OVERVIEW -->
-{#if navigating.type !== null}
-  <!-- show immediately on search -->
-  <OverviewSection isLoading={true} />
-{:else if overviewData}
-  {#await overviewData}
-    <!-- still loading after navigation -->
-    <OverviewSection isLoading={true} />
+{#if navigating.type !== null && page.url.searchParams.get('page-number') === '0'}
+  <!-- show skeleton for a new search -->
+  <OverviewSection overviewData={currentOverviewData} isLoading={true} />
+{:else if currentOverviewData}
+  {#await currentOverviewData}
+    <!-- still loading for a new search -->
+    <OverviewSection overviewData={currentOverviewData} isLoading={true} />
   {:then data}
     <!-- loaded -->
     <OverviewSection overviewData={data} isLoading={false} />
