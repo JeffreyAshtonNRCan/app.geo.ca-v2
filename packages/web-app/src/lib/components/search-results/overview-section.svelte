@@ -84,7 +84,9 @@
 
   function handleDiveDeeper() {
     const locale = page.params.lang ?? 'en-ca';
-    goto(`/${locale}/geochat`);
+    const searchTerm = page.url.searchParams.get('search-terms') || '';
+
+    goto(`/${locale}/geochat?search-terms=${encodeURIComponent(searchTerm)}`);
   }
 </script>
 
