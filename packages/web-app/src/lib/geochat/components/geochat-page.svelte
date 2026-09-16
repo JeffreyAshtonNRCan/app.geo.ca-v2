@@ -73,13 +73,14 @@
     localStorage.setItem('geochat-history-collapsed', String(historyCollapsed));
   });
 
-  // console.log('=== GeoChatPage props ===');
-  // console.log('lang =', lang);
-  // console.log('alternateLanguageUrl =', alternateLanguageUrl);
-  // console.log('==========================');
+  onMount(async () => {
+    const searchTerm = page.url.searchParams.get('search-terms');
 
-  onMount(() => {
-    chatStore.initializeChat(lang);
+    await chatStore.initializeChat(lang);
+
+    if (searchTerm) {
+      chatStore.newChat(lang);
+    }
   });
 
   function collapseHistoryOnMobile() {
