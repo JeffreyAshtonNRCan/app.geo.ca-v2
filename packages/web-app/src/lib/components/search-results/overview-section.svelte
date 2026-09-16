@@ -6,6 +6,15 @@
   import ChatBubble from '$lib/components/icons/chatbubble.svelte';
   import Chevrondown from '$lib/components/icons/chevrondown.svelte';
 
+  /************* Translations ***************/
+  const translations = page.data.t;
+
+  const aiOverview = translations?.aiOverview ? translations['aiOverview'] : 'AI Overview';
+  const showMore = translations?.showMore ? translations['showMore'] : 'Show more';
+  const showLess = translations?.showLess ? translations['showLess'] : 'Show less';
+  const noOverviewAvailable = translations?.noOverviewAvailable ? translations['noOverviewAvailable'] : 'No overview available.';
+  const diveDeeperWithGeoChat = translations?.diveDeeperWithGeoChat ? translations['diveDeeperWithGeoChat'] : 'Dive deeper with GeoChat';
+
   marked.setOptions({
     gfm: true,
     breaks: true,
@@ -91,7 +100,7 @@
 </script>
 
 {#if isLoading}
-  <h2 class="font-custom-style-h2 mt-5 px-5 md:px-0">AI Overview</h2>
+  <h2 class="font-custom-style-h2 mt-5 px-5 md:px-0">{aiOverview}</h2>
 
   <!-- CARD -->
   <div class="mt-2">
@@ -135,13 +144,13 @@
               class="mt-3 flex items-center gap-1.5 text-custom-8 text-sm font-medium hover:underline hover:text-custom-10 transition-all duration-200 hover:translate-y-[1px]"
               onclick={toggleExpand}
             >
-              {expanded ? 'Show less' : 'Show more'}
+              {expanded ? showLess : showMore}
 
               <Chevrondown classes={`w-4 h-4 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} />
             </button>
           {/if}
         {:else}
-          <div class="text-gray-500 text-sm">No overview available.</div>
+          <div class="text-gray-500 text-sm">{noOverviewAvailable}</div>
         {/if}
       </div>
 
@@ -152,7 +161,7 @@
           onclick={handleDiveDeeper}
         >
           <ChatBubble classes="w-5 h-5 shrink-0" />
-          Dive deeper with GeoChat
+          {diveDeeperWithGeoChat}
         </button>
       </div>
     </div>

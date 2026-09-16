@@ -29,11 +29,11 @@
 <!-- OVERVIEW -->
 {#if navigating.type !== null}
   <!-- show immediately on search -->
-  <OverviewSection isLoading={true} />
+  <OverviewSection {overviewData} isLoading={true} />
 {:else if overviewData}
   {#await overviewData}
     <!-- still loading after navigation -->
-    <OverviewSection isLoading={true} />
+    <OverviewSection {overviewData} isLoading={true} />
   {:then data}
     <!-- loaded -->
     <OverviewSection overviewData={data} isLoading={false} />
