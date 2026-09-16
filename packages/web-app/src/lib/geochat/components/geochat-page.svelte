@@ -161,7 +161,7 @@
 
       <div class="panel-body">
         <div class="panel-content chat-layout">
-          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} />
+          <ChatPanel {lang} {alternateLanguageUrl} showDiveDeeper={false} initialQuery={page.url.searchParams.get('search-terms') || ''} />
         </div>
       </div>
     </section>

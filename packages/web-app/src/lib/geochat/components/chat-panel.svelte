@@ -18,11 +18,13 @@
     alternateLanguageUrl = '',
     showDiveDeeper = false,
     onDiveDeeper,
+    initialQuery = '',
   }: {
     lang?: 'en' | 'fr';
     alternateLanguageUrl?: string;
     showDiveDeeper?: boolean;
     onDiveDeeper?: () => void;
+    initialQuery?: string;
   } = $props();
 
   const t = $derived(translations[lang]);
@@ -32,7 +34,7 @@
   //   alternateLanguageUrl,
   // });
 
-  let message = $state('');
+  let message = $state(initialQuery);
   let chatLogWrapper: HTMLDivElement;
 
   async function handleSend() {
