@@ -116,7 +116,7 @@
     </div>
   </div>
 {:else}
-  <h2 bind:this={titleRef} class="font-custom-style-h2 mt-5 px-5 md:px-0">AI Overview</h2>
+  <h2 bind:this={titleRef} class="font-custom-style-h2 mt-5 px-5 md:px-0">{aiOverview}</h2>
 
   <div bind:this={containerRef} class="mt-1">
     <div class="bg-gray-100 border border-gray-200 rounded-lg px-5 pt-5 pb-5 shadow-md">
