@@ -73,7 +73,7 @@ export const load: PageServerLoad = async ({ request, fetch, params, url, cookie
 
   const keyword = url.searchParams.get('search-terms') || '';
 
-  const overviewPromise = keyword ? getOverview(fetch, keyword) : null;
+  const overviewPromise = keyword ? getOverview(fetch, keyword, params.lang) : null;
 
   const responsePromise =
     searchMode === 'classic'
@@ -254,7 +254,7 @@ async function getAnalytics(fetch: (url: string | URL, options?: RequestInit) =>
  * @returns The overview API response containing summary text and related records.
  * @async
  */
-async function getOverview(fetch, keyword: string) {
+async function getOverview(fetch: (url: string | URL, options?: RequestInit) => Promise<Response>, keyword: string, lang = 'en') {
   console.log('OVERVIEW START');
   console.log('OVERVIEW keyword:', keyword);
 
@@ -264,7 +264,7 @@ async function getOverview(fetch, keyword: string) {
       return undefined;
     }
 
-    const url = `${OVERVIEW_API_URL}?question=${encodeURIComponent(keyword)}`;
+    const url = `${OVERVIEW_API_URL}?question=${encodeURIComponent(keyword)}&lang=${lang.split('-')[0]}`;
     console.log('fetching:', url);
 
     const res = await fetch(url);

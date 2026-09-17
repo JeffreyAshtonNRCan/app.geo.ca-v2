@@ -35,7 +35,7 @@
 
   $effect(() => {
     const updateOverview = async () => {
-      const markdown = overviewData?.overview;
+      const markdown = overviewData?.overview_markdown;
 
       if (markdown) {
         html = (await marked.parse(markdown)) as string;
