@@ -34,7 +34,7 @@
   //   alternateLanguageUrl,
   // });
 
-  let message = $state(initialQuery);
+  let message = $state(initialQuery ?? '');
   let chatLogWrapper: HTMLDivElement;
 
   async function handleSend() {
