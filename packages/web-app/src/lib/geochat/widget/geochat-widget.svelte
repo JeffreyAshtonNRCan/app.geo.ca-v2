@@ -318,9 +318,13 @@
    TABLET
 ========================= */
   @media (min-width: 48rem) and (max-width: 74.999rem) {
+    #chatbot-panel {
+      height: 45svh;
+    }
+
     #chatbot-panel.large {
       width: 60%;
-      height: 50svh;
+      height: 55svh;
 
       left: 20%;
       right: auto;
