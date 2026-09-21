@@ -317,12 +317,12 @@
   /* =========================
    TABLET
 ========================= */
-  @media (min-width: 48rem) and (max-width: 63.999rem) {
+  @media (min-width: 48rem) and (max-width: 74.999rem) {
     #chatbot-panel.large {
-      width: 65%;
-      height: 60svh;
+      width: 60%;
+      height: 50svh;
 
-      left: 17.5%;
+      left: 20%;
       right: auto;
 
       top: 20%;
