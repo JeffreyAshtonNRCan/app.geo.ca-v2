@@ -332,6 +332,18 @@
       top: 20%;
       bottom: auto;
     }
+    /* =========================
+     TABLET LANDSCAPE
+  ========================= */
+    @media (min-width: 48rem) and (max-width: 74.999rem) and (orientation: landscape) {
+      #chatbot-panel {
+        height: 55svh;
+      }
+
+      #chatbot-panel.large {
+        height: 70svh;
+      }
+    }
   }
 
   /* =========================
