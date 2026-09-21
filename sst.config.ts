@@ -3,7 +3,7 @@
 const GEOCORE_API_DOMAIN = "https://geocore.api.geo.ca";
 const SEMANTIC_SEARCH_URL = "https://search-recherche.geocore.api.geo.ca";
 const OVERVIEW_API_URL =
-    "https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/overview";
+  "https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/overview";
 
 console.log("OVERVIEW_API_URL:", OVERVIEW_API_URL);
 
@@ -28,29 +28,29 @@ export default $config({
 
     // Production keeps using the existing table to avoid accidental replacement.
     const users =
-        $app.stage === "production"
-            ? sst.aws.Dynamo.get("Users", userTableName)
-            : new sst.aws.Dynamo("Users", {
-              fields: {
-                uuid: "string",
-              },
-              primaryIndex: {
-                hashKey: "uuid",
-              },
-            });
+      $app.stage === "production"
+        ? sst.aws.Dynamo.get("Users", userTableName)
+        : new sst.aws.Dynamo("Users", {
+            fields: {
+              uuid: "string",
+            },
+            primaryIndex: {
+              hashKey: "uuid",
+            },
+          });
 
     // Bucket holding HNAP and geocore geojson records.
     // Production keeps using the existing bucket to avoid accidental replacement.
     const hnapBucket =
-        $app.stage === "production"
-            ? sst.aws.Bucket.get("HnapBucket", bucketName)
-            : new sst.aws.Bucket("HnapBucket", {
-              transform: {
-                bucket: (args) => {
-                  args.forceDestroy = true;
-                },
+      $app.stage === "production"
+        ? sst.aws.Bucket.get("HnapBucket", bucketName)
+        : new sst.aws.Bucket("HnapBucket", {
+            transform: {
+              bucket: (args) => {
+                args.forceDestroy = true;
               },
-            });
+            },
+          });
 
     // TODO: restore hnap-bridge Lambda trigger (packages/hnap-bridge removed).
     // When the handler is added back, attach an S3 notification on hnapBucket
