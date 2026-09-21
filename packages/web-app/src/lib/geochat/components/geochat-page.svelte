@@ -481,7 +481,7 @@
     }
 
     .chat {
-      height: 70svh;
+      height: 65svh;
     }
   }
 </style>
