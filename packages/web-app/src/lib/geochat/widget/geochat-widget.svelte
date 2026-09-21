@@ -315,6 +315,22 @@
   }
 
   /* =========================
+   TABLET
+========================= */
+  @media (min-width: 48rem) and (max-width: 63.999rem) {
+    #chatbot-panel.large {
+      width: 65%;
+      height: 60svh;
+
+      left: 17.5%;
+      right: auto;
+
+      top: 20%;
+      bottom: auto;
+    }
+  }
+
+  /* =========================
        MOBILE
     ========================= */
   @media (max-width: 47.999rem) {
