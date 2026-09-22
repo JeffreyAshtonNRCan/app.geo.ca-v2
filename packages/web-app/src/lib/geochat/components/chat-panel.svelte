@@ -261,7 +261,7 @@
   }
 
   #chat-input:focus-visible {
-    outline: 2px solid #26374a;
+    outline: 2px solid #6c757d;
     outline-offset: -2px;
   }
 
