@@ -184,7 +184,7 @@
 {/if}
 
 <!-- input -->
-<div class="chat-input">
+<div class="chat-input-container">
   <label for="chat-input" class="sr-only">
     {t.typeMessage}
   </label>
@@ -239,12 +239,19 @@
   }
 
   /* =========================
-       CHAT INPUT
-    ========================= */
-  .chat-input {
+     CHAT INPUT
+  ========================= */
+  .chat-input-container {
     display: flex;
     flex: 0 0 auto;
     border-top: 1px solid #eee;
+  }
+
+  .chat-input-container button {
+    border: 0;
+    background: none;
+    padding: 8px 12px;
+    cursor: pointer;
   }
 
   #chat-input {
@@ -259,11 +266,9 @@
     background: transparent;
   }
 
-  .chat-input button {
-    border: 0;
-    background: none;
-    padding: 8px 12px;
-    cursor: pointer;
+  #chat-input:focus-visible {
+    outline: 2px solid #26374a;
+    outline-offset: 0;
   }
 
   /* send button */
@@ -280,6 +285,12 @@
   #chat-send.disabled {
     opacity: 0.4;
     pointer-events: none;
+  }
+
+  #chat-send:focus-visible,
+  .dive-deeper-button:focus-visible {
+    outline: 2px solid #26374a;
+    outline-offset: 2px;
   }
 
   /* counter */
