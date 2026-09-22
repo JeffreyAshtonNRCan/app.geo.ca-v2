@@ -245,7 +245,6 @@
     display: flex;
     flex: 0 0 auto;
     border-top: 1px solid #eee;
-    border-left: 1px solid #eee;
   }
 
   #chat-input {
@@ -292,7 +291,7 @@
   #chat-send:focus-visible,
   .dive-deeper-button:focus-visible {
     outline: 2px solid #26374a;
-    outline-offset: 2px;
+    outline-offset: -2px;
   }
 
   /* counter */
