@@ -139,11 +139,9 @@
             class="bubble bot-text expandable {msg.collapsed ? 'collapsed' : ''}"
             role="button"
             tabindex="0"
-            aria-expanded={!msg.collapsed}
             onclick={() => toggleMessage(msg)}
             onkeydown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
                 toggleMessage(msg);
               }
             }}
