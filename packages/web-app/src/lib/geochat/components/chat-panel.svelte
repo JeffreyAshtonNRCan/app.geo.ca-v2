@@ -245,13 +245,7 @@
     display: flex;
     flex: 0 0 auto;
     border-top: 1px solid #eee;
-  }
-
-  .chat-input-container button {
-    border: 0;
-    background: none;
-    padding: 8px 12px;
-    cursor: pointer;
+    border-left: 1px solid #eee;
   }
 
   #chat-input {
@@ -264,11 +258,19 @@
     line-height: 1.4;
     padding: 6px 8px;
     background: transparent;
+    box-sizing: border-box;
   }
 
   #chat-input:focus-visible {
     outline: 2px solid #26374a;
-    outline-offset: 0;
+    outline-offset: -2px;
+  }
+
+  .chat-input-container button {
+    border: 0;
+    background: none;
+    padding: 8px 12px;
+    cursor: pointer;
   }
 
   /* send button */
