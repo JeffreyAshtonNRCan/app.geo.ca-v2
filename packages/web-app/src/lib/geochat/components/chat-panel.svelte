@@ -288,9 +288,8 @@
     pointer-events: none;
   }
 
-  #chat-send:focus-visible,
-  .dive-deeper-button:focus-visible {
-    outline: 2px solid #26374a;
+  #chat-send:focus-visible {
+    outline: 2px solid #6c757d;
     outline-offset: -2px;
   }
 
@@ -490,8 +489,8 @@
   }
 
   /* =========================
-   ACTIONS
-========================= */
+     ACTIONS
+  ========================= */
   #chat-actions {
     border-top: 1px solid #eee;
     padding: 8px 10px;
@@ -521,11 +520,8 @@
     background: #130944;
   }
 
-  /*#chat-actions .dive-deeper-button :global(svg) {*/
-  /*  width: 20px !important;*/
-  /*  height: 20px !important;*/
-  /*  min-width: 20px;*/
-  /*  min-height: 20px;*/
-  /*  flex-shrink: 0;*/
-  /*}*/
+  #chat-actions .dive-deeper-button:focus-visible {
+    outline: 2px solid #6c757d;
+    outline-offset: 2px;
+  }
 </style>
