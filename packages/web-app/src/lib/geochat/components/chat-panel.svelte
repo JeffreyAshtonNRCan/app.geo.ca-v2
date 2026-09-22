@@ -284,7 +284,8 @@
   }
 
   #chat-send.disabled {
-    opacity: 0.4;
+    background: #e5e5e5;
+    color: #fff;
     pointer-events: none;
   }
 
