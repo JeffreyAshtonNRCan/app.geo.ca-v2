@@ -104,7 +104,7 @@
           <p>{t.searchingMap}</p>
         </div>
       {:else if selectedRecord?.geometry}
-        {#key uuid}
+        {#key `${uuid}-${!!selectedRecord?.geometry}`}
           <Map {coordinates} id={selectedRecord.uuid} dynamic={true} mapType="record" mapVariant="geochat" footer={false} mapFill={true} />
         {/key}
       {:else}
