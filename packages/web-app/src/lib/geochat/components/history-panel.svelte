@@ -71,6 +71,7 @@
       <div class="history-item" class:active={$chatStore.activeSessionId === chat.sessionId}>
         <button
           class="history-select"
+          aria-pressed={$chatStore.activeSessionId === chat.sessionId}
           onclick={(e) => {
             handleSelectChat(chat);
             e.currentTarget.blur();
@@ -164,6 +165,10 @@
   }
 
   .history-delete {
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+
     opacity: 0;
     pointer-events: none;
 
