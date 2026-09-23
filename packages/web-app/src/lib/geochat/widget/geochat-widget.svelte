@@ -329,8 +329,8 @@
       right: 20px;
       left: auto;
 
-      top: 20px;
-      bottom: auto;
+      top: auto;
+      bottom: 70px;
     }
 
     /* =========================
