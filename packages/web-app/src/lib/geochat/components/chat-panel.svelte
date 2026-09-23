@@ -464,6 +464,13 @@
     animation-delay: 0.4s;
   }
 
+  /* Respect user's reduced-motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .typing span {
+      animation: none;
+    }
+  }
+
   @keyframes typingBounce {
     0%,
     80%,
