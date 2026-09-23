@@ -192,6 +192,10 @@
   }
 
   .history-confirm {
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+
     margin-right: 0.25rem;
     background: transparent;
     border: none;
