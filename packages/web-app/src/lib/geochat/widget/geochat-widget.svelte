@@ -326,15 +326,16 @@
       width: 60%;
       height: 58svh;
 
-      left: 20%;
-      right: auto;
+      right: 20px;
+      left: auto;
 
-      top: 20%;
+      top: 20px;
       bottom: auto;
     }
+
     /* =========================
-     TABLET LANDSCAPE
-  ========================= */
+         TABLET LANDSCAPE
+      ========================= */
     @media (min-width: 48rem) and (max-width: 74.999rem) and (orientation: landscape) {
       #chatbot-panel {
         height: 55svh;
