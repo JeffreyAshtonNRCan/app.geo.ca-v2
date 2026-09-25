@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { page } from '$app/state';
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount } from 'svelte';
   import { loadCGPVScript } from '$lib/components/map/loadCGPVScript';
   import { normalizeCoordinates } from '$lib/utils/normalize-coordinates';
   import type { GeoviewConfig, MapTypes } from '$lib/components/map/map-types';
@@ -42,8 +42,6 @@
 
   let mapId = $derived(`map-${mapType}-${id}`);
   let mapLang = page.data.lang === 'fr-ca' ? 'fr' : 'en';
-
-  let resizeObserver: ResizeObserver | undefined;
 
   // TODO: extract to use one config for this and favourites map.
   let config: GeoviewConfig = $derived.by(() => ({
@@ -222,33 +220,12 @@
     // trying to use the geocore code, otherwise it sometimes fails
     await loadCGPVScript();
 
-    console.log('window.cgpv', window.cgpv);
-    console.log('onMapInit', (window.cgpv as any).onMapInit);
-
     try {
       // Destroy the old map if it exists. This ensures that when the map is toggled
       // on and off multiple time, it always has visible layers.
       if (cgpv.api.hasMapViewer(mapId)) {
         await cgpv.api.deleteMapViewer(mapId, false);
       }
-
-      // Register onMapInit here
-      // console.log('Registering onMapInit');
-      // const host = document.getElementById(mapId);
-      //
-      // window.cgpv.onMapInit((mapViewer) => {
-      //   console.log('onMapInit', mapViewer.mapId);
-      //
-      //   if (mapViewer.mapId !== mapId || !host) return;
-      //
-      //   resizeObserver = new ResizeObserver(() => {
-      //     console.log('resize');
-      //     mapViewer.map.updateSize();
-      //     mapViewer.map.renderSync();
-      //   });
-      //
-      //   resizeObserver.observe(host);
-      // });
 
       // Create the layer config to check if the geocore record has a map. It is undefined if no map exists.
       let geoviewLayerConfig;
@@ -282,78 +259,6 @@
         // Build the map from the config
 
         await cgpv.api.createMapFromConfig(mapId, JSON.stringify(config));
-
-        // console.log('CONFIG');
-        // console.log(JSON.stringify(config, null, 2));
-
-        // const host = document.getElementById(mapId)?.parentElement;
-
-        // const host = document.getElementById(mapId);
-        // window.cgpv.onMapInit((mapViewer) => {
-        //   console.log('onMapInit fired', mapViewer.mapId, mapId);
-        //
-        //   if (mapViewer.mapId !== mapId || !host) {
-        //     console.log('ignoring', mapViewer.mapId);
-        //     return;
-        //   }
-        //
-        //   console.log('attaching ResizeObserver');
-        //
-        //   resizeObserver = new ResizeObserver(() => {
-        //     console.log('ResizeObserver');
-        //     mapViewer.map.updateSize();
-        //     mapViewer.map.renderSync();
-        //   });
-        //
-        //   resizeObserver.observe(host);
-        // });
-
-        // const viewer = cgpv.api.getMapViewer(mapId);
-        // // const host = document.getElementById(mapId);
-        // const host = document.getElementById(mapId)?.parentElement;
-        // console.log('viewer', viewer);
-        // console.log('host', host);
-        //
-        // if (host) {
-        //   const testObserver = new ResizeObserver(() => {
-        //     console.log('HOST RESIZED', host.clientWidth, host.clientHeight);
-        //   });
-        //
-        //   testObserver.observe(host);
-        // }
-        //
-        // if (viewer?.map && host) {
-        //   resizeObserver = new ResizeObserver(() => {
-        //     console.log('host', host.clientWidth, host.clientHeight);
-        //     console.log('before', viewer.map.getSize());
-        //
-        //     viewer.map.updateSize();
-        //
-        //     console.log('after', viewer.map.getSize());
-        //
-        //     viewer.map.renderSync();
-        //   });
-        //
-        //   resizeObserver.observe(host);
-        // }
-        // const host = document.getElementById(mapId);
-        //
-        // window.cgpv.onMapInit((mapViewer: any) => {
-        //   if (mapViewer.mapId !== mapId || !host) return;
-        //
-        //   resizeObserver = new ResizeObserver(() => {
-        //     console.log('host', host.clientWidth, host.clientHeight);
-        //     console.log('before', mapViewer.map.getSize());
-        //
-        //     mapViewer.map.updateSize();
-        //
-        //     console.log('after', mapViewer.map.getSize());
-        //
-        //     mapViewer.map.renderSync();
-        //   });
-        //
-        //   resizeObserver.observe(host);
-        // });
       }
 
       // Add bounding box when no map is available
@@ -383,10 +288,6 @@
       console.error(e);
     }
   });
-
-  // onDestroy(() => {
-  //   resizeObserver?.disconnect();
-  // });
 </script>
 
 <div
