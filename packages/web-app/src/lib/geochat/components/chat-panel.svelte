@@ -320,8 +320,6 @@
   }
 
   .chat-row.bot.thinking {
-    align-items: center;
-    gap: 6px;
     opacity: 0.8;
   }
 
