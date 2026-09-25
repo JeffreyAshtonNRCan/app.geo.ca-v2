@@ -158,8 +158,8 @@
     {/each}
 
     {#if $chatStore.isThinking}
-      <div class="chat-row bot">
-        <div class="bubble bot-text thinking">
+      <div class="chat-row bot thinking">
+        <div class="bubble bot-text">
           <span class="typing">
             <span></span>
             <span></span>
@@ -361,10 +361,6 @@
     gap: 4px;
     overflow: hidden;
     position: relative;
-  }
-
-  .bot-answer {
-    width: 100%;
   }
 
   .bot-text :global(p) {

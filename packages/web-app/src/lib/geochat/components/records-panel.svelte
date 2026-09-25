@@ -19,16 +19,6 @@
 
   const t = $derived(translations[lang]);
 
-  // const testUuid = '175fc87a-acce-4f98-a03a-32846481efc8';
-  //
-  // const testCoordinates = [
-  //   [-141, 60],
-  //   [-123.8, 60],
-  //   [-123.8, 69.7],
-  //   [-141, 69.7],
-  //   [-141, 60],
-  // ];
-
   let recordsHeight = $state(typeof localStorage !== 'undefined' ? Number(localStorage.getItem('geochat-records-height')) || 50 : 50);
 
   $effect(() => {
