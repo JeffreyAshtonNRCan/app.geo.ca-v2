@@ -198,9 +198,6 @@ function createChatStore() {
       try {
         const { valid_session_ids } = await verifyChatHistory(sessionIds);
 
-        console.log('sessionIds=', sessionIds);
-        console.log('valid_session_ids=', valid_session_ids);
-
         validSet = new Set(valid_session_ids);
 
         // Remove invalid sessions from local history.
@@ -257,8 +254,6 @@ function createChatStore() {
   // ==========================
 
   async function loadChat(lang: 'en' | 'fr', activeChat: ChatHistory) {
-    console.log('activeChat =', activeChat);
-
     // New chat placeholder (no session created yet)
     if (!activeChat.sessionId) {
       showMessage(lang, 'newChatMessage');
@@ -273,8 +268,6 @@ function createChatStore() {
 
     try {
       const data = await loadChatSession(activeChat.sessionId);
-
-      console.log('active session data=', data);
 
       const historyMessages: ChatMessage[] = [];
 
@@ -367,8 +360,6 @@ function createChatStore() {
       const sessionId = activeChat.sessionId ?? generateSessionId();
 
       const data = await sendChatMessage(sessionId, trimmed, lang);
-
-      console.log('data=', data);
 
       const responseText = data.answer_markdown;
       const formatted = formatMarkdown(responseText);
