@@ -47,21 +47,21 @@
 
   const coordinates = $derived(selectedRecord?.geometry?.coordinates?.[0]);
 
-  $effect(() => {
-    if (!selectedRecord) return;
-
-    console.log('Selected:', selectedRecord);
-
-    console.table(
-      $chatStore.records.map((r) => ({
-        title: r.title_display,
-        geometry: r.geometry,
-        type: r.geometry?.type,
-        rings: r.geometry?.coordinates?.length,
-        selected: r.uuid === selectedRecord?.uuid,
-      }))
-    );
-  });
+  // $effect(() => {
+  //   if (!selectedRecord) return;
+  //
+  //   console.log('Selected:', selectedRecord);
+  //
+  //   console.table(
+  //     $chatStore.records.map((r) => ({
+  //       title: r.title_display,
+  //       geometry: r.geometry,
+  //       type: r.geometry?.type,
+  //       rings: r.geometry?.coordinates?.length,
+  //       selected: r.uuid === selectedRecord?.uuid,
+  //     }))
+  //   );
+  // });
 </script>
 
 <div class="records-panel">

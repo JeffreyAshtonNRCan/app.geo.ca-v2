@@ -29,11 +29,6 @@
 
   const t = $derived(translations[lang]);
 
-  // console.log('ChatPanel props:', {
-  //   lang,
-  //   alternateLanguageUrl,
-  // });
-
   // svelte-ignore state_referenced_locally
   let message = $state(initialQuery ?? '');
   let chatLogWrapper: HTMLDivElement;
