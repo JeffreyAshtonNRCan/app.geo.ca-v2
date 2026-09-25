@@ -12,7 +12,7 @@
   "diveDeeper": "Dive deeper with GeoChat",
   "languageMessage": "This question was asked in French. You are currently using the English GeoChat.",
   "switchToFrench": "Click here for the French version",
-  "welcomeMessage": "Hello! It's great to chat with you about geospatial information. What would you like to explore today?",
+  "welcomeMessage": "Hello!  It's great to chat with you about geospatial information. What would you like to explore today?",
   "newChatMessage": "What would you like to explore?",
   "errorMessage": "Sorry, something went wrong.",
   "askGeoChat": "Ask GeoChat",
@@ -31,7 +31,7 @@
   "switchToFrench": "Click here for the French version",
   "searchingRecords": "Searching for supporting records...",
   "noSupportingRecords": "No supporting records are available for this response.",
-  "generalResponse": "Some responses are general conversation or guidance and don't reference specific GEO.ca datasets.",
+  "generalResponse": "Some responses are general conversation or guidance and don't reference specific Geo.ca datasets.",
   "searchingMap": "Searching for supporting map...",
   "noMap": "No map available."
 }
