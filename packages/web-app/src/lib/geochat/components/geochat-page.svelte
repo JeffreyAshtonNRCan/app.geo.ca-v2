@@ -184,6 +184,10 @@
 </div>
 
 <style>
+  /* =========================================================
+       PAGE LAYOUT
+       ========================================================= */
+
   .geochat-page {
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
@@ -198,10 +202,15 @@
       gap 200ms ease;
   }
 
+  /* Hide the history column when history is collapsed. */
   .geochat-page.history-collapsed {
     grid-template-columns: 0 minmax(0, 1fr);
     gap: 0;
   }
+
+  /* =========================================================
+       CHAT HEADER
+  ========================================================= */
 
   .chat-header {
     position: relative;
@@ -234,6 +243,10 @@
     margin: 0;
   }
 
+  /* =========================================================
+       HISTORY PANEL
+  ========================================================= */
+
   .history,
   .chat,
   .records {
@@ -253,22 +266,6 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-  }
-
-  .main-layout {
-    display: grid;
-    grid-template-columns: var(--chat-width) 12px 1fr;
-
-    min-width: 0;
-    min-height: 0;
-
-    gap: 0.5rem;
-    overflow: hidden;
-  }
-
-  .main-layout > * {
-    min-width: 0;
-    min-height: 0;
   }
 
   .history-header {
@@ -314,103 +311,18 @@
     transform: scale(0.96);
   }
 
-  .panel {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    background: #fff;
-    min-height: 0;
-    box-sizing: border-box;
-  }
-
-  .panel-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    background: #fff;
-  }
-
-  .panel-header h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-
-  .panel-body {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-  }
-
-  .chat .panel-body {
-    background: #fff;
-    padding: 0;
-  }
-
-  .panel-content {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-  }
-
-  .chat-layout {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 0;
-    overflow: hidden;
-    background: #fff;
-  }
-
-  .chat-layout :global(#chat-log-wrapper) {
-    flex: 1;
-    overflow-y: auto;
-    margin: 0;
-    border: none !important;
-    background: transparent !important;
-  }
-
-  /*.chat-layout :global(.chat-input) {*/
-  /*  margin-top: 8px;*/
-  /*}*/
-  .chat-layout :global(#chat-input) {
-    margin-top: 0;
-  }
-
-  .chat-layout :global(#chat-log) {
-    padding: 10px 10px 8px;
-  }
-
-  .chat :global(#chat-log-wrapper) {
-    margin-bottom: 8px;
-  }
-
-  .chat :global(.chat-input) {
-    border-top: 1px solid #e5e7eb;
-    padding-top: 8px;
-  }
-
   .history-info {
     display: inline-flex;
     align-items: center;
 
     margin: 0 0 0.35rem;
-
     padding: 0;
 
     background: none;
     border: none;
 
     color: #374151;
-    font-size: 1rem; /* same as the "Dive deeper..." text */
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
 
@@ -437,7 +349,124 @@
     line-height: 1.5;
   }
 
-  /* Mobile: below Tailwind's md breakpoint (48rem / 768px) */
+  /* =========================================================
+       MAIN LAYOUT / PANELS
+  ========================================================= */
+
+  .main-layout {
+    display: grid;
+    grid-template-columns: var(--chat-width) 12px 1fr;
+
+    min-width: 0;
+    min-height: 0;
+
+    gap: 0.5rem;
+    overflow: hidden;
+  }
+
+  .main-layout > * {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #ddd;
+    background: #fff;
+    min-height: 0;
+    box-sizing: border-box;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: #fff;
+  }
+
+  .panel-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .panel-body {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .panel-content {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+
+  /* =========================================================
+       CHAT LAYOUT
+  ========================================================= */
+
+  .chat .panel-body {
+    background: #fff;
+    padding: 0;
+  }
+
+  .chat-layout {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+    background: #fff;
+  }
+
+  /* Replace the shared chat log wrapper styling for this layout. */
+  .chat-layout :global(#chat-log-wrapper) {
+    flex: 1;
+    overflow-y: auto;
+    margin: 0;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .chat-layout :global(#chat-input) {
+    margin-top: 0;
+  }
+
+  .chat-layout :global(#chat-log) {
+    padding: 10px 10px 8px;
+  }
+
+  /* Add spacing and a divider above the chat input. */
+  .chat :global(#chat-log-wrapper) {
+    margin-bottom: 8px;
+  }
+
+  .chat :global(.chat-input) {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 8px;
+  }
+
+  /* =========================================================
+       MOBILE / TABLET
+       Below Tailwind's md breakpoint (48rem / 768px).
+  ========================================================= */
+
   @media (max-width: 47.999rem) {
     .geochat-page {
       grid-template-columns: 1fr;
