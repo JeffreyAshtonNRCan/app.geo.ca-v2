@@ -112,14 +112,10 @@
     display: flex;
     align-items: center;
     border-radius: 0.3125rem;
-
     transition: background-color 0.15s ease;
   }
 
-  .history-item:hover {
-    background: #f3f4f6;
-  }
-
+  .history-item:hover,
   .history-item.active {
     background: #f3f4f6;
   }
@@ -131,10 +127,8 @@
   .history-select {
     display: flex;
     align-items: center;
-
     flex: 1;
     min-width: 0;
-
     margin: 0;
     padding: 0.375rem 0.75rem;
 
@@ -155,7 +149,6 @@
   .history-title {
     flex: 1;
     min-width: 0;
-
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -165,24 +158,18 @@
     width: 24px;
     height: 24px;
     padding: 2px;
+    margin-right: 0.5rem;
 
     opacity: 0;
     pointer-events: none;
 
-    margin-right: 0.5rem;
-
     background: transparent;
     border: none;
     cursor: pointer;
-
     transition: opacity 0.15s ease;
   }
 
-  .history-item:hover .history-delete {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
+  .history-item:hover .history-delete,
   .history-item:focus-within .history-delete {
     opacity: 1;
     pointer-events: auto;
@@ -191,6 +178,7 @@
   .history-confirm {
     padding: 2px;
     margin-right: 0.25rem;
+
     background: transparent;
     border: none;
     cursor: pointer;
