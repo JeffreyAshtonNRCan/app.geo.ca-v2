@@ -2,13 +2,6 @@
 
 import { getGeoChatConfig } from '$lib/geochat/geochat-config';
 
-// const CHAT_API_URL = 'https://2qvn83jteg.execute-api.ca-central-1.amazonaws.com/staging/chat';
-//
-// const CHAT_HISTORY_URL = '
-// ';
-
-// const { chatApiUrl: CHAT_API_URL, chatHistoryUrl: CHAT_HISTORY_URL } = getGeoChatConfig();
-
 // ==========================
 // Chat API
 // ==========================
@@ -53,8 +46,6 @@ export async function loadChatSession(sessionId: string, limit = 25) {
 
   return await response.json();
 }
-
-//const CHAT_WARMUP_URL = 'https://0y633i08af.execute-api.ca-central-1.amazonaws.com/staging/warmup';
 
 // ==========================
 // Warm Up API
