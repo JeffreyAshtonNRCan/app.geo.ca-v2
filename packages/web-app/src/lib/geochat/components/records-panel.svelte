@@ -118,7 +118,6 @@
 
   .records-body {
     display: grid;
-    grid-template-rows: 45% 12px 1fr;
 
     flex: 1;
     min-height: 0;
@@ -134,10 +133,6 @@
   .records-list {
     overflow-y: auto;
     min-height: 0;
-  }
-
-  .records-list {
-    overflow-y: auto;
   }
 
   .records-list::-webkit-scrollbar {
@@ -203,7 +198,6 @@
   }
 
   .empty p {
-    display: block;
     margin: 0 0 1rem 0;
   }
 
