@@ -102,9 +102,7 @@ function createChatStore() {
 
   const store = writable(initialState);
 
-  const { subscribe, update, set } = store;
-
-  //const SESSION_ID = getSessionId();
+  const { subscribe, update } = store;
 
   // ==========================
   // Collapse Previous Bot Message
@@ -568,7 +566,6 @@ function createChatStore() {
     newChat,
     selectChat,
     deleteChat,
-    set,
   };
 }
 
