@@ -49,7 +49,6 @@
     // Tell GeoView the layout changed.
     if (direction === 'horizontal') {
       setTimeout(() => {
-        console.log('dispatch event');
         window.dispatchEvent(new Event('resize'));
       }, 500);
     }

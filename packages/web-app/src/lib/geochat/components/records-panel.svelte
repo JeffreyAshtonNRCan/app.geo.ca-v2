@@ -28,7 +28,9 @@
   let selectedRecord = $state<ChatRecord | undefined>();
 
   $effect(() => {
-    if (!selectedRecord || !$chatStore.records.some((r) => r.uuid === selectedRecord.uuid)) {
+    const current = selectedRecord;
+
+    if (!current || !$chatStore.records.some((r) => r.uuid === current.uuid)) {
       selectedRecord = $chatStore.records[0];
     }
   });
@@ -74,13 +76,13 @@
             aria-pressed={selectedRecord?.uuid === record.uuid}
             onclick={() => (selectedRecord = record)}
           >
-            <div class="record-title">
+            <span class="record-title">
               {record.title_display}
-            </div>
+            </span>
 
-            <div class="record-description">
+            <span class="record-description">
               {record.description_display}
-            </div>
+            </span>
           </button>
         {/each}
       {/if}
@@ -107,12 +109,6 @@
 </div>
 
 <style>
-  :global(.records) {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
   .records-panel {
     display: flex;
     flex-direction: column;
@@ -186,10 +182,12 @@
   }
 
   .record-title {
+    display: block;
     font-weight: 600;
   }
 
   .record-description {
+    display: block;
     margin-top: 0.25rem;
     font-size: 0.875rem;
     color: #666;

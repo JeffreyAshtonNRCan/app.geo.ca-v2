@@ -63,11 +63,10 @@ export async function loadChatSession(sessionId: string, limit = 25) {
 let warmupSent = false;
 
 export function warmUpChat(): void {
-  console.log('warmup');
   if (warmupSent) return;
   warmupSent = true;
 
-  console.log('warmup sent');
+  //console.log('warmup sent');
 
   const { chatWarmupUrl } = getGeoChatConfig();
 
