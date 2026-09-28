@@ -186,13 +186,13 @@
 <style>
   /* =========================================================
        PAGE LAYOUT
-  ========================================================= */
+    ========================================================= */
 
   .geochat-page {
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
-
     gap: 0.75rem;
+
     height: 600px;
     min-height: calc(100vh - 160px);
     align-items: stretch;
@@ -202,7 +202,6 @@
       gap 200ms ease;
   }
 
-  /* Hide the history column when history is collapsed. */
   .geochat-page.history-collapsed {
     grid-template-columns: 0 minmax(0, 1fr);
     gap: 0;
@@ -210,7 +209,7 @@
 
   /* =========================================================
        CHAT HEADER
-  ========================================================= */
+    ========================================================= */
 
   .chat-header {
     position: relative;
@@ -220,9 +219,6 @@
   .chat-header .history-toggle {
     position: absolute;
     left: 1rem;
-
-    width: 30px;
-    height: 30px;
 
     display: flex;
     align-items: center;
@@ -239,13 +235,13 @@
 
   .chat-header h2 {
     flex: 1;
-    text-align: center;
     margin: 0;
+    text-align: center;
   }
 
   /* =========================================================
        HISTORY PANEL
-  ========================================================= */
+    ========================================================= */
 
   .history,
   .chat,
@@ -257,6 +253,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
     transition:
       opacity 120ms ease 80ms,
       visibility 0s linear 200ms;
@@ -334,15 +331,15 @@
   }
 
   .history-info-section {
-    padding: 1rem 0 0;
-    margin-left: 1rem;
     margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    padding-top: 1rem;
   }
 
   .history-note {
+    max-width: 68ch;
     margin-top: 0;
     margin-bottom: 0.75rem;
-    max-width: 68ch;
 
     color: #374151;
     font-size: 0.95rem;
@@ -351,7 +348,7 @@
 
   /* =========================================================
        MAIN LAYOUT / PANELS
-  ========================================================= */
+    ========================================================= */
 
   .main-layout {
     display: grid;
@@ -373,16 +370,17 @@
     display: flex;
     flex-direction: column;
 
+    box-sizing: border-box;
+    min-height: 0;
+
     border: 1px solid #ddd;
     background: #fff;
-    min-height: 0;
-    box-sizing: border-box;
   }
 
   .panel-header {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #e5e7eb;
@@ -397,49 +395,40 @@
   }
 
   .panel-body {
-    flex: 1;
-    min-height: 0;
-
     display: flex;
+    flex: 1;
     flex-direction: column;
+
+    min-height: 0;
     padding: 0;
   }
 
   .panel-content {
-    flex: 1;
-    min-height: 0;
-
     display: flex;
+    flex: 1;
     flex-direction: column;
+
+    min-height: 0;
     background: #fff;
   }
 
   /* =========================================================
        CHAT LAYOUT
-  ========================================================= */
-
-  .chat .panel-body {
-    background: #fff;
-    padding: 0;
-  }
+    ========================================================= */
 
   .chat-layout {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-
     min-width: 0;
     min-height: 0;
 
     overflow: hidden;
-    background: #fff;
   }
 
-  /* Replace the shared chat log wrapper styling for this layout. */
   .chat-layout :global(#chat-log-wrapper) {
     flex: 1;
-    overflow-y: auto;
+
     margin: 0;
+    overflow-y: auto;
+
     border: none !important;
     background: transparent !important;
   }
@@ -452,25 +441,25 @@
     padding: 10px 10px 8px;
   }
 
-  /* Add spacing and a divider above the chat input. */
   .chat :global(#chat-log-wrapper) {
     margin-bottom: 8px;
   }
 
   .chat :global(.chat-input) {
-    border-top: 1px solid #e5e7eb;
     padding-top: 8px;
+    border-top: 1px solid #e5e7eb;
   }
 
   /* =========================================================
        MOBILE / TABLET
        Below Tailwind's md breakpoint (48rem / 768px).
-  ========================================================= */
+    ========================================================= */
 
   @media (max-width: 47.999rem) {
     .geochat-page {
       grid-template-columns: 1fr;
       grid-template-rows: auto;
+
       height: auto;
       min-height: 0;
       gap: 1rem;
