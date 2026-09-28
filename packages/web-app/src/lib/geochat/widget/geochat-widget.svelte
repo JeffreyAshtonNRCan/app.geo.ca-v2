@@ -184,20 +184,23 @@
 
 <style lang="postcss">
   @reference "../../../app.css";
-  /* =========================
-    CHAT WIDGET
-    ========================= */
+
+  /* =========================================================
+       CHAT WIDGET LAUNCHER
+    ========================================================= */
+
   #chatbot-widget {
     z-index: 10020;
   }
 
-  /*  Background color is defined here because the standalone WordPress build does
-  not always generate custom Tailwind utility classes */
+  /* Background is defined here because the standalone WordPress
+       build does not always generate custom Tailwind utility classes. */
   #chatbot-toggle {
     position: fixed;
     right: 20px;
     bottom: 20px;
     z-index: 10020;
+
     display: flex;
     align-items: center;
     gap: 8px;
@@ -205,13 +208,13 @@
     height: 42px;
     padding: 0 16px;
 
-    border-radius: 28px;
     border: 0;
+    border-radius: 28px;
 
-    color: #fff;
     background: #5859a2;
-    cursor: pointer;
+    color: #fff;
 
+    cursor: pointer;
     white-space: nowrap;
 
     transition: background 0.2s ease;
@@ -225,19 +228,58 @@
     transform: scale(0.97);
   }
 
-  /* =========================
-     CHAT HEADER
-    ========================= */
+  /* =========================================================
+       CHAT PANEL
+    ========================================================= */
+
+  #chatbot-panel {
+    position: fixed;
+    right: 20px;
+    bottom: 70px;
+    z-index: 10020;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 420px;
+    height: 65dvh;
+    min-height: 380px;
+    max-height: calc(100dvh - 100px);
+
+    overflow: hidden;
+
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  #chatbot-panel.large {
+    top: 20px;
+    right: 20px;
+    bottom: auto;
+
+    width: 580px;
+    height: calc(100dvh - 100px);
+  }
+
+  /* =========================================================
+       CHAT HEADER
+    ========================================================= */
+
   .chat-header {
     position: sticky;
     top: 0;
+    z-index: 10;
+
     display: flex;
     align-items: center;
+
     padding: 10px;
+
     background: #5859a2;
     color: #fff;
+
     font-weight: bold;
-    z-index: 10;
   }
 
   .chat-header button {
@@ -245,36 +287,40 @@
   }
 
   .icons {
-    margin-left: auto;
     display: flex;
     gap: 12px;
+    margin-left: auto;
   }
 
   .chat-header .icons button {
-    background: transparent;
-    border: 0;
-    color: inherit;
-    cursor: pointer;
     padding: 0;
+
+    border: 0;
+    background: transparent;
+    color: inherit;
+
+    cursor: pointer;
   }
 
   .chat-header .chat-expand :global(svg) {
+    display: block;
     width: 20px;
     height: 20px;
-    display: block;
   }
 
   .chat-header .chat-close :global(svg) {
+    display: block;
     width: 16px;
     height: 16px;
-    display: block;
   }
 
   .drag-handle {
-    flex: 1;
-    min-width: 0;
     display: flex;
+    flex: 1;
     align-items: center;
+
+    min-width: 0;
+
     cursor: grab;
     user-select: none;
     touch-action: none;
@@ -284,82 +330,50 @@
     cursor: grabbing;
   }
 
-  #chatbot-panel {
-    position: fixed;
-    right: 20px;
-    bottom: 70px;
+  /* =========================================================
+       TABLET
+       ========================================================= */
 
-    width: 420px;
-    height: 65dvh;
-
-    min-height: 380px;
-    max-height: calc(100dvh - 100px);
-
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-
-    z-index: 10020;
-  }
-
-  #chatbot-panel.large {
-    width: 580px;
-    height: calc(100dvh - 100px);
-
-    top: 20px;
-    bottom: auto;
-  }
-
-  /* =========================
-     TABLET
-  ========================= */
   @media (min-width: 48rem) and (max-width: 74.999rem) {
     #chatbot-panel {
       height: 45svh;
     }
 
     #chatbot-panel.large {
-      width: 60%;
-      height: 58svh;
-
+      top: auto;
       right: 20px;
+      bottom: 70px;
       left: auto;
 
-      top: auto;
-      bottom: 70px;
-    }
-
-    /* =========================
-         TABLET LANDSCAPE
-      ========================= */
-    @media (min-width: 48rem) and (max-width: 74.999rem) and (orientation: landscape) {
-      #chatbot-panel {
-        height: 55svh;
-      }
-
-      #chatbot-panel.large {
-        height: 70svh;
-      }
+      width: 60%;
+      height: 58svh;
     }
   }
 
-  /* =========================
-     MOBILE
-  ========================= */
+  /* Tablet landscape */
+  @media (min-width: 48rem) and (max-width: 74.999rem) and (orientation: landscape) {
+    #chatbot-panel {
+      height: 55svh;
+    }
+
+    #chatbot-panel.large {
+      height: 70svh;
+    }
+  }
+
+  /* =========================================================
+       MOBILE
+       ========================================================= */
+
   @media (max-width: 47.999rem) {
     #chatbot-panel {
+      top: 20%;
+      right: auto;
+      bottom: auto;
+      left: 10%;
+
       width: 80%;
       height: 60svh;
-
-      left: 10%;
-      right: auto;
-
-      top: 20%;
-      bottom: auto;
     }
 
     #chatbot-panel .chat-expand {
