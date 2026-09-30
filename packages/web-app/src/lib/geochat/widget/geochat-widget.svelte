@@ -65,7 +65,7 @@
     console.log('GeoChat widget mounted');
 
     const openState = getWidgetOpenState();
-    console.log('widget cookie on mount:', openState);
+    //console.log('widget cookie on mount:', openState);
 
     isOpen = openState;
 
@@ -79,12 +79,10 @@
   });
 
   function closeChat() {
-    console.log('closeChat called');
-
     isOpen = false;
     setWidgetOpenState(false);
 
-    console.log('cookie after close:', document.cookie);
+    //console.log('cookie after close:', document.cookie);
   }
 
   function handleKeydown(event: KeyboardEvent) {

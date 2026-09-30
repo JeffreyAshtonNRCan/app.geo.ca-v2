@@ -34,7 +34,10 @@
 
 <SearchBar />
 
-<!-- OVERVIEW -->
+<!-- OVERVIEW
+  Show the skeleton immediately when a new Overview will be loaded.
+  During pagination, preserve the existing Overview and skip the skeleton.
+-->
 {#if navigating.to && navigating.type !== null && parseInt(navigating.to.url.searchParams.get('page-number') || '0', 10) === 0}
   <!-- Overview will be loaded -->
   <OverviewSection {overviewData} isLoading={true} />
