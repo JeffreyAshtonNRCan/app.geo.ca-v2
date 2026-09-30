@@ -15,7 +15,8 @@
 
   let { overviewData } = $props();
 
-  let currentOverview = $state(overviewData);
+  // reacts when overviewData changes
+  let currentOverview = $state();
 
   $effect(() => {
     if (overviewData) {
