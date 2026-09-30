@@ -65,15 +65,17 @@ interface SemanticSearchParams {
   from: number;
 }
 
-export const load: PageServerLoad = async ({ request, fetch, params, url, cookies }) => {
+export const load: PageServerLoad = async ({ request, fetch, params, url, cookies, isDataRequest }) => {
   const searchMode = url.searchParams.get('searchMethod') === 'classic' || !SEMANTIC_SEARCH_URL ? 'classic' : 'semantic';
-  const q = url.searchParams.get('q') || url.searchParams.get('search-terms') || url.searchParams.get('question') || '';
-
-  console.log('q=', q);
 
   const keyword = url.searchParams.get('search-terms') || '';
 
-  const overviewPromise = keyword ? getOverview(fetch, keyword, params.lang) : null;
+  // Load the Overview for the first page or a full page reload.
+  // During client-side pagination, preserve the existing Overview
+  // instead of making another API request.
+  const pageNumber = parseInt(url.searchParams.get('page-number') || '0', 10);
+  const shouldLoadOverview = !!keyword && (pageNumber === 0 || !isDataRequest);
+  const overviewPromise = shouldLoadOverview ? getOverview(fetch, keyword, params.lang) : null;
 
   const responsePromise =
     searchMode === 'classic'
