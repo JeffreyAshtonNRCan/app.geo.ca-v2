@@ -35,12 +35,9 @@
 <SearchBar />
 
 <!-- OVERVIEW -->
-{#if overviewData && navigating.type !== null}
-  <!-- show loading state when a new Overview is being fetched -->
-  <OverviewSection {overviewData} isLoading={true} />
-{:else if currentOverview}
+{#if currentOverview}
   {#await currentOverview}
-    <!-- still loading -->
+    <!-- loading a new Overview -->
     <OverviewSection overviewData={currentOverview} isLoading={true} />
   {:then data}
     <!-- loaded -->
