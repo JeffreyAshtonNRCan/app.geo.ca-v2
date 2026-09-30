@@ -35,12 +35,13 @@
 <SearchBar />
 
 <!-- OVERVIEW -->
-{#if currentOverview}
+{#if navigating.to && navigating.type !== null && parseInt(navigating.to.url.searchParams.get('page-number') || '0', 10) === 0}
+  <!-- Overview will be loaded -->
+  <OverviewSection {overviewData} isLoading={true} />
+{:else if currentOverview}
   {#await currentOverview}
-    <!-- loading a new Overview -->
     <OverviewSection overviewData={currentOverview} isLoading={true} />
   {:then data}
-    <!-- loaded -->
     <OverviewSection overviewData={data} isLoading={false} />
   {/await}
 {/if}
