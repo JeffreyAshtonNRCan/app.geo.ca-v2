@@ -257,20 +257,17 @@ async function getAnalytics(fetch: (url: string | URL, options?: RequestInit) =>
  * @async
  */
 async function getOverview(fetch: (url: string | URL, options?: RequestInit) => Promise<Response>, keyword: string, lang = 'en') {
-  console.log('OVERVIEW START');
-  console.log('OVERVIEW keyword:', keyword);
-
   try {
     if (!keyword) {
-      console.log('No keyword, skipping overview fetch');
+      //console.log('No keyword, skipping overview fetch');
       return undefined;
     }
 
     const url = `${OVERVIEW_API_URL}?question=${encodeURIComponent(keyword)}&lang=${lang.split('-')[0]}`;
-    console.log('fetching:', url);
+    //console.log('fetching:', url);
 
     const res = await fetch(url);
-    console.log('status:', res.status);
+    //console.log('status:', res.status);
 
     const text = await res.text();
     const parsed = JSON.parse(text);
